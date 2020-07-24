@@ -32,10 +32,11 @@ class CreateUsersTable extends Migration
             $table->bigInteger('country_id')->nullable();
             $table->bigInteger('state_id')->nullable();
             $table->bigInteger('city_id')->nullable();
+            $table->timestamp('blocked_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
-            $table->timestamp('dactive_verified_at')->nullable();
+            $table->timestamp('deactive_at')->nullable();
         });
     }
 

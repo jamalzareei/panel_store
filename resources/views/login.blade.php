@@ -9,7 +9,7 @@
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Login Page - Vuexy - Bootstrap HTML admin template</title>
+    <title>پنل مدیریت شیکسه</title>
     <link rel="apple-touch-icon" href="{{ asset('app-assets/images/ico/apple-icon-120.png') }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('app-assets/images/ico/favicon.ico') }}">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
@@ -67,58 +67,68 @@
                                     <div class="card rounded-0 mb-0 px-2">
                                         <div class="card-header pb-1">
                                             <div class="card-title">
-                                                <h4 class="mb-0">Login</h4>
+                                                <h4 class="mb-0">ورود به پنل کاربری</h4>
                                             </div>
                                         </div>
-                                        <p class="px-2">Welcome back, please login to your account.</p>
+                                        <p class="px-2">لطفا در صورتی که قبلا به عنوان فروشنده ثبت  نام نکرده اید، از لینک ثبت نام نسبت به ثبت نام اقدام نمایید.</p>
+                                        <p class="text-danger">
+                                            @if(session()->has('noty'))
+                                                <div class="alert alert-{{ (session()->get('noty')['status']) }}">
+                                                    {{ (session()->get('noty')['message']) }}
+                                                </div>
+                                            @endif
+                                        </p>
                                         <div class="card-content">
                                             <div class="card-body pt-1">
-                                                <form action="index.html">
+                                                <form action="{{ route('auth.login.post') }}" method="POST">
+                                                    @csrf
                                                     <fieldset class="form-label-group form-group position-relative has-icon-left">
-                                                        <input type="text" class="form-control" id="user-name" placeholder="Username" required>
+                                                        <input type="text" class="form-control" id="username" name="username" placeholder="شماره تماس" required>
                                                         <div class="form-control-position">
                                                             <i class="feather icon-user"></i>
                                                         </div>
-                                                        <label for="user-name">Username</label>
+                                                        <label for="username">شماره تماس</label>
                                                     </fieldset>
 
                                                     <fieldset class="form-label-group position-relative has-icon-left">
-                                                        <input type="password" class="form-control" id="user-password" placeholder="Password" required>
+                                                        <input type="password" class="form-control" id="password" name="password" placeholder="کلمه عبور" required>
                                                         <div class="form-control-position">
                                                             <i class="feather icon-lock"></i>
                                                         </div>
-                                                        <label for="user-password">Password</label>
+                                                        <label for="password">کلمه عبور</label>
                                                     </fieldset>
                                                     <div class="form-group d-flex justify-content-between align-items-center">
                                                         <div class="text-left">
                                                             <fieldset class="checkbox">
                                                                 <div class="vs-checkbox-con vs-checkbox-primary">
-                                                                    <input type="checkbox">
+                                                                    <input type="checkbox" name="remember">
                                                                     <span class="vs-checkbox">
                                                                         <span class="vs-checkbox--check">
                                                                             <i class="vs-icon feather icon-check"></i>
                                                                         </span>
                                                                     </span>
-                                                                    <span class="">Remember me</span>
+                                                                    <span class="">ذخیره رمز عبور</span>
                                                                 </div>
                                                             </fieldset>
                                                         </div>
-                                                        <div class="text-right"><a href="auth-forgot-password.html" class="card-link">Forgot Password?</a></div>
+                                                        <div class="text-right"><a href="auth-forgot-password.html" class="card-link">رمز خود را فراموش کرده اید؟</a></div>
                                                     </div>
-                                                    <a href="auth-register.html" class="btn btn-outline-primary float-left btn-inline">Register</a>
-                                                    <button type="submit" class="btn btn-primary float-right btn-inline">Login</button>
+                                                    <a href="auth-register.html" class="btn btn-outline-primary float-left btn-inline">ثبت نام</a>
+                                                    <button type="submit" class="btn btn-primary float-right btn-inline">ورود به حساب کاربری</button>
                                                 </form>
                                             </div>
                                         </div>
                                         <div class="login-footer">
                                             <div class="divider">
-                                                <div class="divider-text">OR</div>
+                                                <div class="divider-text">ما را در شبکه های اجتماعی دنبال نمایید</div>
                                             </div>
                                             <div class="footer-btn d-inline">
                                                 <a href="#" class="btn btn-facebook"><span class="fa fa-facebook"></span></a>
                                                 <a href="#" class="btn btn-twitter white"><span class="fa fa-twitter"></span></a>
-                                                <a href="#" class="btn btn-google"><span class="fa fa-google"></span></a>
-                                                <a href="#" class="btn btn-github"><span class="fa fa-github-alt"></span></a>
+                                                {{-- <a href="#" class="btn btn-google"><span class="fa fa-google"></span></a> --}}
+                                                <a href="#" class="btn btn-linkedin"><span class="fa fa-linkedin"></span></a>
+                                                <a href="#" class="btn btn-instagram"><span class="fa fa-instagram"></span></a>
+                                                <a href="#" class="btn btn-telegram"><span class="fa fa-telegram"></span></a>
                                             </div>
                                         </div>
                                     </div>

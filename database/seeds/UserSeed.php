@@ -22,7 +22,7 @@ class UserSeed extends Seeder
             'uuid' => Str::random(12),
             'username' => '00989135368845',
             'email' => 'jzcs89@gmail.com',
-            'phone' => '9135368845',
+            'phone' => '09135368845',
             'code_country' => '0098',
             'password' => bcrypt('1430548'),
 

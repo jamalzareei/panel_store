@@ -9,3 +9,30 @@ NOTE:
 ------
 PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+
+
+/* import C:\wamp64\www\shixeh\public\fonts\IRANSans4\WebFonts\css\fontiran.css */
+
+
+/* C:\wamp64\www\shixeh\public\fonts\IRANSans4\Farsi_numerals_(Non Standard)\webFonts\css\fontiran.css */
+
+@import "../../fonts/IRANSans4/Farsi_numerals_(Non Standard)/webFonts/css/fontiran.css";
+body {
+    font-family: IRANSans !important;
+    font-weight: 300;
+    direction: rtl;
+    background-color: #E2E2E2;
+    margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+textarea,
+.navigation {
+    font-family: IRANSans !important;
+}
