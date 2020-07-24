@@ -157,24 +157,5 @@ class UsersController extends Controller
         }
 
     }
-    
-    public function roles(Request $request)
-    {
-        $users = User::all();
-        // return $users;
-        return view('admin.users.list-users',[
-            'users' => $users,
-            'title' => 'لیست کاربران',
-        ]);
-    }
-    
-    public function permissions(Request $request)
-    {
-        $users = User::all();
-        // return $users;
-        return view('admin.users.list-users',[
-            'users' => $users,
-            'title' => 'لیست کاربران',
-        ]);
-    }
+
 }

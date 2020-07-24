@@ -10,20 +10,11 @@
 <script>
     
     $(".select2").select2({
-        // the following code is used to disable x-scrollbar when click in select input and
-        // take 100% width in responsive also
         dir: "rtl",
         dropdownAutoWidth: true,
         width: '100%'
     });
-    // $(".select2-icons").select2({
-    //     dropdownAutoWidth: true,
-    //     width: '100%',
-    //     minimumResultsForSearch: Infinity,
-    //     templateResult: iconFormat,
-    //     templateSelection: iconFormat,
-    //     escapeMarkup: function(es) { return es; }
-    // });
+    
     // On Edit
     $(document).ready(function() {
 
@@ -361,7 +352,7 @@
                             <button class="btn btn-primary">اضافه / ویرایش</button>
                         </div>
                         <div class="cancel-data-btn">
-                            <button class="btn btn-outline-danger">کنسل</button>
+                            <span class="btn btn-outline-danger">کنسل</span>
                         </div>
                     </div>
                 </div>

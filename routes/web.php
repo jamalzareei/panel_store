@@ -35,6 +35,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::namespace('Admin')->middleware('admin')->prefix('admin')->group(function() {
+    Route::get('/', 'DashboardController@index')->name('admin.dashboard');
     Route::get('dashboard', 'DashboardController@index')->name('admin.dashboard');
 
     Route::get('users', 'UsersController@users')->name('admin.users.list');
@@ -44,7 +45,15 @@ Route::namespace('Admin')->middleware('admin')->prefix('admin')->group(function(
     Route::delete('user/delete/{id}', 'UsersController@userDelete')->name('admin.user.delete');
 
     
+    Route::get('roles', 'RolesController@roles')->name('admin.roles.list');
+    Route::post('role/add', 'RolesController@roleAdd')->name('admin.role.add');
+    Route::post('role/update/{id}', 'RolesController@roleUpdate')->name('admin.role.update');
+    Route::post('roles/update', 'RolesController@rolesUpdate')->name('admin.roles.update');
+    Route::delete('role/delete/{id}', 'RolesController@roleDelete')->name('admin.role.delete');
 
-    Route::get('roles', 'UsersController@roles')->name('admin.roles.list');
-    Route::get('permissions', 'UsersController@permissions')->name('admin.permissions.list');
+    Route::get('permissions', 'PermissionsController@permissions')->name('admin.permissions.list');
+    Route::post('permission/add', 'PermissionsController@permissionAdd')->name('admin.permission.add');
+    Route::post('permission/update/{id}', 'PermissionsController@permissionUpdate')->name('admin.permission.update');
+    Route::post('permissions/update', 'PermissionsController@permissionsUpdate')->name('admin.permissions.update');
+    Route::delete('permission/delete/{id}', 'PermissionsController@permissionDelete')->name('admin.permission.delete');
 });
