@@ -3,25 +3,48 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Permission;
 use App\Models\Role;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Route;
+use ReflectionClass;
+use ReflectionMethod;
 
-class UsersController extends Controller
+class PermissionsController extends Controller
 {
     //
-    public function users(Request $request)
+    public function permissions(Request $request)
     {
-        $users = User::with(['roles' => function($query){ $query->select('name'); } ])->get();
+        $permissions = Permission::with(['roles' => function($query){ $query->select('name'); } ])->get();
         $roles = Role::whereNull('deleted_at')->where('active', 1)->get();
-        // return $users;
-        return view('admin.users.list-users',[
-            'users' => $users,
+
+        // return $permissions;
+        return view('admin.permissions.list-permissions',[
+            'permissions' => $permissions,
             'roles' => $roles,
-            'title' => 'لیست کاربران',
+            'title' => 'لیست پرمیشن ها',
         ]);
+    }
+
+    public static function Controllers()
+    {
+        $controllers = [];
+
+        foreach (Route::getRoutes()->getRoutes() as $route)
+        {
+            $action = $route->getAction();
+
+            if (array_key_exists('controller', $action))
+            {
+                // You can also use explode('@', $action['controller']); here
+                // to separate the class name from the method
+                $controllers[] = $action['controller'];
+            }
+        }
+        return $controllers;
     }
 
     public function userAdd(Request $request)
@@ -156,5 +179,4 @@ class UsersController extends Controller
         }
 
     }
-
 }

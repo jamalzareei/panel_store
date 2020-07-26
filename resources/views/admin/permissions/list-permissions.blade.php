@@ -20,7 +20,8 @@
 
         $(document).on('click' , '.action-add', function(){
             var this_ = $(this)
-            $('.ajaxForm').attr('action', "{{route('admin.user.add')}}")
+            $('.ajaxForm').attr('action', "{{route('admin.permission.add')}}")
+            $('.ajaxForm #data-slug').attr('disabled', false)
             $(".add-new-data").addClass("show");
             $(".overlay-bg").addClass("show");
         });
@@ -28,14 +29,12 @@
         $(document).on('click' , '.action-edit', function(e){
             var this_ = $(this)
             e.stopPropagation();
-            $('#data-firstname').val(this_.attr('firstname'));
-            $('#data-lastname').val(this_.attr('lastname'));
-            $('#data-phone').val(this_.attr('phone'));
-            $('#data-email').val(this_.attr('email'));
-            $('#data-verify').prop('checked',this_.attr('active'));
+            $('#data-name').val(this_.attr('name'));
+            $('#data-slug').val(this_.attr('slug'));
+            $('#data-active').prop('checked',this_.attr('active'));
 
             $('.ajaxForm').attr('action', this_.attr('action'))
-            $('.ajaxForm #data-phone, .ajaxForm #data-email').attr('disabled', true)
+            $('.ajaxForm #data-slug').attr('disabled', true)
             $('#item_id').val(this_.attr('item_id'))
             
             $(".add-new-data").addClass("show");
@@ -58,12 +57,11 @@
         function( settings, data, dataIndex ) {
 
             var role = $( 'select[name="role"] option:checked' ).val();
-            var blocked = $( 'select[name="blocked"] option:checked' ).val();
-            var verify = $( 'select[name="verify"] option:checked' ).val();
-            var phone = $( 'input[name="phone"]' ).val();
-            var email = $( 'input[name="email"]' ).val();
+            var active = $( 'select[name="active"] option:checked' ).val();
+            var name = $( 'input[name="name"]' ).val();
+            var slug = $( 'input[name="slug"]' ).val();
 
-            if( !data[6].includes(blocked) ){
+            if( !data[5].includes(active) ){
                 return false;
             }
 
@@ -71,11 +69,11 @@
                 return false;
             }
 
-            if(phone && !data[2].includes(phone) ){
+            if(name && !data[1].includes(name) ){
                 return false;
             }
 
-            if(email && !data[3].includes(email) ){
+            if(slug && !data[2].includes(slug) ){
                 return false;
             }
 
@@ -105,15 +103,15 @@
                     <form>
                         <div class="row">
                             <div class="col-12 col-sm-6 col-lg-3">
-                                <label for="users-list-department">شماره همراه بدون صفر</label>
+                                <label for="users-list-department">نام</label>
                                 <fieldset class="form-group">
-                                    <input type="text" name="phone" value="" class="form-control filter" dir="ltr" placeholder="912*******">
+                                    <input type="text" name="name" value="" class="form-control filter" dir="ltr" placeholder="اضافه کردن کاربر">
                                 </fieldset>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-3">
-                                <label for="users-list-department">ایمیل</label>
+                                <label for="users-list-department">اسلاگ</label>
                                 <fieldset class="form-group">
-                                    <input type="text" name="email" value="" class="form-control filter" dir="ltr" placeholder="info@shixeh.com">
+                                    <input type="text" name="slug" value="" class="form-control filter" dir="ltr" placeholder="user-add">
                                 </fieldset>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-3">
@@ -132,12 +130,11 @@
                             <div class="col-12 col-sm-6 col-lg-3">
                                 <label for="users-list-status">وضعیت</label>
                                 <fieldset class="form-group">
-                                    <select class="form-control filter" name="blocked" id="users-list-status">
+                                    <select class="form-control filter" name="active" id="users-list-status">
                                         <option value="">همه</option>
-                                        <option value="تایید شده">فعال</option>
-                                        <option value="تایید نشده">تایید نشده</option>
-                                        <option value="مسدود">مسدود</option>
+                                        <option value="فعال شده">فعال شده</option>
                                         <option value="غیر فعال">غیر فعال</option>
+                                        <option value="حذف">حذف</option>
                                     </select>
                                 </fieldset>
                             </div>
@@ -175,25 +172,22 @@
                         <tr>
                             <th></th>
                             <th>نام</th>
-                            <th>شماره</th>
-                            <th>ایمیل</th>
+                            <th>اسلاگ</th>
+                            <th>کنترلر</th>
                             <th>نقش</th>
-                            <th>تاریخ ثبت نام</th>
                             <th>وضعیت</th>
                             <th>ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($users as $key => $user)
-                            <tr row="{{$user->id}}">
-                                <td>{{$user->id}}</td>
-                                <td class="">{{$user->full_name}}</td>
-                                <td class="">{{$user->phone}}</td>
-                                <td>
-                                    {{$user->email}}
-                                </td>
+                        @forelse ($permissions as $key => $permission)
+                            <tr row="{{$permission->id}}">
+                                <td>{{$permission->id}}</td>
+                                <td class="">{{$permission->name}}</td>
+                                <td class="">{{$permission->slug}}</td>
+                                <td class="">{{$permission->controller.'@'.$permission->method}}</td>
                                 <td class="">
-                                    @forelse ($user->roles as $role)
+                                    @forelse ($permission->roles as $role)
                                         <div class="chip chip-default">
                                             <div class="chip-body">
                                                 <div class="chip-text">{{$role->name}}</div>
@@ -205,39 +199,29 @@
                                     @endforelse
                                 </td>
                                 <td>
-                                    {{Verta($user->created_at)->format('Y-m-d')}}
-                                </td>
-                                <td>
-                                    @if ($user->blocked_at)
+                                    @if($role->deleted_at)
                                         <div class="chip chip-danger">
                                             <div class="chip-body">
-                                                <div class="chip-text">مسدود</div>
+                                                <div class="chip-text">حذف</div>
                                             </div>
-                                        </div>                                  
-                                    @elseif($user->deactive_at || $user->deleted_at)
+                                        </div> 
+                                    @elseif ($role->active)
+                                        <div class="chip chip-success">
+                                            <div class="chip-body">
+                                                <div class="chip-text">فعال شده</div>
+                                            </div>
+                                        </div>   
+                                    @else
                                         <div class="chip chip-warning">
                                             <div class="chip-body">
                                                 <div class="chip-text">غیر فعال</div>
                                             </div>
-                                        </div>
-                                    @elseif($user->phone_verified_at || $user->email_verified_at)
-                                        <div class="chip chip-success">
-                                            <div class="chip-body">
-                                                <div class="chip-text">تایید شده</div>
-                                            </div>
-                                        </div>  
-                                    @else
-                                        <div class="chip chip-info">
-                                            <div class="chip-body">
-                                                <div class="chip-text">تایید نشده</div>
-                                            </div>
                                         </div>  
                                     @endif
-                                    
                                 </td>
                                 <td class="td-action">
-                                    <span class="action-edit" item_id="{{$user->id}}" firstname="{{$user->firstname}}" lastname="{{$user->lastname}}" phone="{{$user->phone}}" email="{{$user->email}}" role="" active="{{($user->phone_verified_at || $user->email_verified_at) ? true : false}}" action="{{ route('admin.user.update', ['id'=> $user->id]) }}"><i class="feather icon-edit"></i></span>
-                                    <span class="action-delete" onclick="deleteRow('{{ route('admin.user.delete', ['id'=>$user->id]) }}', '{{$user->id}}')"><i class="feather icon-trash"></i></span>
+                                    <span class="action-edit" item_id="{{$permission->id}}" name="{{$permission->name}}" slug="{{$permission->slug}}" controller="{{$permission->controller}}" method="{{$permission->method}}" role="" active="{{($permission->active) ? true : false}}" action="{{ route('admin.permission.update', ['id'=> $permission->id]) }}"><i class="feather icon-edit"></i></span>
+                                    <span class="action-delete" onclick="deleteRow('{{ route('admin.permission.delete', ['id'=>$permission->id]) }}', '{{$permission->id}}')"><i class="feather icon-trash"></i></span>
                                 </td>
                             </tr>
                         @empty
@@ -270,23 +254,35 @@
                             <div class="row">
                                 <div class="col-sm-12 data-field-col">
                                     <label for="data-name">نام</label>
-                                    <input type="text" class="form-control" name="firstname" id="data-firstname">
-                                    <small class="help-block text-danger error-firstname"></small>
+                                    <input type="text" class="form-control" name="name" id="data-name">
+                                    <small class="help-block text-danger error-name"></small>
                                 </div>
                                 <div class="col-sm-12 data-field-col">
-                                    <label for="data-name">نام خانوادگی</label>
-                                    <input type="text" class="form-control" name="lastname" id="data-lastname">
-                                    <small class="help-block text-danger error-lastname"></small>
+                                    <label for="data-name">اسلاگ</label>
+                                    <input type="text" class="form-control" name="slug" id="data-slug">
+                                    <small class="help-block text-danger error-slug"></small>
                                 </div>
                                 <div class="col-sm-12 data-field-col">
-                                    <label for="data-name">شمار تلفن</label>
-                                    <input type="text" class="form-control" name="phone" id="data-phone">
-                                    <small class="help-block text-danger error-phone"></small>
+                                    <label for="data-name">کنترلر</label>
+                                    <select class="form-control select2" name="controller" id="data-category">
+                                        @forelse ($roles as $role)
+                                            <option value="{{$role->slug}}">{{$role->name}}</option>
+                                        @empty
+                                            
+                                        @endforelse
+                                    </select>
+                                    <small class="help-block text-danger error-controller"></small>
                                 </div>
                                 <div class="col-sm-12 data-field-col">
-                                    <label for="data-name">ایمیل</label>
-                                    <input type="text" class="form-control" name="email" id="data-email">
-                                    <small class="help-block text-danger error-email"></small>
+                                    <label for="data-name">متد</label>
+                                    <select class="form-control select2" name="method" id="data-category">
+                                        @forelse ($roles as $role)
+                                            <option value="{{$role->slug}}">{{$role->name}}</option>
+                                        @empty
+                                            
+                                        @endforelse
+                                    </select>
+                                    <small class="help-block text-danger error-method"></small>
                                 </div>
                                 <div class="col-sm-12 data-field-col">
                                     <label for="data-category"> نقش کاربر </label>
@@ -303,7 +299,7 @@
                                     <label for="data-status">وضعیت کاربر</label>
                                     <fieldset>
                                         <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox"  name="verify" value="1" id="data-verify">
+                                            <input type="checkbox"  name="active" value="1" id="data-active">
                                             <span class="vs-checkbox">
                                                 <span class="vs-checkbox--check">
                                                     <i class="vs-icon feather icon-check"></i>
@@ -314,35 +310,13 @@
                                     </fieldset>
                                     <fieldset>
                                         <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox"  name="deactive" value="1" id="data-deactive">
-                                            <span class="vs-checkbox">
-                                                <span class="vs-checkbox--check">
-                                                    <i class="vs-icon feather icon-check"></i>
-                                                </span>
-                                            </span>
-                                            <span class="">غیر فعال سازی حساب کاربری</span>
-                                        </div>
-                                    </fieldset>
-                                    <fieldset>
-                                        <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox"  name="block" value="1" id="data-block">
-                                            <span class="vs-checkbox">
-                                                <span class="vs-checkbox--check">
-                                                    <i class="vs-icon feather icon-check"></i>
-                                                </span>
-                                            </span>
-                                            <span class="">مسدود سازی</span>
-                                        </div>
-                                    </fieldset>
-                                    <fieldset>
-                                        <div class="vs-checkbox-con vs-checkbox-primary">
                                             <input type="checkbox"  name="delete" value="1" id="data-delete">
                                             <span class="vs-checkbox">
                                                 <span class="vs-checkbox--check">
                                                     <i class="vs-icon feather icon-check"></i>
                                                 </span>
                                             </span>
-                                            <span class="">حذف کاربر</span>
+                                            <span class="">حذف پرمیشن</span>
                                         </div>
                                     </fieldset>
                                 </div>

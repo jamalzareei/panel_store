@@ -85,14 +85,20 @@
                                 <td>{{$role->slug}}</td>
                                 <td>{{$role->code}}</td>
                                 <td>
-                                    @if ($role->active)
+                                    @if($role->deleted_at)
+                                        <div class="chip chip-danger">
+                                            <div class="chip-body">
+                                                <div class="chip-text">حذف</div>
+                                            </div>
+                                        </div> 
+                                    @elseif ($role->active)
                                         <div class="chip chip-success">
                                             <div class="chip-body">
                                                 <div class="chip-text">قعال</div>
                                             </div>
                                         </div>   
                                     @else
-                                        <div class="chip chip-danger">
+                                        <div class="chip chip-warning">
                                             <div class="chip-body">
                                                 <div class="chip-text">غیر فعال</div>
                                             </div>

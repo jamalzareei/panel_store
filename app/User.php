@@ -36,9 +36,12 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'phone_verified_at' => 'datetime',
     ];
 
-    protected $appends = array('full_name');
+    protected $appends = [
+        'full_name'
+    ];
 
     public function roles() {
 		return $this->belongsToMany('App\Models\Role');
@@ -46,5 +49,10 @@ class User extends Authenticatable
     
     public function getFullNameAttribute() {
         return "{$this->firstname} {$this->lastname}";
+    }
+
+    public function permissions()
+    {
+        return $this->hasManyThrough('App\Models\Permission', 'App\User');
     }
 }
