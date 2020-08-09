@@ -21,6 +21,8 @@
         $(document).on('click' , '.action-add', function(){
             var this_ = $(this)
             $('.ajaxForm').attr('action', "{{route('admin.user.add')}}")
+            $('.ajaxForm #data-phone, .ajaxForm #data-email').attr('disabled', false)
+            $('.ajaxForm').reset();
             $(".add-new-data").addClass("show");
             $(".overlay-bg").addClass("show");
         });

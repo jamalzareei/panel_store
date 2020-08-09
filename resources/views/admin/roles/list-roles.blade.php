@@ -2,12 +2,19 @@
 
 @section('head')
 
+<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css') }}">
 @endsection
 
 @section('footer')
+<script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
 
 <script>
     
+    $(".select2").select2({
+        dir: "rtl",
+        dropdownAutoWidth: true,
+        width: '100%'
+    });
     $(document).ready(function() {
 
         $(document).on('click' , '.action-add', function(){
@@ -166,6 +173,17 @@
                                     <label for="data-name">جزئیات</label>
                                     <input type="text" class="form-control" name="details" id="data-details">
                                     <small class="help-block text-danger error-details"></small>
+                                </div>
+                                <div class="col-sm-12 data-field-col">
+                                    <label for="data-category"> دسترسی ها </label>
+                                    <select class="form-control select2" multiple name="permissions[]" id="data-category">
+                                        @forelse ($permissions as $permission)
+                                            <option value="{{$permission->id}}">{{$permission->name}}</option>
+                                        @empty
+                                            
+                                        @endforelse
+                                    </select>
+                                    <small class="help-block text-danger error-roles"></small>
                                 </div>
                                 <div class="col-sm-12 data-field-col">
                                     <label for="data-status">وضعیت </label>

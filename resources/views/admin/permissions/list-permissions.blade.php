@@ -30,7 +30,7 @@
             var this_ = $(this)
             e.stopPropagation();
             $('#data-name').val(this_.attr('name'));
-            $('#data-slug').val(this_.attr('slug'));
+            // $('#data-slug').val(this_.attr('slug'));
             $('#data-active').prop('checked',this_.attr('active'));
 
             $('.ajaxForm').attr('action', this_.attr('action'))
@@ -59,13 +59,13 @@
             var role = $( 'select[name="role"] option:checked' ).val();
             var active = $( 'select[name="active"] option:checked' ).val();
             var name = $( 'input[name="name"]' ).val();
-            var slug = $( 'input[name="slug"]' ).val();
+            // var slug = $( 'input[name="slug"]' ).val();
 
-            if( !data[5].includes(active) ){
+            if( !data[4].includes(active) ){
                 return false;
             }
 
-            if( !data[4].includes(role) ){
+            if( !data[3].includes(role) ){
                 return false;
             }
 
@@ -73,9 +73,9 @@
                 return false;
             }
 
-            if(slug && !data[2].includes(slug) ){
-                return false;
-            }
+            // if(slug && !data[2].includes(slug) ){
+            //     return false;
+            // }
 
             return true
         }
@@ -102,19 +102,13 @@
                 <div class="users-list-filter">
                     <form>
                         <div class="row">
-                            <div class="col-12 col-sm-6 col-lg-3">
+                            <div class="col-12 col-sm-6 col-lg-4">
                                 <label for="users-list-department">نام</label>
                                 <fieldset class="form-group">
-                                    <input type="text" name="name" value="" class="form-control filter" dir="ltr" placeholder="اضافه کردن کاربر">
+                                    <input type="text" name="name" value="" class="form-control filter" dir="ltr" placeholder="">
                                 </fieldset>
                             </div>
-                            <div class="col-12 col-sm-6 col-lg-3">
-                                <label for="users-list-department">اسلاگ</label>
-                                <fieldset class="form-group">
-                                    <input type="text" name="slug" value="" class="form-control filter" dir="ltr" placeholder="user-add">
-                                </fieldset>
-                            </div>
-                            <div class="col-12 col-sm-6 col-lg-3">
+                            <div class="col-12 col-sm-6 col-lg-4">
                                 <label for="users-list-role">نقش</label>
                                 <fieldset class="form-group">
                                     <select class="form-control filter" name="role" id="users-list-role">
@@ -127,13 +121,12 @@
                                     </select>
                                 </fieldset>
                             </div>
-                            <div class="col-12 col-sm-6 col-lg-3">
+                            <div class="col-12 col-sm-6 col-lg-4">
                                 <label for="users-list-status">وضعیت</label>
                                 <fieldset class="form-group">
                                     <select class="form-control filter" name="active" id="users-list-status">
                                         <option value="">همه</option>
                                         <option value="فعال شده">فعال شده</option>
-                                        <option value="غیر فعال">غیر فعال</option>
                                         <option value="حذف">حذف</option>
                                     </select>
                                 </fieldset>
@@ -146,7 +139,7 @@
     </div>
     <!-- Data list view starts -->
     <section id="data-list-view" class="data-list-view-header">
-        <form action="{{ route('admin.users.update') }}" method="POST" id="form-datatable">
+        <form action="{{ route('admin.permissions.update') }}" method="POST" id="form-datatable">
             @csrf
             <div class="action-btns d-none">
                 <div class="btn-dropdown mr-1 mb-1">
@@ -156,10 +149,10 @@
                         </button>
                         <div class="dropdown-menu">
                             <button class="dropdown-item" name="type" value="active"><i class="feather icon-trash"></i>فعال سازی</button>
-                            <button class="dropdown-item" name="type" value="delete"><i class="feather icon-trash"></i>حذف</button>
-                            <button class="dropdown-item" name="type" value="deactive"><i class="feather icon-archive"></i>غیر فعال</button>
+                            <button class="dropdown-item" name="type" value="delete"><i class="feather icon-trash"></i>حذف / غیر فعال</button>
+                            {{-- <button class="dropdown-item" name="type" value="deactive"><i class="feather icon-archive"></i>غیر فعال</button> --}}
                             <button class="dropdown-item" name="type" value="print"><i class="feather icon-file"></i>پرینت</button>
-                            <button class="dropdown-item" name="type" value="block"><i class="feather icon-save"></i>مسدود کردن کاربر</button>
+                            {{-- <button class="dropdown-item" name="type" value="block"><i class="feather icon-save"></i>مسدود کردن کاربر</button> --}}
                         </div>
                     </div>
                 </div>
@@ -172,8 +165,8 @@
                         <tr>
                             <th></th>
                             <th>نام</th>
-                            <th>اسلاگ</th>
-                            <th>کنترلر</th>
+                            {{-- <th>اسلاگ</th> --}}
+                            <th>guard_name</th>
                             <th>نقش</th>
                             <th>وضعیت</th>
                             <th>ACTION</th>
@@ -184,8 +177,8 @@
                             <tr row="{{$permission->id}}">
                                 <td>{{$permission->id}}</td>
                                 <td class="">{{$permission->name}}</td>
-                                <td class="">{{$permission->slug}}</td>
-                                <td class="">{{$permission->controller.'@'.$permission->method}}</td>
+                                {{-- <td class="">{{$permission->slug}}</td> --}}
+                                <td class="">{{$permission->guard_name}}</td>
                                 <td class="">
                                     @forelse ($permission->roles as $role)
                                         <div class="chip chip-default">
@@ -199,28 +192,22 @@
                                     @endforelse
                                 </td>
                                 <td>
-                                    @if($role->deleted_at)
+                                    @if($permission->deleted_at)
                                         <div class="chip chip-danger">
                                             <div class="chip-body">
                                                 <div class="chip-text">حذف</div>
                                             </div>
                                         </div> 
-                                    @elseif ($role->active)
+                                    @else
                                         <div class="chip chip-success">
                                             <div class="chip-body">
                                                 <div class="chip-text">فعال شده</div>
                                             </div>
-                                        </div>   
-                                    @else
-                                        <div class="chip chip-warning">
-                                            <div class="chip-body">
-                                                <div class="chip-text">غیر فعال</div>
-                                            </div>
-                                        </div>  
+                                        </div>
                                     @endif
                                 </td>
                                 <td class="td-action">
-                                    <span class="action-edit" item_id="{{$permission->id}}" name="{{$permission->name}}" slug="{{$permission->slug}}" controller="{{$permission->controller}}" method="{{$permission->method}}" role="" active="{{($permission->active) ? true : false}}" action="{{ route('admin.permission.update', ['id'=> $permission->id]) }}"><i class="feather icon-edit"></i></span>
+                                    <span class="action-edit" item_id="{{$permission->id}}" name="{{$permission->name}}" role="" deleted_at="{{($permission->deleted_at) ? true : false}}" action="{{ route('admin.permission.update', ['id'=> $permission->id]) }}"><i class="feather icon-edit"></i></span>
                                     <span class="action-delete" onclick="deleteRow('{{ route('admin.permission.delete', ['id'=>$permission->id]) }}', '{{$permission->id}}')"><i class="feather icon-trash"></i></span>
                                 </td>
                             </tr>
@@ -243,7 +230,7 @@
                 <div class="add-new-data">
                     <div class="div mt-2 px-2 d-flex new-data-title justify-content-between">
                         <div>
-                            <h4 class="text-uppercase">اضافه / ویرایش کاربر</h4>
+                            <h4 class="text-uppercase">اضافه / ویرایش دسترسی</h4>
                         </div>
                         <div class="hide-data-sidebar">
                             <i class="feather icon-x"></i>
@@ -254,35 +241,15 @@
                             <div class="row">
                                 <div class="col-sm-12 data-field-col">
                                     <label for="data-name">نام</label>
-                                    <input type="text" class="form-control" name="name" id="data-name">
+                                    {{-- <input type="text" class="form-control" name="name" id="data-name"> --}}
+                                    <select class="form-control select2" name="name" id="data-name">
+                                        @forelse ($listControllersMethods as $con)
+                                            <option value="{{$con}}">{{$con}}</option>
+                                        @empty
+                                            
+                                        @endforelse
+                                    </select>
                                     <small class="help-block text-danger error-name"></small>
-                                </div>
-                                <div class="col-sm-12 data-field-col">
-                                    <label for="data-name">اسلاگ</label>
-                                    <input type="text" class="form-control" name="slug" id="data-slug">
-                                    <small class="help-block text-danger error-slug"></small>
-                                </div>
-                                <div class="col-sm-12 data-field-col">
-                                    <label for="data-name">کنترلر</label>
-                                    <select class="form-control select2" name="controller" id="data-category">
-                                        @forelse ($roles as $role)
-                                            <option value="{{$role->slug}}">{{$role->name}}</option>
-                                        @empty
-                                            
-                                        @endforelse
-                                    </select>
-                                    <small class="help-block text-danger error-controller"></small>
-                                </div>
-                                <div class="col-sm-12 data-field-col">
-                                    <label for="data-name">متد</label>
-                                    <select class="form-control select2" name="method" id="data-category">
-                                        @forelse ($roles as $role)
-                                            <option value="{{$role->slug}}">{{$role->name}}</option>
-                                        @empty
-                                            
-                                        @endforelse
-                                    </select>
-                                    <small class="help-block text-danger error-method"></small>
                                 </div>
                                 <div class="col-sm-12 data-field-col">
                                     <label for="data-category"> نقش کاربر </label>
@@ -296,18 +263,7 @@
                                     <small class="help-block text-danger error-roles"></small>
                                 </div>
                                 <div class="col-sm-12 data-field-col">
-                                    <label for="data-status">وضعیت کاربر</label>
-                                    <fieldset>
-                                        <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox"  name="active" value="1" id="data-active">
-                                            <span class="vs-checkbox">
-                                                <span class="vs-checkbox--check">
-                                                    <i class="vs-icon feather icon-check"></i>
-                                                </span>
-                                            </span>
-                                            <span class="">فعال</span>
-                                        </div>
-                                    </fieldset>
+                                    <label for="data-status">وضعیت </label>
                                     <fieldset>
                                         <div class="vs-checkbox-con vs-checkbox-primary">
                                             <input type="checkbox"  name="delete" value="1" id="data-delete">
@@ -316,7 +272,7 @@
                                                     <i class="vs-icon feather icon-check"></i>
                                                 </span>
                                             </span>
-                                            <span class="">حذف پرمیشن</span>
+                                            <span class="">حذف پرمیشن یا غیر فعال</span>
                                         </div>
                                     </fieldset>
                                 </div>

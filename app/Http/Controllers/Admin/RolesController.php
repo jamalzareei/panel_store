@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
+// use App\Models\Role;
+
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -15,10 +18,12 @@ class RolesController extends Controller
         # code...
         $roles = Role::withCount('users')->withCount('permissions')->get();
 
-        // return $roles;
+        $permissions = Permission::whereNull('deleted_at')->get();
+        // return $permissions;
         
         return view('admin.roles.list-roles',[
             'roles' => $roles,
+            'permissions' => $permissions,
             'title' => 'لیست نقش کاربران',
         ]);
     }

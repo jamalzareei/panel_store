@@ -15,17 +15,14 @@ class RoleSeed extends Seeder
         // $faker = Faker\Factory::create();
         \App\Models\Role::create([
             'slug' => 'ADMIN',
-            'code' => 'A',
             'name' => 'admin',
         ]);
         \App\Models\Role::create([
             'slug' => 'SELLER',
-            'code' => 'B',
             'name' => 'seller',
         ]);
         \App\Models\Role::create([
             'slug' => 'USER',
-            'code' => 'A',
             'name' => 'user',
         ]);
 

@@ -5,10 +5,12 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -43,16 +45,16 @@ class User extends Authenticatable
         'full_name'
     ];
 
-    public function roles() {
-		return $this->belongsToMany('App\Models\Role');
-    }
+    // public function roles() {
+	// 	return $this->belongsToMany('App\Models\Role');
+    // }
     
     public function getFullNameAttribute() {
         return "{$this->firstname} {$this->lastname}";
     }
 
-    public function permissions()
-    {
-        return $this->hasManyThrough('App\Models\Permission', 'App\User');
-    }
+    // public function permissions()
+    // {
+    //     return $this->hasManyThrough('App\Models\Permission', 'App\User');
+    // }
 }

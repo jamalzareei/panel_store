@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
+// use App\Models\Role;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -12,9 +14,17 @@ use Illuminate\Support\Str;
 class UsersController extends Controller
 {
     //
+    
+    // public function __construct()
+    // {
+    //     $this->middleware(['auth', 'isAdmin']); //isAdmin middleware lets only users with a //specific permission permission to access these resources
+    // }
+
+
     public function users(Request $request)
     {
         $users = User::with(['roles' => function($query){ $query->select('name'); } ])->get();
+        // $users = User::with('permissions')->get();
         $roles = Role::whereNull('deleted_at')->where('active', 1)->get();
         // return $users;
         return view('admin.users.list-users',[
@@ -61,8 +71,17 @@ class UsersController extends Controller
         ]);
         // return $user;
         
-        $roles = Role::whereIn('slug', $request->roles)->pluck('id')->toArray();
-        $user->roles()->sync($roles);
+        // $roles = Role::whereIn('slug', $request->roles)->pluck('id')->toArray();
+        // $user->roles()->sync($roles);
+        $roles = $request['roles']; //Retrieving the roles field
+    //Checking if a role was selected
+        if (isset($roles)) {
+
+            foreach ($roles as $role) {
+                $role_r = Role::where('slug', '=', $role)->firstOrFail();            
+                $user->assignRole($role_r); //Assigning role to user
+            }
+        }  
 
         return response()->json([
             'status' => 'success',
@@ -92,9 +111,19 @@ class UsersController extends Controller
         ]);
 
         // test::where('id' ,'>' ,0)->lists('id')->toArray();
-        $roles = Role::whereIn('slug', $request->roles)->pluck('id')->toArray();
         $user = User::where('id',$request->id)->first();
-        $user->roles()->sync($roles);
+        $roles = Role::whereIn('slug', $request->roles)->pluck('id')->toArray();
+        // $user->roles()->sync($roles);
+
+        // return $roles;// = $request['roles']; //Retreive all roles
+        // $user->fill($input)->save();
+
+        if (isset($roles)) {        
+            $user->roles()->sync($roles);  //If one or more role is selected associate user to roles          
+        }        
+        else {
+            $user->roles()->detach(); //If no role is selected remove exisiting role associated to a user
+        }
 
         session()->put('noty', [
             'title' => '',

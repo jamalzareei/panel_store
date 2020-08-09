@@ -15,14 +15,8 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        // return $request->route()->getName();
-        // $arryRoutes = ['admin.login', 'auth.login.post'];
-        // if(in_array($request->route()->getName(), $arryRoutes)){
-        //     return $next($request);
-        // }
         if (auth()->check()) {
-            $user = auth()->user()->roles;// Auth::user();
-            // return $user;
+            $user = auth()->user()->roles;
             if(auth()->user()->roles->where('slug', 'ADMIN')->first()){
                 return $next($request);
             }
