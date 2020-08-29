@@ -37,19 +37,31 @@ $(() => {
             data: data,
             beforeSend: function() {
                 $('.help-block').text('');
-                this_.find('button[type="submit"]').html('Ù…Ù†ØªØ¸Ø± Ø¨Ù…Ø§Ù†ÛŒØ¯ <i class="fas fa-compact-disc fa-spin"></i>');
+                this_.find('button[type="submit"] i').removeClass().addClass('fa fa-spinner fa-spin');
             },
             success: function(response) {
                 console.info(response);
 
-                // if (response.status == 'success')
-                //     this_.find('button[type="submit"]').html('Ù…ÙˆÙÙ‚');
+                if (response.status == 'success')
+                    this_.find('button[type="submit"] i').removeClass().addClass('fa fa-check');
+                // this_.find('button[type="submit"]').html('<i class="fa fa-check "></i> ');
 
                 messageToast(response.title, response.message, response.status, 5000)
 
+                // this_.find('button[type="submit"]').html('<i class="fa fa-check "></i> ');
+
+                if (response.autoRedirect && response.autoRedirect !== '') {
+                    window.location.href = response.autoRedirect
+                }
+                var item = $('#item_id');
+                if (item.length) {
+                    var itemid = item.val();
+                }
+
             },
             error: function(request, status, error) {
-                this_.find('button[type="submit"]').html(' <i class="panel-control-icon glyphicon glyphicon-remove"></i> ØªÙ„Ø§Ø´ Ø¯ÙˆØ¨Ø§Ø±Ù‡');
+                // this_.find('button[type="submit"]').html(' <i class="fa fa-times"></i> تلاش دوباره');
+                this_.find('button[type="submit"] i').removeClass().addClass('fa fa-refresh');
                 json = $.parseJSON(request.responseText);
 
                 $.each(json.errors, function(key, value) {
@@ -66,16 +78,15 @@ $(() => {
         e.preventDefault();
 
 
-        // var cover = $('#input-cover-file').prop('files')[0];
-        var imageUrl = $('.file-upload').prop('files')[0];
-        // var slug = $('.ajaxUpload ').val();
-        //file-upload
+        var form_data = new FormData(this);
 
+        if ($('.file-upload').length > 0) {
 
-        var form_data = new FormData(this); //new FormData();
-        if (document.getElementsByClassName("file-upload").value != "") {
-            // you have a file
-            form_data.append('imageUrl', imageUrl);
+            var imageUrl = $('.file-upload').prop('files')[0];
+
+            if (document.getElementsByClassName("file-upload").value != "") {
+                form_data.append('imageUrl', imageUrl);
+            }
         }
 
 
@@ -93,56 +104,26 @@ $(() => {
             contentType: false,
             beforeSend: function() {
                 $('.help-block').text('');
-                this_.find('button[type="submit"]').html('Ù…Ù†ØªØ¸Ø± Ø¨Ù…Ø§Ù†ÛŒØ¯ <i class="fas fa-compact-disc fa-spin"></i>');
+                this_.find('button[type="submit"] i').removeClass().addClass('fa fa-spinner fa-spin');
             },
-            success: function(data) {
+            success: function(response) {
 
-                this_.find('button[type="submit"]').html('Ø§Ø¯Ø§Ù…Ù‡');
+                if (response.status == 'success')
+                    this_.find('button[type="submit"] i').removeClass().addClass('fa fa-check');
 
-                console.log(data.redirectEdit);
-                // swal(data.title, data.message, data.status);
-                Swal.fire({
-                    title: data.title,
-                    text: data.message,
-                    type: data.status,
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Ø§Ø¯Ø§Ù…Ù‡ Ùˆ Ø§ÙØ²ÙˆØ¯Ù† Ø§Ø·Ù„Ø§Ø¹Ø§Øª',
-                    cancelButtonText: 'Ù†Ù…Ø§ÛŒØ´ Ù„ÛŒØ³Øª'
-                }).then((result) => {
-                    if (result.value) {
-                        if (data.redirectEdit && typeof data.redirectEdit !== 'undefined') {
-                            location.href = data.redirectEdit;
-                        } else {
-                            $('.wizard-next[data-wizard="next"]').click();
-                        }
-                    } else {
-                        if (data.redirectList && typeof data.redirectList !== 'undefined') {
-                            location.href = data.redirectList;
-                        } else {
+                messageToast(response.title, response.message, response.status, 5000)
 
-                        }
-                    }
-                });
-                if (data.redirectAuto) {
-                    window.location.href = data.redirectAuto;
+                if (response.autoRedirect && response.autoRedirect !== '') {
+                    window.location.href = response.autoRedirect
                 }
-
             },
             error: function(request, status, error) {
-                this_.find('button[type="submit"]').html('ØªÙ„Ø§Ø´ Ø¯ÙˆØ¨Ø§Ø±Ù‡ ');
-                console.log(request);
+                this_.find('button[type="submit"] i').removeClass().addClass('fa fa-refresh');
                 json = $.parseJSON(request.responseText);
 
                 $.each(json.errors, function(key, value) {
                     console.log(key + ": " + value);
                     $('.error-' + key).text(value);
-                });
-                Swal.fire({
-                    type: "error",
-                    title: "Ù†Ø§ Ù…ÙˆÙÙ‚",
-                    text: "Ù„Ø·ÙØ§ Ù¾Ø³ Ø§Ø² Ø¨Ø±Ø±Ø³ÛŒ Ø®Ø·Ø§Ù‡Ø§ÛŒ Ù¾ÛŒØ´ Ø¢Ù…Ø¯Ù‡ Ø±Ø§ Ø±ÙØ¹ Ù†Ù…Ø§ÛŒÛŒØ¯.",
                 });
 
             }
@@ -152,6 +133,33 @@ $(() => {
 
 
 })
+
+$('.dropify').dropify({
+    messages: {
+        'default': 'کلیک کنید یا بکشید و رها کنید ',
+        'replace': 'کلیک کنید یا بکشید و رها کنید',
+        'remove': 'حذف فایل',
+        'error': 'اوپس، خظاهای پیش آمده را رفع نمایید.'
+    },
+    error: {
+        'fileSize': 'The file size is too big ({{ value }} max).',
+        'minWidth': 'The image width is too small ({{ value }}}px min).',
+        'maxWidth': 'The image width is too big ({{ value }}}px max).',
+        'minHeight': 'The image height is too small ({{ value }}}px min).',
+        'maxHeight': 'The image height is too big ({{ value }}px max).',
+        'imageFormat': 'The image format is not allowed ({{ value }} only).'
+    },
+    tpl: {
+        wrap: '<div class="dropify-wrapper"></div>',
+        loader: '<div class="dropify-loader"></div>',
+        message: '<div class="dropify-message"><span class="file-icon" /> <p>{{ default }}</p></div>',
+        preview: '<div class="dropify-preview"><span class="dropify-render"></span><div class="dropify-infos"><div class="dropify-infos-inner"><p class="dropify-infos-message">{{ replace }}</p></div></div></div>',
+        filename: '<p class="dropify-filename"><span class="file-icon"></span> <span class="dropify-filename-inner"></span></p>',
+        clearButton: '<button type="button" class="dropify-clear">{{ remove }}</button>',
+        errorLine: '<p class="dropify-error">{{ error }}</p>',
+        errorsContainer: '<div class="dropify-errors-container"><ul></ul></div>'
+    }
+});
 
 function messageToast(title, message, status, timeOut = 5000) {
     if (status === 'success') {
@@ -182,4 +190,18 @@ function deleteRow(url, id) {
         }
     })
     $(this).closest('td').parent('tr').fadeOut();
+}
+
+function changeStatus(url, this_) {
+    $.ajax({
+        url: url,
+        method: 'post',
+        method: 'post',
+        data: { ajax: 'true', status: $(this_).is(':checked') },
+        success: function(response) {
+            console.log(response)
+            messageToast(response.title, response.message, response.status, 5000)
+        },
+        error: function(request, status, error) {}
+    })
 }

@@ -37,6 +37,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css-rtl/pages/authentication.css') }}">
     <!-- END: Page CSS-->
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/toastr.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css-rtl/plugins/extensions/toastr.css') }}">
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css-rtl/custom-rtl.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style-rtl.css') }}">
@@ -157,9 +159,17 @@
     <script src="{{ asset('app-assets/js/scripts/components.js') }}"></script>
     <!-- END: Theme JS-->
 
+    <script src="{{ asset('app-assets/vendors/js/extensions/toastr.min.js') }}"></script>
     <!-- BEGIN: Page JS-->
     <!-- END: Page JS-->
 
+    <script src="{{ asset('js/scripts.js') }}"></script>
+    <script>
+        @if(session('noty'))
+            messageToast("{!! session('noty')['title'] !!}", "{!! session('noty')['message'] !!}", "{!! session('noty')['status'] !!}", 5000)
+            <?php session()->forget('noty') ?>
+        @endif
+    </script>
 </body>
 <!-- END: Body-->
 

@@ -24,6 +24,9 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "cropperjs": "^1.5.7",
+        "croppie": "^2.6.5",
+        "dropify": "^0.2.2",
         "toastr": "^2.1.4"
     }
 }

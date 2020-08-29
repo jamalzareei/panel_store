@@ -80,6 +80,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     <!-- END: Custom CSS-->
 
+    <!-- BEGIN: Vendor JS-->
+    <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
+    <!-- BEGIN Vendor JS-->
+    
     @yield('head')
 </head>
 <body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static   menu-collapsed" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
@@ -133,9 +137,6 @@
     <!-- END: Page JS--> --}}
 
 
-    <!-- BEGIN: Vendor JS-->
-    <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
-    <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
     <script src="{{ asset('app-assets/vendors/js/extensions/dropzone.min.js') }}"></script>
@@ -159,6 +160,7 @@
     
     <script src="{{ asset('app-assets/vendors/js/extensions/toastr.min.js') }}"></script>
 
+    @yield('footer')
     <script src="{{ asset('js/scripts.js') }}"></script>
 
     <script>
@@ -168,7 +170,6 @@
         @endif
     </script>
 
-    @yield('footer')
     
     <svg id="SvgjsSvg1001" width="2" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1"
         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs"

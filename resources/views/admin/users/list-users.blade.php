@@ -27,9 +27,21 @@
             $(".overlay-bg").addClass("show");
         });
 
+        var table = $('.data-list-view').DataTable();
+        
+        // Event listener to the two range filtering inputs to redraw on input
+        $('select.filter').change( function() {
+            table.draw();
+        } );
+        $('.filter').keyup( function() {
+            table.draw();
+        } );
+
         $(document).on('click' , '.action-edit', function(e){
             var this_ = $(this)
             e.stopPropagation();
+            var key = this_.attr('key');
+
             $('#data-firstname').val(this_.attr('firstname'));
             $('#data-lastname').val(this_.attr('lastname'));
             $('#data-phone').val(this_.attr('phone'));
@@ -45,15 +57,6 @@
         });
         
 
-        var table = $('.data-list-view').DataTable();
-        
-        // Event listener to the two range filtering inputs to redraw on input
-        $('select.filter').change( function() {
-            table.draw();
-        } );
-        $('.filter').keyup( function() {
-            table.draw();
-        } );
     } );
 
     $.fn.dataTable.ext.search.push(
@@ -188,13 +191,13 @@
                     <tbody>
                         @forelse ($users as $key => $user)
                             <tr row="{{$user->id}}">
-                                <td>{{$user->id}}</td>
-                                <td class="">{{$user->full_name}}</td>
-                                <td class="">{{$user->phone}}</td>
-                                <td>
+                                <td col="id">{{$user->id}}</td>
+                                <td col="name" class="">{{$user->full_name}}</td>
+                                <td col="phone" class="">{{$user->phone}}</td>
+                                <td col="email">
                                     {{$user->email}}
                                 </td>
-                                <td class="">
+                                <td col="role" class="">
                                     @forelse ($user->roles as $role)
                                         <div class="chip chip-default">
                                             <div class="chip-body">
@@ -206,10 +209,10 @@
                                         
                                     @endforelse
                                 </td>
-                                <td>
+                                <td col="created_at">
                                     {{Verta($user->created_at)->format('Y-m-d')}}
                                 </td>
-                                <td>
+                                <td col="verify">
                                     @if ($user->blocked_at)
                                         <div class="chip chip-danger">
                                             <div class="chip-body">
@@ -237,8 +240,8 @@
                                     @endif
                                     
                                 </td>
-                                <td class="td-action">
-                                    <span class="action-edit" item_id="{{$user->id}}" firstname="{{$user->firstname}}" lastname="{{$user->lastname}}" phone="{{$user->phone}}" email="{{$user->email}}" role="" active="{{($user->phone_verified_at || $user->email_verified_at) ? true : false}}" action="{{ route('admin.user.update', ['id'=> $user->id]) }}"><i class="feather icon-edit"></i></span>
+                                <td col="action" class="td-action">
+                                    <span class="action-edit" key={{$key}} item_id="{{$user->id}}" firstname="{{$user->firstname}}" lastname="{{$user->lastname}}" phone="{{$user->phone}}" email="{{$user->email}}" role="" active="{{($user->phone_verified_at || $user->email_verified_at) ? true : false}}" action="{{ route('admin.user.update', ['id'=> $user->id]) }}"><i class="feather icon-edit"></i></span>
                                     <span class="action-delete" onclick="deleteRow('{{ route('admin.user.delete', ['id'=>$user->id]) }}', '{{$user->id}}')"><i class="feather icon-trash"></i></span>
                                 </td>
                             </tr>
@@ -353,7 +356,7 @@
                     </div>
                     <div class="add-data-footer d-flex justify-content-around px-3 mt-2">
                         <div class="add-data-btn">
-                            <button class="btn btn-primary">اضافه / ویرایش</button>
+                            <button class="btn btn-primary" type="submit"> <i class=""></i> اضافه / ویرایش</button>
                         </div>
                         <div class="cancel-data-btn">
                             <span class="btn btn-outline-danger">کنسل</span>

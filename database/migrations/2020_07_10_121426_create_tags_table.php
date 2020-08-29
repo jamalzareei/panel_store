@@ -17,6 +17,8 @@ class CreateTagsTable extends Migration
             $table->id();
             $table->string('name', 255)->index();
             $table->string('slug', 255)->index();
+            $table->string('icon', 255)->nullable();
+            $table->text('image')->nullable();
             $table->text('path')->nullable();
             $table->string('title', 255)->nullable();
             $table->string('head', 255)->nullable();

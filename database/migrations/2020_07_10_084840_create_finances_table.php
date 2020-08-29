@@ -22,6 +22,7 @@ class CreateFinancesTable extends Migration
             $table->string('bank_sheba_number', 30)->nullable();
             $table->string('bank_account_number', 30)->nullable();
             $table->integer('active')->unsigned()->nullable()->default(1);
+            $table->integer('order_by')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

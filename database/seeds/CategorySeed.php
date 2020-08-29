@@ -18,7 +18,7 @@ class CategorySeed extends Seeder
 
             DB::table('categories')->insert([ //,
                 'name' => Faker::fullname(),
-                'slug' => $faker->unique()->username,
+                'slug' => $faker->unique()->slug,
                 'parent_id' => 0,
                 
             ]);
@@ -27,7 +27,7 @@ class CategorySeed extends Seeder
 
                 DB::table('categories')->insert([ //,
                     'name' => Faker::fullname(),
-                    'slug' => $faker->unique()->username,
+                    'slug' => $faker->unique()->slug,
                     'parent_id' => $i,
                     
                 ]);
@@ -36,7 +36,7 @@ class CategorySeed extends Seeder
 
                     DB::table('categories')->insert([ //,
                         'name' => Faker::fullname(),
-                        'slug' => $faker->unique()->username,
+                        'slug' => $faker->unique()->slug,
                         'parent_id' => $k,
                         
                     ]);

@@ -174,7 +174,7 @@ $(document).ready(function() {
     $('#form-datatable').on('submit', function(e) { e.preventDefault(); })
     $('#form-datatable [name="type"]').on('click', function(e) {
         e.preventDefault();
-        var form_data = new FormData();
+        var form_data = new FormData(document.getElementById("form-datatable"));
         var table = $('.data-list-view').DataTable();
 
         var rows_selected = table.rows('.selected').data();
@@ -200,6 +200,7 @@ $(document).ready(function() {
                 if (response.status === 'success') {
                     location.reload();
                 }
+                messageToast(response.title, response.message, response.status, 5000)
             }
         })
 

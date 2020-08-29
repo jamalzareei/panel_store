@@ -14,13 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('login');
-    // return redirect()->route('admin.login');
-});
-Route::get('/auth', function () {
-    return view('login');
-});
+// Route::get('/', function () {
+//     return view('login');
+//     // return redirect()->route('admin.login');
+// });
+// Route::get('/auth', function () {
+//     return view('login');
+// });
 Route::get('/logout-user', function () {
     Auth::logout();
     return redirect('auth');
@@ -56,4 +56,13 @@ Route::namespace('Admin')->middleware('admin')->prefix('admin')->group(function(
     Route::post('permission/update/{id}', 'PermissionsController@permissionUpdate')->name('admin.permission.update');
     Route::post('permissions/update', 'PermissionsController@permissionsUpdate')->name('admin.permissions.update');
     Route::delete('permission/delete/{id}', 'PermissionsController@permissionDelete')->name('admin.permission.delete');
+    
+    Route::get('categories/{parent_id?}', 'categoriesController@categories')->name('admin.categories.list');
+    Route::get('category/edit/{slug}', 'categoriesController@categoryEdit')->name('admin.category.edit');
+    Route::post('category/update/status/{id}', 'categoriesController@categoryUpdateStatus')->name('admin.category.update.status');
+    Route::post('category/add', 'categoriesController@categoryInsert')->name('admin.category.add');
+    Route::post('category/update/{id}', 'categoriesController@categoryUpdate')->name('admin.category.update.post');
+    Route::post('categories/update', 'categoriesController@categoriesUpdate')->name('admin.categories.update');
+    Route::delete('category/delete/{id}', 'categoriesController@categoryDelete')->name('admin.category.delete');
+
 });

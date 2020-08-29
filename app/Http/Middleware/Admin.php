@@ -17,9 +17,20 @@ class Admin
     {
         if (auth()->check()) {
             $user = auth()->user()->roles;
+            // return $user;
             if(auth()->user()->roles->where('slug', 'ADMIN')->first()){
                 return $next($request);
             }
+        }else{
+            
+            session()->put('noty', [
+                'title' => '',
+                'message' => 'ابتدا وارد حساب کاربری خود شوید',
+                'status' => 'error',
+                'data' => '',
+            ]);
+
+            return redirect()->route('login.get');//back();
         }
 
         session()->put('noty', [
@@ -28,6 +39,7 @@ class Admin
             'status' => 'error',
             'data' => '',
         ]);
+
         return back();
         // return $next($request);
     }

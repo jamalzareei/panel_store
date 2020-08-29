@@ -18,6 +18,7 @@ class CreatePropertiesTable extends Migration
             $table->bigInteger('category_id')->nullable()->index();
             $table->string('name', 255)->nullable()->index();
             $table->string('slug', 255)->nullable()->index();
+            $table->string('icon', 255)->nullable();
             $table->string('title', 255)->nullable();
             $table->string('head', 255)->nullable();
             $table->text('meta_keywords')->nullable();
@@ -27,6 +28,7 @@ class CreatePropertiesTable extends Migration
             $table->integer('is_filter')->default(0)->index();
             $table->integer('is_show_less')->default(0)->index();
             $table->bigInteger('website_id')->nullable()->index();
+            $table->integer('order_by')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

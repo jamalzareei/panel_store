@@ -45,9 +45,9 @@ class User extends Authenticatable
         'full_name'
     ];
 
-    // public function roles() {
-	// 	return $this->belongsToMany('App\Models\Role');
-    // }
+    public function roles() {
+		return $this->belongsToMany('App\Models\Role');
+    }
     
     public function getFullNameAttribute() {
         return "{$this->firstname} {$this->lastname}";

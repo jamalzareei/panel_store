@@ -33,6 +33,13 @@
                         </li>
                     </ul>
                 </li>
+
+                <li class=" nav-item"><a href="#"><i class="feather icon-list"></i><span class="menu-title" data-i18n="users">دسته بندی ها</span></a>
+                    <ul class="menu-content">
+                        <li><a href="{{ route('admin.categories.list') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="">لیست دسته بندی ها</span></a>
+                        </li>
+                    </ul>
+                </li>
                 <li class=" navigation-header"><span>Apps</span>
                 </li>
                 <li class=" nav-item"><a href="app-email.html"><i class="feather icon-mail"></i><span class="menu-title" data-i18n="Email">Email</span></a>

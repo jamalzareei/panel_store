@@ -20,6 +20,7 @@ class CreateStatusesTable extends Migration
             $table->morphs('statusable');
             $table->text('details')->nullable();
             $table->integer('active')->unsigned()->nullable()->default(1);
+            $table->integer('order_by')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

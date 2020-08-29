@@ -24,6 +24,7 @@ class CreatePricesTable extends Migration
             $table->timestamp('start_discount_at')->nullable();
             $table->timestamp('end_discount_at')->nullable();
             $table->integer('active')->unsigned()->nullable()->default(1)->index();
+            $table->integer('order_by')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

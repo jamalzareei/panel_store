@@ -112,7 +112,9 @@ class UsersController extends Controller
 
         // test::where('id' ,'>' ,0)->lists('id')->toArray();
         $user = User::where('id',$request->id)->first();
-        $roles = Role::whereIn('slug', $request->roles)->pluck('id')->toArray();
+        $roles = null;
+        if($request->roles)
+            $roles = Role::whereIn('slug', $request->roles)->pluck('id')->toArray();
         // $user->roles()->sync($roles);
 
         // return $roles;// = $request['roles']; //Retreive all roles

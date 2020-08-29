@@ -20,6 +20,7 @@ class CreateLanguagesTable extends Migration
             $table->string('falg', 255)->nullable();
             $table->string('code_country', 255)->nullable();
             $table->integer('active')->unsigned()->nullable()->default(1);
+            $table->integer('order_by')->default(1);
             $table->timestamps();
         });
     }

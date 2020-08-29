@@ -19,6 +19,7 @@ class CreateViewsTable extends Migration
             $table->string('ip')->index();
             $table->text('user_agent');
             $table->string('link')->index();
+            $table->morphs('viewable');
             $table->timestamps();
         });
     }
