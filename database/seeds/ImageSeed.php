@@ -17,7 +17,7 @@ class ImageSeed extends Seeder
         for ($i = 1; $i < 100; $i++) {
 
             DB::table('images')->insert([ //,
-                'path' => 'uploads/'.rand(1,10).'.jpg',
+                'path' => 'images/'.rand(1,10).'.jpg',
                 'imageable_id' => $i,
                 'imageable_type' => 'App\User',
                 
@@ -27,7 +27,7 @@ class ImageSeed extends Seeder
         for ($i = 1; $i < 100; $i++) {
 
             DB::table('images')->insert([ //,
-                'path' => 'uploads/'.rand(1,10).'.jpg',
+                'path' => 'images/'.rand(1,10).'.jpg',
                 'imageable_id' => $i,
                 'imageable_type' => 'App\Models\Product',
                 
@@ -35,7 +35,7 @@ class ImageSeed extends Seeder
             for ($k = 1; $k < 10; $k++) {
 
                 DB::table('images')->insert([ //,
-                    'path' => 'uploads/'.$k.'.jpg',
+                    'path' => 'images/'.$k.'.jpg',
                     'imageable_id' => $i,
                     'imageable_type' => 'App\Models\Product',
                     'default_use' => 'GALLERY'
@@ -47,7 +47,7 @@ class ImageSeed extends Seeder
         for ($i = 1; $i < 100; $i++) {
 
             DB::table('images')->insert([ //,
-                'path' => 'uploads/'.rand(1,10).'.jpg',
+                'path' => 'images/'.rand(1,10).'.jpg',
                 'imageable_id' => $i,
                 'imageable_type' => 'App\Models\Seller',
                 
@@ -55,7 +55,7 @@ class ImageSeed extends Seeder
             for ($k = 1; $k < 10; $k++) {
 
                 DB::table('images')->insert([ //,
-                    'path' => 'uploads/'.$k.'.jpg',
+                    'path' => 'images/'.$k.'.jpg',
                     'imageable_id' => $i,
                     'imageable_type' => 'App\Models\Seller',
                     'default_use' => 'GALLERY'

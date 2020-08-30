@@ -34,10 +34,11 @@
                     </ul>
                 </li>
 
-                <li class=" nav-item"><a href="#"><i class="feather icon-list"></i><span class="menu-title" data-i18n="users">دسته بندی ها</span></a>
+                <li class=" nav-item"><a href="#"><i class="feather icon-list"></i><span class="menu-title" data-i18n="users">لیست ها</span></a>
                     <ul class="menu-content">
-                        <li><a href="{{ route('admin.categories.list') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="">لیست دسته بندی ها</span></a>
-                        </li>
+                        <li><a href="{{ route('admin.categories.list') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="">لیست دسته بندی ها</span></a></li>
+                        <li><a href="{{ route('admin.properties.list') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="">لیست پراپرتی ها</span></a></li>
+                        <li><a href="{{ route('admin.tags.list') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="">لیست تگ ها</span></a></li>
                     </ul>
                 </li>
                 <li class=" navigation-header"><span>Apps</span>

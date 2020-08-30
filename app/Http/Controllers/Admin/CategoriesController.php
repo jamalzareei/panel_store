@@ -83,7 +83,7 @@ class CategoriesController extends Controller
                 'imageUrl' => 'image|max:300|mimes:jpeg,jpg,png',
             ]);
             $date = date('Y-m-d');
-            $path = "uploads/categories/$id/$date";
+            $path = "images/uploads/categories/$id/$date";
             $photos = [$request->imageUrl];
             $photos = UploadService::saveFile($path, $photos);
 
@@ -145,7 +145,7 @@ class CategoriesController extends Controller
             'name' =>  $request->name,
             'parent_id' =>  $request->parent_id ?? 0 ,
             'description_full' =>  $request->description_full,
-            'active_at' => ($request->active) ? Carbon::now() : null,
+            'active_at' => ($request->active_at) ? Carbon::now() : null,
             'show_menu' => ($request->show_menu) ? 1 : 0,
         ]);
 

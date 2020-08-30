@@ -44,9 +44,9 @@
                                     <div class="card-body">
                                         <!-- Nav tabs -->
                                         <ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
-                                            {{-- <li class="nav-item">
+                                            <li class="nav-item">
                                                 <a class="nav-link " id="file-tab-fill" data-toggle="tab" href="#file-fill" role="tab" aria-controls="file-fill" aria-selected="true">فایل (عکس)</a>
-                                            </li> --}}
+                                            </li>
                                             <li class="nav-item">
                                                 <a class="nav-link active" id="info-tab-fill" data-toggle="tab" href="#info-fill" role="tab" aria-controls="info-fill" aria-selected="false">اطلاعات اصلی</a>
                                             </li>
@@ -60,7 +60,7 @@
                                         <form class="ajaxUpload" action="{{ route('admin.property.update.post', ['id'=> $property->id]) }}" action="" method="post">
                                             @csrf
                                             <div class="tab-content pt-1">
-                                                {{-- <div class="tab-pane active" id="file-fill" role="tabpanel" aria-labelledby="file-tab-fill">
+                                                <div class="tab-pane" id="file-fill" role="tabpanel" aria-labelledby="file-tab-fill">
                                                     <fieldset>
                                                         
                                                         <label for="">اپلود عکس دسته بنده (عکس در سایز 512*512 و فرمت jpg) </label>
@@ -69,7 +69,7 @@
                                                         
                                                         <button class="btn btn-primary btn-md my-2 " type="submit"> <i class=""></i> اپلود و ذخیره عکس </button>
                                                     </fieldset>
-                                                </div> --}}
+                                                </div>
                                                 <div class="tab-pane active" id="info-fill" role="tabpanel" aria-labelledby="info-tab-fill">
                                                     <fieldset>
                                                         <div class="row">

@@ -73,4 +73,13 @@ Route::namespace('Admin')->middleware('admin')->prefix('admin')->group(function(
     Route::post('properties/update', 'PropertiesController@propertiesUpdate')->name('admin.properties.update');
     Route::delete('property/delete/{id}', 'PropertiesController@propertyDelete')->name('admin.property.delete');
 
+    
+    Route::get('tags/{category_id?}', 'TagsController@tags')->name('admin.tags.list');
+    Route::get('tag/edit/{slug}', 'TagsController@tagEdit')->name('admin.tag.edit');
+    Route::post('tag/update/status/{id}', 'TagsController@tagUpdateStatus')->name('admin.tag.update.status');
+    Route::post('tag/add', 'TagsController@tagInsert')->name('admin.tag.add');
+    Route::post('tag/update/{id}', 'TagsController@tagUpdate')->name('admin.tag.update.post');
+    Route::post('tags/update', 'TagsController@tagsUpdate')->name('admin.tags.update');
+    Route::delete('tag/delete/{id}', 'TagsController@tagDelete')->name('admin.tag.delete');
+
 });

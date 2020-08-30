@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Property;
+use App\Services\UploadService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -56,7 +57,7 @@ class PropertiesController extends Controller
             'category_id'   =>  $request->category_id,
             'order_by'      =>  $request->order_by,
             'name'          =>  $request->name,
-            'active_at'     => ($request->active) ? Carbon::now() : null,
+            'active_at'     => ($request->active_at) ? Carbon::now() : null,
             'is_filter'     => ($request->is_filter) ? 1 : 0,
         ]);
 
@@ -105,22 +106,22 @@ class PropertiesController extends Controller
             ];
         }
 
-        // $photos = null;
-        // if($request->imageUrl != 'undefined'){
-        //     $request->validate([
-        //         'imageUrl' => 'image|max:300|mimes:jpeg,jpg,png',
-        //     ]);
-        //     $date = date('Y-m-d');
-        //     $path = "uploads/categories/$id/$date";
-        //     $photos = [$request->imageUrl];
-        //     $photos = UploadService::saveFile($path, $photos);
+        $photos = null;
+        if($request->imageUrl != 'undefined'){
+            $request->validate([
+                'imageUrl' => 'image|max:300|mimes:jpeg,jpg,png',
+            ]);
+            $date = date('Y-m-d');
+            $path = "images/uploads/properties/$id/$date";
+            $photos = [$request->imageUrl];
+            $photos = UploadService::saveFile($path, $photos);
 
-        //     if($property->image){
-        //         UploadService::destroyFile($property->image);
-        //     }
+            if($property->image){
+                UploadService::destroyFile($property->image);
+            }
 
-        //     $property->image = $photos;
-        // }
+            $property->image = $photos;
+        }
         
         if($request->active_at){ $property->active_at  = Carbon::now(); }else{ $property->active_at  = null; }
         
