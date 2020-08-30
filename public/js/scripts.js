@@ -13,6 +13,13 @@ $(() => {
         }
     });
 
+    $('.bootstrap-tagsinput input').on('keypress', function(e) {
+        if (e.keyCode == 13) {
+            e.keyCode = 188;
+            e.preventDefault();
+        };
+    });
+
     $(document).on('click', '.icon-rotate-cw', function() {
         $(this).parents('.card').find('input').val('')
         $(this).parents('.card').find('select option[value=""]').prop('selected', true)

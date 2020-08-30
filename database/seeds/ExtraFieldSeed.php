@@ -19,6 +19,7 @@ class ExtraFieldSeed extends Seeder
 
                 \App\Models\Property::create([ //,
                     'name' => Faker::fullname(),
+                    'slug' => $faker->unique()->slug,
                     'category_id' => $i,
                     
                 ]);

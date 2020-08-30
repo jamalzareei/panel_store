@@ -25,7 +25,7 @@
 
         $(document).on('click' , '.action-add', function(){
             var this_ = $(this)
-            $('.ajaxForm').attr('action', "{{route('admin.category.add')}}")
+            $('.ajaxForm').attr('action', "{{route('admin.property.add')}}")
             $('.ajaxForm #data-phone, .ajaxForm #data-email').attr('disabled', false)
             $('.ajaxForm').reset();
             $(".add-new-data").addClass("show");
@@ -67,14 +67,11 @@
     $.fn.dataTable.ext.search.push(
         function( settings, data, dataIndex ) {
 
-            var title = $( 'select[name="title"] option:checked' ).val();
-            var blocked = $( 'select[name="blocked"] option:checked' ).val();
             var status = $( 'select[name="status"] option:checked' ).val();
             var title = $( 'input[name="title"]' ).val();
             var slug = $( 'input[name="slug"]' ).val();
-            var link = $( 'input[name="link"]' ).val();
 
-            if( !data[5].includes(status) ){
+            if( !data[4].includes(status) ){
                 return false;
             }
 
@@ -83,10 +80,6 @@
             }
 
             if(slug && !data[3].includes(slug) ){
-                return false;
-            }
-
-            if(link && !data[4].includes(link) ){
                 return false;
             }
 
@@ -105,42 +98,36 @@
             <div class="heading-elements">
                 <ul class="list-inline mb-0">
                     <li><a data-action="collapse"><i class="feather icon-chevron-down"></i></a></li>
-                    <li><a data-action=""><i class="feather icon-rotate-cw categories-data-filter"></i></a></li>
+                    <li><a data-action=""><i class="feather icon-rotate-cw properties-data-filter"></i></a></li>
                     <li><a data-action="close"><i class="feather icon-x"></i></a></li>
                 </ul>
             </div>
         </div>
         <div class="card-content collapse show">
             <div class="card-body">
-                <div class="categories-list-filter">
+                <div class="properties-list-filter">
                     <form>
                         <div class="row">
-                            <div class="col-12 col-sm-6 col-lg-3">
-                                <label for="categories-list-department">عنوان</label>
+                            <div class="col-12 col-sm-6 col-lg-5">
+                                <label for="properties-list-department">عنوان</label>
                                 <fieldset class="form-group">
-                                    <input type="text" name="title" value="" class="form-control filter" dir="ltr" placeholder="عنوان">
+                                    <input type="text" name="title" value="" class="form-control filter" placeholder="عنوان">
                                 </fieldset>
                             </div>
-                            <div class="col-12 col-sm-6 col-lg-3">
-                                <label for="categories-list-department">اسلاگ</label>
+                            <div class="col-12 col-sm-6 col-lg-5">
+                                <label for="properties-list-department">اسلاگ</label>
                                 <fieldset class="form-group">
                                     <input type="text" name="slug" value="" class="form-control filter" dir="ltr" placeholder="اسلاگ">
                                 </fieldset>
                             </div>
-                            <div class="col-12 col-sm-6 col-lg-3">
-                                <label for="categories-list-department">لینک</label>
+                            <div class="col-12 col-sm-6 col-lg-2">
+                                <label for="properties-list-status">وضعیت</label>
                                 <fieldset class="form-group">
-                                    <input type="text" name="link" value="" class="form-control filter" dir="ltr" placeholder="لینک">
-                                </fieldset>
-                            </div>
-                            <div class="col-12 col-sm-6 col-lg-3">
-                                <label for="categories-list-status">وضعیت</label>
-                                <fieldset class="form-group">
-                                    <select class="form-control filter" name="status" id="categories-list-status">
+                                    <select class="form-control filter" name="status" id="properties-list-status">
                                         <option value="">همه</option>
-                                        <option value="فعال شده">فعال شده</option>
-                                        <option value="غیر فعال شده">غیر فعال شده</option>
-                                        <option value="حذف شده">حذف شده</option>
+                                        <option value="ac-tive">فعال شده</option>
+                                        <option value="deactive">غیر فعال شده</option>
+                                        <option value="deleted">حذف شده</option>
                                     </select>
                                 </fieldset>
                             </div>
@@ -154,9 +141,25 @@
     <section id="data-list-view" class="data-list-view-header">
         <div class="row d-flex div-action-btns" dir="ltr">
             
-            <button type="button" class="btn bg-gradient-info mr-1 waves-effect waves-light action-add-new" data-toggle="modal" data-target="#exampleModalCenter">
-                <i class="feather icon-plus"></i> افزودن دسته بندی جدید
+            <button type="button" class="btn bg-gradient-primary mr-1 waves-effect waves-light action-add-new" data-toggle="modal" data-target="#exampleModalCenter">
+                <i class="feather icon-plus"></i> افزودن پراپرتی جدید
             </button>
+            
+            <a href="{{ route('admin.categories.list') }}" class="btn bg-gradient-info mr-1 waves-effect waves-light action-add-new">
+                <i class="feather icon-list"></i> لیست دسته بندی ها
+            </a>
+            
+            <div class="col-sm-3">
+                <select name="" id="" class="select2" onchange="location = this.value;">
+                    <option value="">انتخاب پراپرتی های دسته انتخابی</option>
+                    @forelse ($categories as $item)
+                        <option value="{{route('admin.properties.list', ['category_id' => $item->id])}}">{{$item->name}}</option>
+                    @empty
+                        
+                    @endforelse
+                </select>
+            </div>
+            
         </div>
             <!-- Modal -->
             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -165,23 +168,20 @@
                     <div class="modal-content">
                         <section class="todo-form">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalCenter">افزودن دسته بندی جدید</h5>
+                                <h5 class="modal-title" id="exampleModalCenter">افزودن پراپرتی جدید</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <form id="add-category" class="todo-input ajaxForm" method="POST" action="{{ route('admin.category.add') }}">
+                            <form id="add-property" class="todo-input ajaxForm" method="POST" action="{{ route('admin.property.add') }}">
                                 @csrf
-                                <input type="hidden" name="parent_id" value="{{$parent_id}}">
+                                <input type="hidden" name="category_id" value="{{$category_id}}">
                                 <div class="modal-body">
                                     <fieldset class="form-group">
                                         <input type="number" class="new-todo-item-title form-control" name="order_by" placeholder="موقعیت نمایش (عددی)">
                                     </fieldset>
                                     <fieldset class="form-group">
                                         <input type="text" class="new-todo-item-title form-control" name="name" placeholder="عنوان">
-                                    </fieldset>
-                                    <fieldset class="form-group">
-                                        <textarea class="new-todo-item-desc form-control" rows="3" name="description_full" placeholder="توضیحات"></textarea>
                                     </fieldset>
                                     <fieldset>
                                         <div class="vs-checkbox-con vs-checkbox-primary">
@@ -196,19 +196,19 @@
                                     </fieldset>
                                     <fieldset>
                                         <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox" name="show_menu" checked value="1">
+                                            <input type="checkbox" name="is_filter" checked value="1">
                                             <span class="vs-checkbox">
                                                 <span class="vs-checkbox--check">
                                                     <i class="vs-icon feather icon-check"></i>
                                                 </span>
                                             </span>
-                                            <span class="">نمایش در منو</span>
+                                            <span class="">جز فیلتر ها باشد؟</span>
                                         </div>
                                     </fieldset>
                                 </div>
                                 <div class="modal-footer">
                                     <fieldset class="form-group position-relative has-icon-left mb-0">
-                                        <button type="submit" class="btn btn-primary add-todo-item waves-effect waves-light" form="add-category">
+                                        <button type="submit" class="btn btn-primary add-todo-item waves-effect waves-light" form="add-property">
                                             <i class="feather icon-check d-block "></i>
                                             <span class="">افزودن </span>
                                         </button>
@@ -224,7 +224,7 @@
                     </div>
                 </div>
             </div>
-        <form action="{{ route('admin.categories.update') }}" method="POST" id="form-datatable">
+        <form action="{{ route('admin.properties.update') }}" method="POST" id="form-datatable">
             @csrf
             <div class="action-btns d-none">
                 <div class="btn-dropdown mr-1 mb-1">
@@ -253,70 +253,58 @@
                             <th>موقعیت</th>
                             <th>نام</th>
                             <th>اسلاگ</th>
-                            <th>لینک</th>
-                            <th>پراپرتی ها</th>
                             <th>وضعیت</th>
                             <th>ACTION</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($categories as $key => $category)
-                            <tr row="{{$category->id}}">
-                                <td col="id">{{$category->id}}</td>
+                        @forelse ($properties as $key => $property)
+                            <tr row="{{$property->id}}">
+                                <td col="id">{{$property->id}}</td>
                                 <td col="order_by" class="" style="width: 10px">
-                                    <div class="hidden">{{$category->order_by}}</div>
+                                    <div class="hidden">{{$property->order_by}}</div>
                                     <div class="input-group input-group-sm">
-                                        <input type="number" class="touchspin" value="{{$category->order_by}}" name="order_by[{{$category->id}}]">
+                                        <input type="number" class="touchspin" value="{{$property->order_by}}" name="order_by[{{$property->id}}]">
                                     </div>
-                                    <input type="hidden" name="ids[]" value="{{$category->id}}">
+                                    <input type="hidden" name="ids[]" value="{{$property->id}}">
                                 </td>
-                                <td col="name" class=""><a href="{{ route('admin.categories.list', ['parent_id'=>$category->id]) }}">{{$category->name}}</a></td>
-                                <td col="slug" class=""><a href="{{ route('admin.categories.list', ['parent_id'=>$category->id]) }}">{{$category->slug}}</a></td>
-                                <td col="link"> 
-                                    <a href="{{($category->link) ? $category->link : 'category/'.$category->slug}}">لینک</a> 
-                                    <span class="hidden">{{$category->link}}</span> 
-                                </td>
-                                <td col="link"> 
-                                    <span class="badge badge-glow">{{$category->properties_count}}</span> 
-                                    @if ($category->properties_active)
-                                        <a href="{{ route('admin.properties.list', ['category_id'=>$category->id]) }}">
-                                            پراپرتی ها
-                                        </a>
-                                    @endif
-                                </td>
+                                <td col="name" class=""><a href="{{ route('admin.property.edit', ['slug'=>$property->slug]) }}">{{$property->name}}</a></td>
+                                <td col="slug" class=""><a href="{{ route('admin.property.edit', ['slug'=>$property->slug]) }}">{{$property->slug}}</a></td>
+                                
                                 <td col="verify">
-                                    @if($category->deleted_at)
+                                    @if($property->deleted_at)
                                     <div class="chip chip-warning">
                                         <div class="chip-body">
                                             <div class="chip-text">حذف شده</div>
+                                            <div class="hidden">deleted</div>
                                         </div>
                                     </div>
-                                    @elseif ($category->active_at)
+                                    @elseif ($property->active_at)
                                         <div class="custom-control custom-switch custom-switch-success switch-md mr-2 mb-1">
-                                        <input type="checkbox" class="custom-control-input" name="active_at[{{$category->id}}]" id="customSwitch{{$category->id}}" checked onclick="changeStatus('{{ route('admin.category.update.status', ['id'=> $category->id]) }}',this)">
-                                            <label class="custom-control-label" for="customSwitch{{$category->id}}">
+                                        <input type="checkbox" class="custom-control-input" name="active_at[{{$property->id}}]" id="customSwitch{{$property->id}}" checked onclick="changeStatus('{{ route('admin.property.update.status', ['id'=> $property->id]) }}',this)">
+                                            <label class="custom-control-label" for="customSwitch{{$property->id}}">
                                                 <span class="switch-text-left">فعال</span>
                                                 <span class="switch-text-right">غیر فعال</span>
                                             </label>
                                         </div>
-                                        <div class="hidden">فعال شده</div>
+                                        <div class="hidden">ac-tive</div>
                                     @else
                                         <div class="custom-control custom-switch custom-switch-success switch-md mr-2 mb-1">
-                                            <input type="checkbox" class="custom-control-input" name="active_at[{{$category->id}}]" id="customSwitch{{$category->id}}" onclick="changeStatus('{{ route('admin.category.update.status', ['id'=> $category->id]) }}',this)">
-                                            <label class="custom-control-label" for="customSwitch{{$category->id}}">
+                                            <input type="checkbox" class="custom-control-input" name="active_at[{{$property->id}}]" id="customSwitch{{$property->id}}" onclick="changeStatus('{{ route('admin.property.update.status', ['id'=> $property->id]) }}',this)">
+                                            <label class="custom-control-label" for="customSwitch{{$property->id}}">
                                                 <span class="switch-text-left">فعال</span>
                                                 <span class="switch-text-right">غیر فعال</span>
                                             </label>
                                         </div>
-                                        <div class="hidden">غیر فعال شده</div>
+                                        <div class="hidden">deactive</div>
                                     @endif
                                     
                                 </td>
                                 <td col="action" class="td-action">
-                                    <a href="{{ route('admin.category.edit', ['slug'=>$category->slug]) }}">
+                                    <a href="{{ route('admin.property.edit', ['slug'=>$property->slug]) }}">
                                         <i class="feather icon-edit"></i>
                                     </a>
-                                    <span class="action-delete" onclick="deleteRow('{{ route('admin.category.delete', ['id'=>$category->id]) }}', '{{$category->id}}')"><i class="feather icon-trash"></i></span>
+                                    <span class="action-delete" onclick="deleteRow('{{ route('admin.property.delete', ['id'=>$property->id]) }}', '{{$property->id}}')"><i class="feather icon-trash"></i></span>
                                 
                                 </td>
                             </tr>
@@ -327,6 +315,9 @@
                     </tbody>
                 </table>
             </div>
+            @if($properties instanceof \Illuminate\Pagination\LengthAwarePaginator )
+                {{ $properties->appends(request()->query())->links('vendor/pagination/vuexy')  }}
+            @endif
             <!-- DataTable ends -->
         </form>
 

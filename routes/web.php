@@ -64,5 +64,13 @@ Route::namespace('Admin')->middleware('admin')->prefix('admin')->group(function(
     Route::post('category/update/{id}', 'categoriesController@categoryUpdate')->name('admin.category.update.post');
     Route::post('categories/update', 'categoriesController@categoriesUpdate')->name('admin.categories.update');
     Route::delete('category/delete/{id}', 'categoriesController@categoryDelete')->name('admin.category.delete');
+    
+    Route::get('properties/{category_id?}', 'PropertiesController@properties')->name('admin.properties.list');
+    Route::get('property/edit/{slug}', 'PropertiesController@propertyEdit')->name('admin.property.edit');
+    Route::post('property/update/status/{id}', 'PropertiesController@propertyUpdateStatus')->name('admin.property.update.status');
+    Route::post('property/add', 'PropertiesController@propertyInsert')->name('admin.property.add');
+    Route::post('property/update/{id}', 'PropertiesController@propertyUpdate')->name('admin.property.update.post');
+    Route::post('properties/update', 'PropertiesController@propertiesUpdate')->name('admin.properties.update');
+    Route::delete('property/delete/{id}', 'PropertiesController@propertyDelete')->name('admin.property.delete');
 
 });

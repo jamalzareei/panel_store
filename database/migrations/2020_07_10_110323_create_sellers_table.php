@@ -26,7 +26,7 @@ class CreateSellersTable extends Migration
             $table->timestamp('expire_at')->nullable();
             $table->timestamp('call_admin_at')->nullable();
             $table->string('name', 255)->nullable()->index();
-            $table->string('slug', 255)->nullable()->index();
+            $table->string('slug', 255)->nullable()->unique()->index();
             $table->string('manager', 255)->nullable();
             $table->text('title')->nullable();
             $table->text('head')->nullable();

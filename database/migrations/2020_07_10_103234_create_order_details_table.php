@@ -18,6 +18,7 @@ class CreateOrderDetailsTable extends Migration
             $table->bigInteger('user_id')->index();
             $table->bigInteger('product_id')->index();
             $table->bigInteger('price_id')->index();
+            $table->decimal('price', 20)->index();
             $table->bigInteger('seller_id');
             $table->bigInteger('admin_id');
             $table->bigInteger('status_id');

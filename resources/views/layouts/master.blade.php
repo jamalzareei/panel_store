@@ -74,6 +74,13 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css-rtl/plugins/extensions/toastr.css') }}">
     <!-- END: Page CSS-->
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css') }}">
+
+    
+    <!-- BEGIN: tag-input JS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets\bootstrap-tagsinput-latest\dist\bootstrap-tagsinput.css') }}">
+    <!-- END: tag-input JS-->
+
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css-rtl/custom-rtl.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style-rtl.css') }}">
@@ -157,6 +164,18 @@
     <!-- BEGIN: Page JS-->
     <script src="{{ asset('app-assets/js/scripts/ui/data-list-view.js') }}"></script>
     <!-- END: Page JS-->
+    
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="{{ asset('app-assets/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}"></script>
+    <!-- END: Page Vendor JS-->
+
+    <!-- BEGIN: Page JS-->
+    <script src="{{ asset('app-assets/js/scripts/forms/number-input.js') }}"></script>
+    <!-- END: Page JS-->
+
+    <!-- BEGIN: tag-input JS-->
+    <script src="{{ asset('assets\bootstrap-tagsinput-latest\dist\bootstrap-tagsinput.js') }}"></script>
+    <!-- END: tag-input JS-->
     
     <script src="{{ asset('app-assets/vendors/js/extensions/toastr.min.js') }}"></script>
 

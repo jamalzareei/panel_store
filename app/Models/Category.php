@@ -24,4 +24,9 @@ class Category extends Model
             ]
         ];
     }
+
+    public function properties()
+    {
+        return $this->hasMany('App\Models\Property');
+    }
 }

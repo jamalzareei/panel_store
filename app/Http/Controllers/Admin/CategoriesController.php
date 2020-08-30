@@ -22,7 +22,8 @@ class CategoriesController extends Controller
             ->when($parent_id == 0, function ($query) {
                 $query->where('parent_id', 0)->orWhere('parent_id', null);
             })
-            ->orderBy('id')
+            ->withCount('properties')
+            ->orderBy('id', 'desc')
             ->get();
         // return $categories;
         return view('admin.categories.list-categories', [

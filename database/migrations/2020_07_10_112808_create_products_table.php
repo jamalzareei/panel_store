@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->bigInteger('seller_id');
             $table->string('name', 255);
             $table->string('code', 255);
-            $table->string('slug', 255);
+            $table->string('slug', 255)->unique();
             $table->string('title', 255)->nullable();
             $table->string('head', 255)->nullable();
             $table->text('meta_keywords')->nullable();
