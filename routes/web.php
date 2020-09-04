@@ -83,3 +83,9 @@ Route::namespace('Admin')->middleware('admin')->prefix('admin')->group(function(
     Route::delete('tag/delete/{id}', 'TagsController@tagDelete')->name('admin.tag.delete');
 
 });
+
+Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(function() {
+    Route::get('/', 'DashboardController@index')->name('seller.dashboard');
+
+    Route::get('/user', 'SellersController@getUserData')->name('seller.user.data');
+});

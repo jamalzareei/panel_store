@@ -21,8 +21,14 @@
                         </li>
                     </ul>
                 </li> --}}
+                
+                @hasanyrole('admin')
                 <li class=" navigation-header"><span>مدیر سطح A</span>
                 </li>
+                <li class=" nav-item"><a href="{{ route('admin.dashboard') }}"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">داشبورد</span></a>
+                @endhasanyrole
+                {{-- @can('edit articles') --}}
+                @hasanyrole('admin')
                 <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="users">کاربران و سطح دسترسی</span></a>
                     <ul class="menu-content">
                         <li><a href="{{ route('admin.users.list') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="">لیست کاربران</span></a>
@@ -33,7 +39,10 @@
                         </li>
                     </ul>
                 </li>
+                @endhasanyrole
+                {{-- @endcan --}}
 
+                @hasanyrole('admin')
                 <li class=" nav-item"><a href="#"><i class="feather icon-list"></i><span class="menu-title" data-i18n="users">لیست ها</span></a>
                     <ul class="menu-content">
                         <li><a href="{{ route('admin.categories.list') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="">لیست دسته بندی ها</span></a></li>
@@ -41,6 +50,15 @@
                         <li><a href="{{ route('admin.tags.list') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="">لیست تگ ها</span></a></li>
                     </ul>
                 </li>
+                @endhasanyrole
+
+                
+                @hasanyrole('seller')
+                <li class=" navigation-header"><span>پنل فروشنده</span></li>
+                <li class=" nav-item"><a href="{{ route('seller.dashboard') }}"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">داشبورد</span></a>
+
+                @endhasanyrole
+
                 <li class=" navigation-header"><span>Apps</span>
                 </li>
                 <li class=" nav-item"><a href="app-email.html"><i class="feather icon-mail"></i><span class="menu-title" data-i18n="Email">Email</span></a>

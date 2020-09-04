@@ -19,7 +19,7 @@ class RolesController extends Controller
         $roles = Role::withCount('users')->withCount('permissions')->get();
 
         $permissions = Permission::whereNull('deleted_at')->get();
-        // return $permissions;
+        // return $roles;
         
         return view('admin.roles.list-roles',[
             'roles' => $roles,

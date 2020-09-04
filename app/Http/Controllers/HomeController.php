@@ -36,7 +36,6 @@ class HomeController extends Controller
         // return $request->all();
         $this->validate($request, [
             'username' => 'required',
-            // 'code_country' => 'required',
             'password' => 'required',
         ]);
         $username = '0098' . ltrim($request->username, '0');
@@ -61,7 +60,7 @@ class HomeController extends Controller
                 // return $user;
                 return redirect()->route('admin.dashboard');
             } else if ($user->roles && $user->roles->where('slug', 'SELLER')->first()) {
-                return 'Seller';
+                // return $user;
                 // return redirect()->route('admin.dashboard');
                 return redirect()->route('seller.dashboard');
             } else {
