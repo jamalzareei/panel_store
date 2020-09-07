@@ -33,6 +33,8 @@ class Admin
             return redirect()->route('login.get');//back();
         }
 
+        auth()->logout();
+
         session()->put('noty', [
             'title' => '',
             'message' => 'شما اجازه دسترسی به این بخش را ندارید.',

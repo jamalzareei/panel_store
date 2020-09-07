@@ -7,7 +7,8 @@ Colors
 #0C4648
 */
 
-html,
+
+/* html,
 body {
     height: 100%;
     padding: 0;
@@ -63,7 +64,7 @@ footer {
 
 section {
     margin-bottom: 25px;
-}
+} */
 
 section.hero {
     background: #20C1C7;
@@ -88,13 +89,14 @@ section.who {
     padding: 5px 0;
 }
 
-input[type="number"],
+
+/* input[type="number"],
 input[type="text"] {
     border: 1px solid #aaa;
     padding: 5px;
     font-size: 18px;
     width: 100px;
-}
+} */
 
 input[type="file"] {
     cursor: pointer;
@@ -155,7 +157,7 @@ h2 {
 }
 
 .demo-wrap {
-    border-bottom: 1px solid #ddd;
+    /* border-bottom: 1px solid #ddd; */
     padding-top: 20px;
 }
 
@@ -169,6 +171,8 @@ h2 {
     font-weight: 400;
     color: #aaa;
     margin: 0 0 5px 0;
+    text-align: center;
+    width: 100%;
 }
 
 .documentation ul {
@@ -242,12 +246,12 @@ h2 {
 
 .upload-msg {
     text-align: center;
-    padding: 50px;
+    padding: 20% 0;
     font-size: 22px;
     color: #aaa;
-    width: 260px;
-    margin: 50px auto;
-    border: 1px solid #aaa;
+    border: 1px dashed #aaa;
+    width: 100%;
+    cursor: pointer;
 }
 
 
@@ -270,18 +274,19 @@ h2 {
 }
 
 [class*='col-'] {
-    float: left;
-    padding-right: 20px;
+    /* float: left; */
+    /* padding-right: 20px; */
     /* column-space */
 }
 
-.grid {
+
+/* .grid {
     width: 100%;
     max-width: 1140px;
     min-width: 755px;
     margin: 0 auto;
     overflow: hidden;
-}
+} */
 
 .grid:after {
     content: "";
@@ -289,23 +294,23 @@ h2 {
     clear: both;
 }
 
-.col-1-2 {
+.demo-wrap.upload-demo .col-1-2 {
     width: 50%;
 }
 
-.col-1-3 {
+.demo-wrap.upload-demo .col-1-3 {
     width: 33.33%;
 }
 
-.col-2-3 {
+.demo-wrap.upload-demo .col-2-3 {
     width: 66.66%;
 }
 
-.col-1-4 {
+.demo-wrap.upload-demo .col-1-4 {
     width: 25%;
 }
 
-.col-3-4 {
+.demo-wrap.upload-demo .col-3-4 {
     width: 75%;
 }
 
@@ -322,11 +327,11 @@ only screen and (max-width: 767px) {
         /* grid-space to right: (grid-space-left - column-space) e.g. 20px-10px=10px */
     }
     [class*='col-'] {
-        width: auto;
-        float: none;
-        margin: 10px 0;
-        padding-left: 0;
-        padding-right: 10px;
+        /* width: auto; */
+        /* float: none; */
+        /* margin: 10px 0; */
+        /* padding-left: 0; */
+        /* padding-right: 10px; */
         /* column-space */
     }
     .container,

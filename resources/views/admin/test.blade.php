@@ -1,4 +1,4 @@
-@extends('layout.blade')
+@extends('layouts/master')
 
 @section('head')
     

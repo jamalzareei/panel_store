@@ -30,3 +30,9 @@
 .bootstrap-tagsinput {
     width: 100%;
 }
+
+.user-circle {
+    height: 150px;
+    border-radius: 50%;
+    width: 150px;
+}

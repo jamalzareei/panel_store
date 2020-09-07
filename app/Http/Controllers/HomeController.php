@@ -25,7 +25,17 @@ class HomeController extends Controller
     public function index()
     {
         if(auth()->check()){
-            return redirect()->route('admin.dashboard');
+            $user = Auth::user()->roles;
+            // return $user->where('slug', 'SELLER')->first();
+            // if()
+            if ($user->where('slug', 'ADMIN')->first()){
+                return redirect()->route('admin.dashboard');
+            }else if($user->where('slug', 'SELLER')->first()){
+                return redirect()->route('seller.dashboard');
+            }else{
+                auth()->logout();
+            }
+            return redirect()->route('login');
         }
         return view('login');
     }

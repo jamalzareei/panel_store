@@ -17,30 +17,28 @@
     <div class="container">
         <div class="grid">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="row">
-                        <strong>Upload Example (with exif orientation compatability)</strong>
+                        <strong>{{$head}}</strong>
 
                         <div class="actions">
                             <a class="btn file-btn">
                                 <span class="btn btn-primary">انتخاب عکس</span>
                                 <input type="file" id="upload" value="Choose a file" accept="image/*" />
+                                <input type="hidden" name="image_file" class="image_file">
+                                {{-- <img src="" alt="" id="preview_image_crop" class="m-auto"> --}}
                             </a>
                             <button class="upload-result btn btn-primary btn-md my-2 " type="submit"><i></i>ارسال جهت بررسی</button>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="upload-msg">
+                        <label for="upload" class="upload-msg">
                             انتخاب عکس
-                        </div>
+                        </label>
                         <div class="upload-demo-wrap">
                             <div id="upload-demo"></div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 m-auto">
-                    <img src="" alt="" id="preview_image_crop" class="m-auto">
-                    <input type="hidden" name="image_file" id="image_file">
                 </div>
             </div>
 
@@ -65,7 +63,7 @@
                     }).then(function(resp) {
                         console.log('jQuery bind complete');
 
-                        $('#image_file').val(resp);
+                        $('.image_file').val(resp);
                     });
 
                 }
@@ -80,7 +78,7 @@
             viewport: {
                 width: 200,
                 height: 200,
-                // type: 'circle'
+                type: "{{$type ? $type : ''}}"// 'circle'
             },
             enableExif: true
         });
@@ -97,7 +95,7 @@
                 // popupResult({
                 // 	src: resp
                 // });
-                $('#image_file').val(resp);
+                $('.image_file').val(resp);
                 $('#preview_image_crop').attr('src', resp)
                     // console.log(resp)
             });

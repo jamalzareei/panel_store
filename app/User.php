@@ -49,8 +49,26 @@ class User extends Authenticatable
 		return $this->belongsToMany('App\Models\Role');
     }
     
+    public function country()
+    {
+        return $this->belongsTo('App\Models\Country');
+    }
+    public function state()
+    {
+        return $this->belongsTo('App\Models\State');
+    }
+    public function city()
+    {
+        return $this->belongsTo('App\Models\City');
+    }
+
     public function getFullNameAttribute() {
         return "{$this->firstname} {$this->lastname}";
+    }
+
+    public function image()
+    {
+        return $this->morphMany('App\Models\Image', 'imageable');
     }
 
     // public function permissions()

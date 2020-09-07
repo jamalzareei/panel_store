@@ -55,7 +55,12 @@
                 
                 @hasanyrole('seller')
                 <li class=" navigation-header"><span>پنل فروشنده</span></li>
-                <li class=" nav-item"><a href="{{ route('seller.dashboard') }}"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">داشبورد</span></a>
+                <li class=" nav-item"><a href="{{ route('seller.dashboard') }}">
+                    <i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">داشبورد</span>
+                </a>
+                <li class=" nav-item"><a href="{{ route('seller.user.data') }}">
+                    <i class="feather icon-user"></i><span class="menu-title" data-i18n="Dashboard">اطلاعات کاربری</span>
+                </a>
 
                 @endhasanyrole
 

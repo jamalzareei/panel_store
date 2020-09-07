@@ -84,8 +84,13 @@ Route::namespace('Admin')->middleware('admin')->prefix('admin')->group(function(
 
 });
 
+Route::get('/get-countries', 'Admin\LocationController@getCountries')->name('get.countries.location');
+Route::get('/get-states/{country_id?}', 'Admin\LocationController@getStates')->name('get.states.location');
+Route::get('/get-cities/{state_id?}', 'Admin\LocationController@getCities')->name('get.cities.location');
+
 Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(function() {
     Route::get('/', 'DashboardController@index')->name('seller.dashboard');
 
-    Route::get('/user', 'SellersController@getUserData')->name('seller.user.data');
+    Route::get('/user', 'UsersController@getUserData')->name('seller.user.data');
+    Route::post('/user', 'UsersController@postUserData')->name('seller.user.data.post');
 });

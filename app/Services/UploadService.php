@@ -141,6 +141,43 @@ class UploadService
         }
     }
 
+    public static function convertBase64toPng($path, $base64)
+    {
+        # code...
+        ini_set("memory_limit","256M");
+
+        $path_ = config('shixeh.path_upload') . $path;
+        $path_save = $path_;
+        $pathFull = public_path($path_);
+        // $photos = $request->file('file');
+
+        if (!is_dir($pathFull)) {
+            mkdir($pathFull, 0777, true);
+        }
+        $data = base64_decode($base64);
+
+        $imageName = sha1(date('YmdHis') . Str::random(40)).'.jpg';
+        
+        $data = $base64;
+        
+        list($type, $data) = explode(';', $data);
+        list(, $data)      = explode(',', $data);
+        $data = base64_decode($data);
+
+        file_put_contents("$pathFull/$imageName", $data);
+
+        return "$path/$imageName";
+        // return $pathFull;
+        // http://localhost/httpdocs/files/uploads/users/gallery/b2ff3966e4a6ea6ace214414711d33e14779023e.jpg
+        //a199d270cbac85e46350e4f4db12f6dbe231305b.png
+        // https://cerampakhsh.com/files/uploads/pardis/163-0106505002020101.jpg
+
+        // $this->CroppedThumbnail("https://cerampakhsh.com/files/uploads/users/gallery/$imageName", 490, 300, "$pathFull");
+        // return "https://cerampakhsh.com/files/uploads/users/gallery/$imageName";
+        ///////////////////////
+
+    }
+
     public static function saveFileWithOrginalName($path, $photos,$filename_=null)
     {
         $path = '../../cdn.shixeh.local/public/files/' . $path;
