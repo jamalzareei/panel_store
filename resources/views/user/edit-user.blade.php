@@ -20,7 +20,7 @@
 
 @section('content')
     
-<form action="{{ route('seller.user.data.post') }}" method="post" class="ajaxForm">
+<form action="{{ route('user.data.post') }}" method="post" class="ajaxForm">
     @csrf
     
     <div class="content-body">
@@ -37,11 +37,7 @@
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-12 text-center mb-3">
-                                            @if ($user->image && $user->image[0] && $user->image[0]->path)
-                                                <img src="{{config('shixeh.cdn_domain')}}/{{$user->image[0]->path}}" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
-                                            @else
-                                                <img src="{{config('shixeh.cdn_domain')}}/assets/images/logo.png" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
-                                            @endif
+                                            
                                             <input type="hidden" name="image_file" class="image_file">
                                             <p class="text-info">برای تغییر عکس پروفایل از باکس سمت چپ عکس خود را انتخاب نمایید.</p>
                                             <small class="help-block text-danger error-image_file w-100 m-1 row text-center"></small>
@@ -134,7 +130,14 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                @include('components.sections.crop', ['head'=> 'عکس پروفایل', 'type' => 'circle'])
+                                <div class="text-center">
+                                    @if ($user->image && $user->image[0] && $user->image[0]->path)
+                                        <img src="{{config('shixeh.cdn_domain')}}/{{$user->image[0]->path}}" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
+                                    @else
+                                        <img src="{{config('shixeh.cdn_domain')}}/assets/images/logo.png" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
+                                    @endif
+                                </div>
+                                @include('components.sections.crop', ['head'=> '', 'type' => 'circle'])
                                 
                             </div>
                         </div>

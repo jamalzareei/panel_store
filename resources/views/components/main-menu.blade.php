@@ -58,9 +58,23 @@
                 <li class=" nav-item"><a href="{{ route('seller.dashboard') }}">
                     <i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">داشبورد</span>
                 </a>
-                <li class=" nav-item"><a href="{{ route('seller.user.data') }}">
-                    <i class="feather icon-user"></i><span class="menu-title" data-i18n="Dashboard">اطلاعات کاربری</span>
-                </a>
+                
+                <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="users">کاربری</span></a>
+                    <ul class="menu-content">
+                        <li class=" nav-item"><a href="{{ route('user.data') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">اطلاعات کاربری</span>
+                        </a>
+                        <li class=" nav-item"><a href="{{ route('user.data.email') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تغییر ایمیل</span>
+                        </a>
+                        <li class=" nav-item"><a href="{{ route('user.data.phone') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تغییر تلفن</span>
+                        </a>
+                        <li class=" nav-item"><a href="{{ route('user.data.change.password') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تغییر رمز عبور</span>
+                        </a>
+                    </ul>
+                </li>
 
                 @endhasanyrole
 

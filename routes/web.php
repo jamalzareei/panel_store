@@ -84,6 +84,21 @@ Route::namespace('Admin')->middleware('admin')->prefix('admin')->group(function(
 
 });
 
+Route::namespace('User')->middleware('auth')->prefix('user')->group(function() {
+    Route::get('/user', 'UsersController@getUserData')->name('user.data');
+    Route::post('/user', 'UsersController@postUserData')->name('user.data.post');
+
+    Route::get('/user/email', 'UsersController@userMail')->name('user.data.email');
+    Route::post('/user/email', 'UsersController@postUserMail')->name('user.data.email.post');
+    
+    Route::get('/user/phone', 'UsersController@userPhone')->name('user.data.phone');
+    Route::post('/user/phone', 'UsersController@postUserPhone')->name('user.data.phone.post');
+    
+    Route::get('/user/change-password', 'UsersController@userChangePassword')->name('user.data.change.password');
+    Route::post('/user/change-password', 'UsersController@postUserChangePassword')->name('user.data.change.password.post');
+
+});
+
 Route::get('/get-countries', 'Admin\LocationController@getCountries')->name('get.countries.location');
 Route::get('/get-states/{country_id?}', 'Admin\LocationController@getStates')->name('get.states.location');
 Route::get('/get-cities/{state_id?}', 'Admin\LocationController@getCities')->name('get.cities.location');
@@ -91,6 +106,16 @@ Route::get('/get-cities/{state_id?}', 'Admin\LocationController@getCities')->nam
 Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(function() {
     Route::get('/', 'DashboardController@index')->name('seller.dashboard');
 
-    Route::get('/user', 'UsersController@getUserData')->name('seller.user.data');
-    Route::post('/user', 'UsersController@postUserData')->name('seller.user.data.post');
+    // Route::get('/user', 'UsersController@getUserData')->name('seller.user.data');
+    // Route::post('/user', 'UsersController@postUserData')->name('seller.user.data.post');
+
+    // Route::get('/user/email', 'UsersController@userMail')->name('seller.user.data.email');
+    // Route::post('/user/email', 'UsersController@postUserMail')->name('seller.user.data.email.post');
+    
+    // Route::get('/user/phone', 'UsersController@userPhone')->name('seller.user.data.phone');
+    // Route::post('/user/phone', 'UsersController@postUserPhone')->name('seller.user.data.phone.post');
+    
+    // Route::get('/user/change-password', 'UsersController@userChangePassword')->name('seller.user.data.change.password');
+    // Route::post('/user/change-password', 'UsersController@postUserChangePassword')->name('seller.user.data.change.password.post');
+
 });

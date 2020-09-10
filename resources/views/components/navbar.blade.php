@@ -149,7 +149,7 @@
                         </ul>
                     </li>
                     <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                    <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">{{auth()->user()->full_name}}</span><span class="user-status">آنلاین</span></div><span><img class="round" src="{{ asset('app-assets/images/portrait/small/avatar-s-11.jpg') }}" alt="avatar" height="40" width="40"></span>
+                    <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">{{auth()->user()->full_name ?? ''}}</span><span class="user-status">آنلاین</span></div><span><img class="round" src="{{ asset('app-assets/images/portrait/small/avatar-s-11.jpg') }}" alt="avatar" height="40" width="40"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="page-user-profile.html"><i class="feather icon-user"></i> ویرایش اطلاعات</a><a class="dropdown-item" href="app-email.html"><i class="feather icon-mail"></i> پیام های دریافتی</a><a class="dropdown-item" href="app-todo.html"><i class="feather icon-check-square"></i> موارد پیش رو</a><a class="dropdown-item" href="app-chat.html"><i class="feather icon-message-square"></i> گفتگو و تیکت</a>
                             <div class="dropdown-divider"></div><a class="dropdown-item" href="{{ route('logout.user') }}"><i class="feather icon-power"></i> خروج</a>
