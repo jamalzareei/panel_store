@@ -71,8 +71,8 @@ class User extends Authenticatable
         return $this->morphMany('App\Models\Image', 'imageable');
     }
 
-    // public function permissions()
-    // {
-    //     return $this->hasManyThrough('App\Models\Permission', 'App\User');
-    // }
+    public function seller()
+    {
+        return $this->hasOne('App\Models\Seller');
+    }
 }

@@ -30,7 +30,7 @@ Route::get('/auth', 'HomeController@index')->name('auth.login.get');
 
 Route::post('/auth-login', 'HomeController@login')->name('auth.login.post');
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
@@ -118,6 +118,6 @@ Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(functi
     // Route::get('/user/change-password', 'UsersController@userChangePassword')->name('seller.user.data.change.password');
     // Route::post('/user/change-password', 'UsersController@postUserChangePassword')->name('seller.user.data.change.password.post');
 
-    Route::get('/user', 'SellersController@sellerDataGet')->name('seller.data.get');
-    Route::post('/user', 'SellersController@sellerDataPost')->name('seller.data.post');
+    Route::get('/edit-seller', 'SellersController@sellerDataGet')->name('seller.data.get');
+    Route::post('/edit-seller', 'SellersController@sellerDataPost')->name('seller.data.post');
 });

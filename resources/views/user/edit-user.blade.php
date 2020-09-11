@@ -107,7 +107,7 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="password-icon">آدرس</label>
-                                                @include('components.sections.location', ['countries' => $countries, 'user' => $user])
+                                                @include('components.sections.location', ['countries' => $countries, 'country' => $user->country, 'state' => $user->state, 'city' => $user->city])
                                                 <small class="help-block text-danger error-country_id"></small>
                                                 <small class="help-block text-danger error-state_id"></small>
                                                 <small class="help-block text-danger error-city_id"></small>
@@ -131,7 +131,7 @@
                         <div class="card-content">
                             <div class="card-body">
                                 <div class="text-center">
-                                    @if ($user->image && $user->image[0] && $user->image[0]->path)
+                                    @if ($user->image && isset($user->image[0]) && $user->image[0]->path)
                                         <img src="{{config('shixeh.cdn_domain')}}/{{$user->image[0]->path}}" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                     @else
                                         <img src="{{config('shixeh.cdn_domain')}}/assets/images/logo.png" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">

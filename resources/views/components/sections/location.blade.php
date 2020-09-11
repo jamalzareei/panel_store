@@ -2,8 +2,8 @@
     <div class="col-4">
         <select name="country_id" id="" class="select2">
             <option value="">کشور</option>
-            @if ($user->country)
-                <option selected value="{{$user->country->id}}">{{$user->country->name}}</option>
+            @if ($country)
+                <option selected value="{{$country->id}}">{{$country->name}}</option>
             @endif
             @foreach($countries as $country)
                 <option value="{{$country->id}}">{{$country->name}}</option>
@@ -13,16 +13,16 @@
     <div class="col-4">
         <select name="state_id" id="" class="select2">
             <option value="">استان</option>
-            @if ($user->state)
-                <option selected value="{{$user->state->id}}">{{$user->state->name}}</option>
+            @if ($state)
+                <option selected value="{{$state->id}}">{{$state->name}}</option>
             @endif
         </select>
     </div>
     <div class="col-4">
         <select name="city_id" id="" class="select2">
             <option value="">شهر</option>
-            @if ($user->city)
-                <option selected value="{{$user->city->id}}">{{$user->city->name}}</option>
+            @if ($city)
+                <option selected value="{{$city->id}}">{{$city->name}}</option>
             @endif
         </select>
     </div>

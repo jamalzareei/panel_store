@@ -36,7 +36,7 @@
                 </a></li>
                 @endhasanyrole
 
-                <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="users">کاربری</span></a>
+                <li class=" nav-item"><a href="#"><i class="feather icon-user-check"></i><span class="menu-title" data-i18n="users">کاربری</span></a>
                     <ul class="menu-content">
                         <li class=" nav-item"><a href="{{ route('user.data') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">اطلاعات کاربری</span>
@@ -79,7 +79,7 @@
             
                 <li class=" nav-item"><a href="#"><i class="feather icon-shopping-bag"></i><span class="menu-title" data-i18n="users">فروشنده</span></a>
                     <ul class="menu-content">
-                        <li class=" nav-item"><a href="{{ route('user.data') }}">
+                        <li class=" nav-item"><a href="{{ route('seller.data.get') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">اطلاعات نمایشی</span>
                         </a></li>
                         <li class=" nav-item"><a href="{{ route('user.data.email') }}">
