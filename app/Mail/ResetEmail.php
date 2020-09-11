@@ -12,15 +12,17 @@ class ResetEmail extends Mailable
     use Queueable, SerializesModels;
 
     private $data;
+    private $mailSender;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($data, $mailSender)
     {
         //
         $this->data = $data;
+        $this->mailSender = $mailSender;
     }
 
     /**
@@ -34,7 +36,7 @@ class ResetEmail extends Mailable
         // return $this->from('info@shixeh.com')
         //             ->subject($this->data->subject)
         //             ->view('mails.forms');
-        return $this->from('info@shixeh.com')
+        return $this->from($this->mailSender)
             ->subject($this->data['subject'])
             ->markdown('vendor.mail.html.message')->with([
             'slot'=>$this->data['message'],

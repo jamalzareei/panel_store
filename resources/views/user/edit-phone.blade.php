@@ -8,8 +8,8 @@
     <script>
         $(() => {
             $('#show-codes').click(function(){
-                var email = $('[name="email"]').val();
-                if(email){
+                var phone = $('[name="phone"]').val();
+                if(phone){
                     $('.codes-box').show();
                     $(this).hide();
 
@@ -36,51 +36,38 @@
                             <div class="card-body">
                                 <div class="form-body">
                                     <div class="row">
-                                        <form action="{{ route('user.data.email.post') }}" method="post" class="ajaxForm w-100">
+                                        <form action="{{ route('user.data.phone.post') }}" method="post" class="ajaxForm w-100">
                                             @csrf
                                             <div class="col-12">
 
                                                 <div class="col-12">
                                                     <div class="form-group">
-                                                        <label for="email">ایمیل ({{$user->email}})</label>
+                                                        <label for="phone">شماره همراه ({{$user->phone}})</label>
                                                         <div class="position-relative has-icon-left">
-                                                            <input type="text" dir="ltr" id="email" class="form-control" name="email" placeholder="ایمیل جدید خود را وارد نمایید..." value="">
+                                                            <input type="text" dir="ltr" id="phone" class="form-control" name="phone" placeholder="شماره همراه جدید خود را وارد نمایید..." value="">
                                                             <div class="form-control-position">
-                                                                <i class="feather icon-email"></i>
+                                                                <i class="feather icon-phone"></i>
                                                             </div>
-                                                            <small class="help-block text-danger error-email"></small>
+                                                            <small class="help-block text-danger error-phone"></small>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 
                                                 <div class="col-12">
-                                                    <button type="submit" id="show-codes" class="btn btn-primary mr-1 mb-1"> ارسال کد تایید </button>
+                                                    <button type="submit" id="show-codes" class="btn btn-primary mr-1 mb-1"><i></i> ارسال کد تایید </button>
                                                 </div>
                                             
                                             </div>
 
                                             <div class="col-12 codes-box" style="display: none">
-                                                <p class="text-info"> کد ارسال شده به ایمیل خود را وارد نمایید. </p>
+                                                <p class="text-info"> کد تاییدیه به شماره همراه شما ارسال گردید. </p>
                                                 <div class="row">
 
-                                                    {{-- <div class="col-6">
-                                                        <div class="form-group">
-                                                            <label for="email">کد تاییدیه ایمیل </label>
-                                                            <div class="position-relative has-icon-left">
-                                                                <input type="text" id="code_old" class="form-control" name="code_old" placeholder="کد تاییدیه ایمیل {{$user->email}}" value="">
-                                                                <div class="form-control-position">
-                                                                    <i class="feather icon-user"></i>
-                                                                </div>
-                                                                <small class="text-warning">{{$user->email}}</small>
-                                                                <small class="help-block text-danger error-code_old"></small>
-                                                            </div>
-                                                        </div>
-                                                    </div> --}}
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label for="code_new">کد تاییدیه ایمیل جدید</label>
+                                                            <label for="code_new">کد تاییدیه شماره همراه جدید</label>
                                                             <div class="position-relative has-icon-left">
-                                                                <input type="text" dir="ltr" id="code_new" class="form-control" name="code_new" placeholder="کد تاییدیه ایمیل جدید" value="">
+                                                                <input type="text" dir="ltr" id="code_new" class="form-control" name="code_new" placeholder="کد تاییدیه شماره همراه جدید" value="">
                                                                 <div class="form-control-position">
                                                                     <i class="feather icon-code"></i>
                                                                 </div>
@@ -91,7 +78,7 @@
                                                 </div>
                                                 
                                                 <div class="col-12">
-                                                    <button type="submit" class="btn btn-primary mr-1 mb-1"> تایید ایمیل  </button>
+                                                    <button type="submit" class="btn btn-primary mr-1 mb-1"><i></i> تایید شماره همراه  </button>
                                                 </div>
                                             </div>
                                         </form>

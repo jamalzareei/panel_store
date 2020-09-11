@@ -27,6 +27,32 @@
                 </li>
                 <li class=" nav-item"><a href="{{ route('admin.dashboard') }}"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">داشبورد</span></a>
                 @endhasanyrole
+                
+                
+                @hasanyrole('seller')
+                <li class=" navigation-header"><span>پنل فروشنده</span></li>
+                <li class=" nav-item"><a href="{{ route('seller.dashboard') }}">
+                    <i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">داشبورد</span>
+                </a></li>
+                @endhasanyrole
+
+                <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="users">کاربری</span></a>
+                    <ul class="menu-content">
+                        <li class=" nav-item"><a href="{{ route('user.data') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">اطلاعات کاربری</span>
+                        </a></li>
+                        <li class=" nav-item"><a href="{{ route('user.data.email') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تغییر ایمیل</span>
+                        </a></li>
+                        <li class=" nav-item"><a href="{{ route('user.data.phone') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تغییر تلفن</span>
+                        </a></li>
+                        <li class=" nav-item"><a href="{{ route('user.data.change.password') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تغییر رمز عبور</span>
+                        </a></li>
+                    </ul>
+                </li>
+                
                 {{-- @can('edit articles') --}}
                 @hasanyrole('admin')
                 <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="users">کاربران و سطح دسترسی</span></a>
@@ -39,10 +65,7 @@
                         </li>
                     </ul>
                 </li>
-                @endhasanyrole
-                {{-- @endcan --}}
-
-                @hasanyrole('admin')
+                
                 <li class=" nav-item"><a href="#"><i class="feather icon-list"></i><span class="menu-title" data-i18n="users">لیست ها</span></a>
                     <ul class="menu-content">
                         <li><a href="{{ route('admin.categories.list') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="">لیست دسته بندی ها</span></a></li>
@@ -52,30 +75,34 @@
                 </li>
                 @endhasanyrole
 
-                
                 @hasanyrole('seller')
-                <li class=" navigation-header"><span>پنل فروشنده</span></li>
-                <li class=" nav-item"><a href="{{ route('seller.dashboard') }}">
-                    <i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">داشبورد</span>
-                </a>
-                
-                <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="users">کاربری</span></a>
+            
+                <li class=" nav-item"><a href="#"><i class="feather icon-shopping-bag"></i><span class="menu-title" data-i18n="users">فروشنده</span></a>
                     <ul class="menu-content">
                         <li class=" nav-item"><a href="{{ route('user.data') }}">
-                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">اطلاعات کاربری</span>
-                        </a>
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">اطلاعات نمایشی</span>
+                        </a></li>
                         <li class=" nav-item"><a href="{{ route('user.data.email') }}">
-                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تغییر ایمیل</span>
-                        </a>
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تعریف و لیست شعبه ها</span>
+                        </a></li>
                         <li class=" nav-item"><a href="{{ route('user.data.phone') }}">
-                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تغییر تلفن</span>
-                        </a>
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تنظیمات فروشگاه</span>
+                        </a></li>
                         <li class=" nav-item"><a href="{{ route('user.data.change.password') }}">
-                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تغییر رمز عبور</span>
-                        </a>
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">شبکه های اجتماعی</span>
+                        </a></li>
                     </ul>
                 </li>
-
+                <li class=" nav-item"><a href="#"><i class="fa fa-money"></i><span class="menu-title" data-i18n="users">اطلاعات مالی</span></a>
+                    <ul class="menu-content">
+                        <li class=" nav-item"><a href="{{ route('user.data') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">اضافه / ویرایش حساب </span>
+                        </a></li>
+                        <li class=" nav-item"><a href="{{ route('user.data.email') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">لیست تراکنش ها</span>
+                        </a></li>
+                    </ul>
+                </li>
                 @endhasanyrole
 
                 <li class=" navigation-header"><span>Apps</span>

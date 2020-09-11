@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Mail\ResetEmail;
 use App\Models\Country;
 use App\Models\Image;
+use App\Services\kavenegarService;
 use App\Services\UploadService;
 use App\User;
 use Carbon\Carbon;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
@@ -109,33 +111,26 @@ class UsersController extends Controller
     public function postUserMail(Request $request)
     {
         # code...
-        // return $request->all();
-        /*
-        code_new: null
-code_old: null
-email: null
-*/
-
-// $request->validate([
-//     'email' => 'required|unique:users,email'
-// ]);
+        $request->validate([
+            'email' => 'required|unique:users,email'
+        ]);
 
         $user = Auth::user();
 
-        if($request->code_new && $request->code_old){
+        if($request->code_new){
             // return $request->all();
-            if($user->email_confirm_code != $request->code_old){
+            if($user->email_confirm_code != $request->code_new){
                 return response()->json([
                     'status' => 'error',
                     'errors' => ['code_old' => ['کد وارد شده معتبر نیست.']],
                 ], 422);
             }
-            if(session('codeNew') && session('codeNew') != $request->code_new){
-                return response()->json([
-                    'status' => 'error',
-                    'errors' => ['code_new' => ['کد وارد شده معتبر نیست.']],
-                ], 422);
-            }
+            // if(session('codeNew') && session('codeNew') != $request->code_new){
+            //     return response()->json([
+            //         'status' => 'error',
+            //         'errors' => ['code_new' => ['کد وارد شده معتبر نیست.']],
+            //     ], 422);
+            // }
 
             $user->email = $request->email;
             $user->email_verified_at = Carbon::now();
@@ -151,21 +146,18 @@ email: null
             ];
 
         }else{
-            $request->validate([
-                'email' => 'required|unique:users,email'
-            ]);
 
-            $codeOld = rand(1000,9999);
-            $dataOld = [
-                'subject' => 'کد تاییدیه ایمیل',
-                'title' => 'کد تاییدیه ایمیل',
-                'message' => $codeOld,
-            ];
-            // return $dataOld;
-            Mail::to($user->email)->send(new ResetEmail($dataOld));
+            // $codeOld = rand(1000,9999);
+            // $dataOld = [
+            //     'subject' => 'کد تاییدیه ایمیل',
+            //     'title' => 'کد تاییدیه ایمیل',
+            //     'message' => $codeOld,
+            // ];
+            // // return $dataOld;
+            // Mail::to($user->email)->send(new ResetEmail($dataOld));
 
-            $user->email_confirm_code = $codeOld;
-            $user->save();
+            // $user->email_confirm_code = $codeOld;
+            // $user->save();
             
             $codeNew = rand(1000,9999);
             $dataNew = [
@@ -173,8 +165,11 @@ email: null
                 'title' => 'کد تاییدیه ایمیل',
                 'message' => $codeNew,
             ];
-            session()->put('codeNew', $codeNew);
-            Mail::to($request->email)->send(new ResetEmail($dataNew));
+            // session()->put('codeNew', $codeNew);
+            Mail::to($request->email)->send(new ResetEmail($dataNew, config('shixeh.mailNoReply')));
+            
+            $user->email_confirm_code = $codeNew;
+            $user->save();
 
             return [
                 'status' => 'success',
@@ -190,23 +185,112 @@ email: null
         # code...
         $user = User::where('id', Auth::id())->first();
 
-        return $user;
+        // return $user;
 
         return view('user.edit-phone', [
             'title' => 'تغییر تلفن',
             'user' => $user,
         ]);
     }
+
+    
+    public function postUserPhone(Request $request)
+    {
+        # code...
+        $request->validate([
+            'phone' => 'required|unique:users,phone'
+        ]);
+
+        $user = Auth::user();
+
+        if($request->code_new){
+            // return $request->all();
+            if($user->phone_confirm_code != $request->code_new){
+                return response()->json([
+                    'status' => 'error',
+                    'errors' => ['code_old' => ['کد وارد شده معتبر نیست.']],
+                ], 422);
+            }
+
+            $username = '0098' . ltrim($request->phone, '0');
+            $user->phone = $request->phone;
+            $user->username = $username;
+            $user->phone_verified_at = Carbon::now();
+            $user->save();
+
+            
+            return [
+                'status' => 'success',
+                'title' => '',
+                'message' => 'شماره تلفن با موفقیت تغییر پیدا کرد.',
+                'data' => '',
+                'autoRedirect' => route('user.data.phone')
+            ];
+
+        }else{
+            
+            $codeNew = rand(1000,9999);
+            $message = "کد تاییدیه: $codeNew 
+            شیکسه";
+
+            $user->phone_confirm_code = $codeNew;
+            $user->save();
+
+            kavenegarService::sendCode($request->phone, $codeNew, 'verify');//send($request->phone, $message);
+            
+
+            return [
+                'status' => 'success',
+                'title' => '',
+                'message' => 'لطفا کد تاییدیه دریافت شده را وارد نمایید. کد به شماره همراه شما ارسال گردیده است.',
+                'data' => '',
+            ];
+        }
+    }
+
+
     public function userChangePassword(Request $request)
     {
         # code...
         $user = User::where('id', Auth::id())->first();
 
-        return $user;
+        // return $user;
 
         return view('user.edit-change-password', [
             'title' => 'تغییر رمز عبور',
             'user' => $user,
         ]);
+    }
+
+    public function postUserChangePassword(Request $request)
+    {
+        # code...
+        $request->validate([
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ]);
+
+        $user = User::where('id', Auth::id())->first();
+
+        // password_old
+        if (!Hash::check($request->password_old, $user->password) && $user->password) {
+            // Success
+            return [
+                'status' => 'error',
+                'title' => '',
+                'message' => 'کلمه عبور خود را اشتباه وارد کرده اید',
+                'data' => '',
+            ];
+        }
+
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return [
+            'status' => 'success',
+            'title' => '',
+            'message' => 'رمز عبور با موفقیت تغییر پیدا کرد.',
+            'data' => '',
+        ];
     }
 }

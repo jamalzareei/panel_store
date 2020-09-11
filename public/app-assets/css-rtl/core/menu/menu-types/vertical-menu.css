@@ -527,16 +527,16 @@ body.vertical-layout.vertical-menu-modern.menu-collapsed.menu-flipped .footer {
     position: absolute;
     left: 25px;
     top: 10px;
-    -webkit-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    transform: rotate(0deg);
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
     transition: -webkit-transform 0.2s ease-in-out;
 }
 
 .vertical-overlay-menu .main-menu .navigation li.open>a:not(.mm-next):after {
-    -webkit-transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg);
-    transform: rotate(-90deg);
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
 }
 
 .vertical-overlay-menu .main-menu .navigation li a i {

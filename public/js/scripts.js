@@ -51,11 +51,11 @@ $(() => {
 
                 if (response.status == 'success')
                     this_.find('button[type="submit"] i').removeClass().addClass('fa fa-check');
-                // this_.find('button[type="submit"]').html('<i class="fa fa-check "></i> ');
+
+                if (response.status == 'error')
+                    this_.find('button[type="submit"] i').removeClass().addClass('fa fa-refresh');
 
                 messageToast(response.title, response.message, response.status, 5000)
-
-                // this_.find('button[type="submit"]').html('<i class="fa fa-check "></i> ');
 
                 if (response.autoRedirect && response.autoRedirect !== '') {
                     window.location.href = response.autoRedirect

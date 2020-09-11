@@ -118,4 +118,6 @@ Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(functi
     // Route::get('/user/change-password', 'UsersController@userChangePassword')->name('seller.user.data.change.password');
     // Route::post('/user/change-password', 'UsersController@postUserChangePassword')->name('seller.user.data.change.password.post');
 
+    Route::get('/user', 'SellersController@sellerDataGet')->name('seller.data.get');
+    Route::post('/user', 'SellersController@sellerDataPost')->name('seller.data.post');
 });
