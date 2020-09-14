@@ -26,6 +26,7 @@ class CreateSellerBranchesTable extends Migration
             $table->text('address')->nullable();
             $table->string('latitude', 255)->nullable();
             $table->string('longitude', 255)->nullable();
+            $table->timestamp('actived_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

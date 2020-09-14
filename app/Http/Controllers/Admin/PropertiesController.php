@@ -57,7 +57,7 @@ class PropertiesController extends Controller
             'category_id'   =>  $request->category_id,
             'order_by'      =>  $request->order_by,
             'name'          =>  $request->name,
-            'active_at'     => ($request->active_at) ? Carbon::now() : null,
+            'actived_at'     => ($request->actived_at) ? Carbon::now() : null,
             'is_filter'     => ($request->is_filter) ? 1 : 0,
         ]);
 
@@ -123,7 +123,7 @@ class PropertiesController extends Controller
             $property->image = $photos;
         }
         
-        if($request->active_at){ $property->active_at  = Carbon::now(); }else{ $property->active_at  = null; }
+        if($request->actived_at){ $property->actived_at  = Carbon::now(); }else{ $property->actived_at  = null; }
         
         if($request->head)              $property->head  = $request->head;
         // if($request->link)              $property->link  = $request->link;
@@ -169,7 +169,7 @@ class PropertiesController extends Controller
         // return $request->all();
         
         $property = Property::where('id', $id)->update([
-            'active_at' => ($request->status == 'true') ? Carbon::now() : null
+            'actived_at' => ($request->status == 'true') ? Carbon::now() : null
         ]);
 
         return response()->json([
@@ -195,7 +195,7 @@ class PropertiesController extends Controller
             }
             Property::whereIn('id', $request->row)->update([ 
                 'deleted_at'=> null,
-                'active_at'=> Carbon::now()->format('Y-m-d H:i:s')
+                'actived_at'=> Carbon::now()->format('Y-m-d H:i:s')
             ]);
         }else if($request->type == 'delete'){
             if(!$request->row){
@@ -214,12 +214,12 @@ class PropertiesController extends Controller
                     'message' => 'لطفا حداقل یک مورد را انتخاب نمایید.'
                 ]);
             }
-            Property::whereIn('id', $request->row)->update([ 'active_at'=> null ]);
+            Property::whereIn('id', $request->row)->update([ 'actived_at'=> null ]);
         }else if($request->type == 'update'){
             foreach ($request->ids as $key => $value) {
                 # code...
                 Property::where('id', $value)->update([
-                    // 'active_at' => ($request->active_at && isset($request->active_at[$value])) ? Carbon::now() : null,
+                    // 'actived_at' => ($request->actived_at && isset($request->actived_at[$value])) ? Carbon::now() : null,
                     'order_by' => $request->order_by[$value],
                 ]);
             }

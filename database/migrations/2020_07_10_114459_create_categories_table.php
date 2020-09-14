@@ -25,7 +25,7 @@ class CreateCategoriesTable extends Migration
             $table->string('head', 255)->nullable();
             $table->text('meta_keywords')->nullable();
             $table->text('meta_description')->nullable();
-            $table->timestamp('active_at')->nullable();
+            $table->timestamp('actived_at')->nullable();
             $table->integer('show_menu')->default(1);
             $table->integer('properties_active')->default(0);
             $table->bigInteger('website_id')->nullable()->index();

@@ -25,7 +25,7 @@ class CreateTagsTable extends Migration
             $table->string('head', 255)->nullable();
             $table->text('meta_keywords')->nullable();
             $table->text('meta_description')->nullable();
-            $table->timestamp('active_at')->nullable();
+            $table->timestamp('actived_at')->nullable();
             $table->integer('shixeh_show')->default(1);
             $table->bigInteger('admin_id');
             $table->bigInteger('website_id')->index();

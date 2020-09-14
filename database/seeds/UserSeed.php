@@ -27,6 +27,15 @@ class UserSeed extends Seeder
             'password' => bcrypt('1430548'),
 
         ]);
+        \App\User::create([
+            'uuid' => Str::random(12),
+            'username' => '00989014252026',
+            'email' => 'zareie.jamal@gmail.com',
+            'phone' => '09014252026',
+            'code_country' => '0098',
+            'password' => bcrypt('1430548'),
+
+        ]);
 
         $faker = Faker\Factory::create();
         for ($i = 0; $i < 100; $i++) {

@@ -26,6 +26,7 @@ Route::get('/logout-user', function () {
     return redirect('auth');
 })->name('logout.user');
 Route::get('/', 'HomeController@index')->name('login.get');
+Route::get('/login', 'HomeController@index')->name('login');
 Route::get('/auth', 'HomeController@index')->name('auth.login.get');
 
 Route::post('/auth-login', 'HomeController@login')->name('auth.login.post');
@@ -120,4 +121,12 @@ Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(functi
 
     Route::get('/edit-seller', 'SellersController@sellerDataGet')->name('seller.data.get');
     Route::post('/edit-seller', 'SellersController@sellerDataPost')->name('seller.data.post');
+
+    Route::get('/branches', 'BranchesController@branches')->name('seller.brancehs.get');
+    Route::post('/add-branch', 'BranchesController@addeBranceh')->name('seller.branch.add');
+    Route::get('/edit-branch/{id}', 'BranchesController@editBranch')->name('seller.branch.edit');
+    Route::post('/update-branch/{id}', 'BranchesController@updateBranceh')->name('seller.branch.update');
+    Route::post('branch/update/status/{id}', 'BranchesController@branchUpdateStatus')->name('seller.branch.update.status');
+    Route::post('branches/update', 'BranchesController@branchesUpdate')->name('seller.branches.update');
+    Route::delete('branches/delete/{id}', 'BranchesController@branchesDelete')->name('seller.branches.delete');
 });

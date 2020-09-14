@@ -25,7 +25,7 @@ class CreatePropertiesTable extends Migration
             $table->string('head', 255)->nullable();
             $table->text('meta_keywords')->nullable();
             $table->text('meta_description')->nullable();
-            $table->timestamp('active_at')->nullable();
+            $table->timestamp('actived_at')->nullable();
             $table->integer('is_filter')->default(0)->index();
             $table->text('filter_list')->nullable();
             $table->text('default_list')->nullable();

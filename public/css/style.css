@@ -36,3 +36,10 @@
     border-radius: 50%;
     width: 150px;
 }
+
+.btn-alert {
+    float: left;
+    position: absolute;
+    left: 3px;
+    top: 3px;
+}

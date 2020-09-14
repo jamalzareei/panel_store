@@ -67,7 +67,7 @@ class UsersController extends Controller
             'phone_verified_at' => ($request->verify) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
             'blocked_at'        => ($request->block) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
             'deleted_at'        => ($request->delete) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
-            'deactive_at'=> ($request->deactive) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
+            'deactived_at'=> ($request->deactive) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
         ]);
         // return $user;
         
@@ -107,7 +107,7 @@ class UsersController extends Controller
             'phone_verified_at' => ($request->verify) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
             'blocked_at'        => ($request->block) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
             'deleted_at'        => ($request->delete) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
-            'deactive_at'=> ($request->deactive) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
+            'deactived_at'=> ($request->deactive) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
         ]);
 
         // test::where('id' ,'>' ,0)->lists('id')->toArray();
@@ -148,14 +148,14 @@ class UsersController extends Controller
         if($request->type == 'active'){
             User::whereIn('id', $request->row)->update([ 
                 'deleted_at'=> null, 
-                'deactive_at'=> null, 
+                'deactived_at'=> null, 
                 'blocked_at'=> null, 
                 'phone_verified_at'=> Carbon::now()->format('Y-m-d H:i:s')
             ]);
         }else if($request->type == 'delete'){
             User::whereIn('id', $request->row)->update([ 'deleted_at'=> Carbon::now()->format('Y-m-d H:i:s') ]);
         }else if($request->type == 'deactive'){
-            User::whereIn('id', $request->row)->update([ 'deactive_at'=> Carbon::now()->format('Y-m-d H:i:s') ]);
+            User::whereIn('id', $request->row)->update([ 'deactived_at'=> Carbon::now()->format('Y-m-d H:i:s') ]);
         }else if($request->type == 'block'){
             User::whereIn('id', $request->row)->update([ 'blocked_at'=> Carbon::now()->format('Y-m-d H:i:s') ]);
         }

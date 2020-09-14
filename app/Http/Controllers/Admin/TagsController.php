@@ -36,7 +36,7 @@ class TagsController extends Controller
 
         $tag = Tag::create([
             'name' =>  $request->name,
-            'active_at' => ($request->active) ? Carbon::now() : null,
+            'actived_at' => ($request->active) ? Carbon::now() : null,
         ]);
 
         $tag = Tag::where('id', $tag->id)->first();// ;
@@ -61,7 +61,7 @@ class TagsController extends Controller
         # code...
         // return $request->all();
         $tag = Tag::where('id', $id)->update([
-            'active_at' => ($request->status == 'true') ? Carbon::now() : null
+            'actived_at' => ($request->status == 'true') ? Carbon::now() : null
         ]);
 
         return response()->json([
@@ -116,7 +116,7 @@ class TagsController extends Controller
             $tag->image = $photos;
         }
         
-        if($request->active_at){ $tag->active_at  = Carbon::now(); }else{ $tag->active_at  = null; }
+        if($request->actived_at){ $tag->actived_at  = Carbon::now(); }else{ $tag->actived_at  = null; }
         
         if($request->head)              $tag->head  = $request->head;
         if($request->link)              $tag->link  = $request->link;
@@ -162,7 +162,7 @@ class TagsController extends Controller
             }
             Tag::whereIn('id', $request->row)->update([ 
                 'deleted_at'=> null,
-                'active_at'=> Carbon::now()->format('Y-m-d H:i:s')
+                'actived_at'=> Carbon::now()->format('Y-m-d H:i:s')
             ]);
         }else if($request->type == 'delete'){
             if(!$request->row){
@@ -181,7 +181,7 @@ class TagsController extends Controller
                     'message' => 'لطفا حداقل یک مورد را انتخاب نمایید.'
                 ]);
             }
-            Tag::whereIn('id', $request->row)->update([ 'active_at'=> null ]);
+            Tag::whereIn('id', $request->row)->update([ 'actived_at'=> null ]);
         }
         return response()->json([
             'status' => 'success',

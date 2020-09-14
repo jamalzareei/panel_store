@@ -37,9 +37,9 @@ class CategoriesController extends Controller
     {
         # code...
         // return $request->all();
-        // $active_at = $request->status ? Carbon::now() : null;
+        // $actived_at = $request->status ? Carbon::now() : null;
         $category = Category::where('id', $id)->update([
-            'active_at' => ($request->status == 'true') ? Carbon::now() : null
+            'actived_at' => ($request->status == 'true') ? Carbon::now() : null
         ]);
 
         return response()->json([
@@ -94,7 +94,7 @@ class CategoriesController extends Controller
             $category->image = $photos;
         }
         
-        if($request->active){ $category->active_at  = Carbon::now(); }else{ $category->active_at  = null; }
+        if($request->active){ $category->actived_at  = Carbon::now(); }else{ $category->actived_at  = null; }
         
         if($request->head)              $category->head  = $request->head;
         if($request->link)              $category->link  = $request->link;
@@ -145,7 +145,7 @@ class CategoriesController extends Controller
             'name' =>  $request->name,
             'parent_id' =>  $request->parent_id ?? 0 ,
             'description_full' =>  $request->description_full,
-            'active_at' => ($request->active_at) ? Carbon::now() : null,
+            'actived_at' => ($request->actived_at) ? Carbon::now() : null,
             'show_menu' => ($request->show_menu) ? 1 : 0,
         ]);
 
@@ -181,7 +181,7 @@ class CategoriesController extends Controller
             }
             Category::whereIn('id', $request->row)->update([ 
                 'deleted_at'=> null,
-                'active_at'=> Carbon::now()->format('Y-m-d H:i:s')
+                'actived_at'=> Carbon::now()->format('Y-m-d H:i:s')
             ]);
         }else if($request->type == 'delete'){
             if(!$request->row){
@@ -200,12 +200,12 @@ class CategoriesController extends Controller
                     'message' => 'لطفا حداقل یک مورد را انتخاب نمایید.'
                 ]);
             }
-            Category::whereIn('id', $request->row)->update([ 'active_at'=> null ]);
+            Category::whereIn('id', $request->row)->update([ 'actived_at'=> null ]);
         }else if($request->type == 'update'){
             foreach ($request->ids as $key => $value) {
                 # code...
                 Category::where('id', $value)->update([
-                    // 'active_at' => ($request->active_at && isset($request->active_at[$value])) ? Carbon::now() : null,
+                    // 'actived_at' => ($request->actived_at && isset($request->actived_at[$value])) ? Carbon::now() : null,
                     'order_by' => $request->order_by[$value],
                 ]);
             }

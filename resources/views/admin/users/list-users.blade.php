@@ -219,7 +219,7 @@
                                                 <div class="chip-text">مسدود</div>
                                             </div>
                                         </div>                                  
-                                    @elseif($user->deactive_at || $user->deleted_at)
+                                    @elseif($user->deactived_at || $user->deleted_at)
                                         <div class="chip chip-warning">
                                             <div class="chip-body">
                                                 <div class="chip-text">غیر فعال</div>

@@ -91,7 +91,7 @@
                                                                     <li class="d-inline-block mr-2">
                                                                         <fieldset>
                                                                             <div class="vs-checkbox-con vs-checkbox-primary">
-                                                                                <input type="checkbox" name="active" value="1" id="data-block" {{($category && $category->active_at) ? 'checked' : ''}}>
+                                                                                <input type="checkbox" name="active" value="1" id="data-block" {{($category && $category->actived_at) ? 'checked' : ''}}>
                                                                                 <span class="vs-checkbox">
                                                                                     <span class="vs-checkbox--check">
                                                                                         <i class="vs-icon feather icon-check"></i>

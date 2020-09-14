@@ -82,7 +82,7 @@
                         <li class=" nav-item"><a href="{{ route('seller.data.get') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">اطلاعات نمایشی</span>
                         </a></li>
-                        <li class=" nav-item"><a href="{{ route('user.data.email') }}">
+                        <li class=" nav-item"><a href="{{ route('seller.brancehs.get') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تعریف و لیست شعبه ها</span>
                         </a></li>
                         <li class=" nav-item"><a href="{{ route('user.data.phone') }}">

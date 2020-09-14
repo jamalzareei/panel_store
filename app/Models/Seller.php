@@ -41,4 +41,9 @@ class Seller extends Model
     {
         return $this->belongsTo('App\Models\City');
     }
+
+    public function branches()
+    {
+        return $this->hasMany('App\Models\SellerBranch');
+    }
 }

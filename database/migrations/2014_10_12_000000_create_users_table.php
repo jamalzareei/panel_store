@@ -36,7 +36,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
-            $table->timestamp('deactive_at')->nullable();
+            $table->timestamp('deactived_at')->nullable();
         });
     }
 
