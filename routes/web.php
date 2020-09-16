@@ -129,4 +129,9 @@ Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(functi
     Route::post('branch/update/status/{id}', 'BranchesController@branchUpdateStatus')->name('seller.branch.update.status');
     Route::post('branches/update', 'BranchesController@branchesUpdate')->name('seller.branches.update');
     Route::delete('branches/delete/{id}', 'BranchesController@branchesDelete')->name('seller.branches.delete');
+
+    
+    Route::get('/setting', 'SellersController@setting')->name('seller.setting.get');
+    Route::post('/setting', 'SellersController@settingPost')->name('seller.setting.post');
+    Route::post('/setting-ship', 'SellersController@settingShipPost')->name('seller.setting.ship.post');
 });

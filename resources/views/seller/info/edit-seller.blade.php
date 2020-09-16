@@ -24,9 +24,6 @@
                             <div class="card-header">
                                 <h4 class="card-title">{{$title}}</h4>
 
-                                <a href="{{ route('admin.categories.list') }}" class="btn bg-gradient-info mr-1 waves-effect waves-light action-add-new">
-                                    <i class="feather icon-list"></i> لیست دسته بندی ها
-                                </a>
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
@@ -53,61 +50,75 @@
                                                 <div class="tab-pane active" id="info-fill" role="tabpanel" aria-labelledby="file-tab-fill">
                                                     <section id="basic-horizontal-layouts">
                                                         <div class="row match-height">
-                                                            <div class="col-md-12 col-12">
+                                                            <div class="col-6">
+                                                                <div class="form-group">
+                                                                    <label for="name">نام فروشگاه</label>
+                                                                    <div class="position-relative has-icon-left">
+                                                                        <input type="text" id="name" class="form-control" name="name" placeholder="نام فروشگاه" value="{{$seller->name ?? ''}}">
+                                                                        <div class="form-control-position">
+                                                                            <i class="feather icon-user"></i>
+                                                                        </div>
+                                                                        <small class="help-block text-danger error-name"></small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="form-group">
+                                                                    <label for="manager">نام مدیریت</label>
+                                                                    <div class="position-relative has-icon-left">
+                                                                        <input type="text" id="manager" class="form-control" name="manager" placeholder="نام مدیریت" value="{{$seller->manager ?? ''}}">
+                                                                        <div class="form-control-position">
+                                                                            <i class="feather icon-user"></i>
+                                                                        </div>
+                                                                        <small class="help-block text-danger error-manager"></small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                            <div class="col-12">
+                                                                <div class="form-group">
+                                                                    <label for="website">وبسایت</label>
+                                                                    <div class="position-relative has-icon-left">
+                                                                        <input type="text" dir="ltr" id="website" class="form-control" name="website" placeholder="وبسایت" value="{{$seller->website ?? ''}}">
+                                                                        <div class="form-control-position">
+                                                                            <i class="feather icon-link"></i>
+                                                                        </div>
+                                                                        <small class="help-block text-danger error-website"></small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <div class="form-group">
+                                                                    <label for="password-icon">آدرس</label> 
+                                                                    @include('components.sections.location', ['countries' => $countries, 'country' => $seller->country ?? null, 'state' => $seller->state ?? null, 'city' => $seller->city ?? null])
+                                                                    <small class="help-block text-danger error-country_id"></small>
+                                                                    <small class="help-block text-danger error-state_id"></small>
+                                                                    <small class="help-block text-danger error-city_id"></small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="details">توضیحات :</label>
+                                                                    <textarea placeholder="توضیحات" id="details" name="details" rows="5" class="form-control">{{ $seller ? $seller->details : ''}}</textarea>
+                                                                    <small class="help-block text-danger error-details"></small>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <button type="submit" class="btn btn-primary mr-1 mb-1"><i></i> ذخیره اطلاعات</button> {{-- <button type="reset" class="btn btn-outline-warning mr-1 mb-1">Reset</button> --}}
+                                                            </div>
+                                                            {{-- <div class="col-md-12 col-12">
                                                                 <div class="card">
                                                                     <div class="card-content">
                                                                         <div class="card-body">
                                                                             <div class="form-body">
                                                                                 <div class="row">
-                                                                                    <div class="col-6">
-                                                                                        <div class="form-group">
-                                                                                            <label for="name">نام فروشگاه</label>
-                                                                                            <div class="position-relative has-icon-left">
-                                                                                                <input type="text" id="name" class="form-control" name="name" placeholder="نام فروشگاه" value="{{$seller->name ?? ''}}">
-                                                                                                <div class="form-control-position">
-                                                                                                    <i class="feather icon-user"></i>
-                                                                                                </div>
-                                                                                                <small class="help-block text-danger error-name"></small>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-6">
-                                                                                        <div class="form-group">
-                                                                                            <label for="manager">نام مدیریت</label>
-                                                                                            <div class="position-relative has-icon-left">
-                                                                                                <input type="text" id="manager" class="form-control" name="manager" placeholder="نام مدیریت" value="{{$seller->manager ?? ''}}">
-                                                                                                <div class="form-control-position">
-                                                                                                    <i class="feather icon-user"></i>
-                                                                                                </div>
-                                                                                                <small class="help-block text-danger error-manager"></small>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-12">
-                                                                                        <div class="form-group">
-                                                                                            <label for="password-icon">آدرس</label> 
-                                                                                            @include('components.sections.location', ['countries' => $countries, 'country' => $seller->country ?? null, 'state' => $seller->state ?? null, 'city' => $seller->city ?? null])
-                                                                                            <small class="help-block text-danger error-country_id"></small>
-                                                                                            <small class="help-block text-danger error-state_id"></small>
-                                                                                            <small class="help-block text-danger error-city_id"></small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-md-12">
-                                                                                        <div class="form-group">
-                                                                                            <label for="details">توضیحات :</label>
-                                                                                            <textarea placeholder="توضیحات" id="details" name="details" rows="5" class="form-control">{{ $seller ? $seller->details : ''}}</textarea>
-                                                                                            <small class="help-block text-danger error-details"></small>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-12">
-                                                                                        <button type="submit" class="btn btn-primary mr-1 mb-1"><i></i> ذخیره اطلاعات</button> {{-- <button type="reset" class="btn btn-outline-warning mr-1 mb-1">Reset</button> --}}
-                                                                                    </div>
+                                                                                    
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div> --}}
 
                                                         </div>
                                                     </section>

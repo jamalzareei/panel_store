@@ -21,12 +21,15 @@ class CreateSellersTable extends Migration
             $table->bigInteger('state_id')->nullable()->index();
             $table->bigInteger('city_id')->nullable()->index();
             $table->bigInteger('role_id')->nullable();
+            $table->string('sell_type_id')->nullable();
+            $table->string('pay_type_id')->nullable();
             $table->bigInteger('admin_active_id');
             $table->integer('active')->default(0)->index();
             $table->timestamp('expire_at')->nullable();
             $table->timestamp('call_admin_at')->nullable();
             $table->string('name', 255)->nullable()->index();
             $table->string('slug', 255)->nullable()->unique()->index();
+            $table->string('website', 255)->nullable()->index();
             $table->string('manager', 255)->nullable();
             $table->text('title')->nullable();
             $table->text('head')->nullable();

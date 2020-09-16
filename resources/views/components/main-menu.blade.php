@@ -85,8 +85,11 @@
                         <li class=" nav-item"><a href="{{ route('seller.brancehs.get') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تعریف و لیست شعبه ها</span>
                         </a></li>
-                        <li class=" nav-item"><a href="{{ route('user.data.phone') }}">
+                        <li class=" nav-item"><a href="{{ route('seller.setting.get') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تنظیمات فروشگاه</span>
+                        </a></li>
+                        <li class=" nav-item"><a href="{{ route('seller.setting.get') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تنظیمات پست</span>
                         </a></li>
                         <li class=" nav-item"><a href="{{ route('user.data.change.password') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">شبکه های اجتماعی</span>

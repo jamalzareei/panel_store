@@ -46,4 +46,9 @@ class Seller extends Model
     {
         return $this->hasMany('App\Models\SellerBranch');
     }
+
+    public function setting()
+    {
+        return $this->hasOne('App\Models\Setting');
+    }
 }

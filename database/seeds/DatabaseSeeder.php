@@ -30,7 +30,10 @@ class DatabaseSeeder extends Seeder
             SupplierSeed::class,
             CountriesTableSeeder::class,
             StatesTableSeeder::class,
-            CitiesTableSeeder::class
+            CitiesTableSeeder::class,
+            CurrencySeed::class,
+            PayTypeSeed::class,
+            SellTypeSeed::class,
 
         ]);
     }

@@ -4,9 +4,14 @@ namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
 use App\Models\Country;
+use App\Models\Currency;
 use App\Models\Image;
+use App\Models\PayType;
+use App\Models\PostSettings;
 use App\Models\Seller;
 use App\Models\SellerBranch;
+use App\Models\SellType;
+use App\Models\State;
 use App\Services\UploadService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -48,6 +53,7 @@ class SellersController extends Controller
             'country_id' => 'required|exists:countries,id',
             'state_id' => 'required|exists:states,id',
             
+            'website' => 'nullable|url',
             'name' => 'required|string',
             'manager' => 'required|string',
             'image_file' => 'nullable|string',
@@ -66,9 +72,10 @@ class SellersController extends Controller
         $seller->user_id = $user->id;
         $seller->city_id = $request->city_id;
         $seller->country_id = $request->country_id;
-        // $seller->details = $request->details;
+        $seller->details = $request->details;
         $seller->head = $request->head;
         
+        $seller->website = $request->website;
         $seller->manager = $request->manager;
         $seller->meta_description = $request->meta_description;
         $seller->meta_keywords = $request->meta_keywords;
@@ -95,6 +102,127 @@ class SellersController extends Controller
             'message' => 'با موفقیت ثبت گردید.',
             'data' => $seller,
             'autoRedirect' => ($newSeller) ? route('seller.data.get') : null
+        ];
+    }
+
+    public function setting(Request $request)
+    {
+        # code...
+        $user = Auth::user();
+
+        $seller = Seller::where('user_id', $user->id)->first();
+        $setting = [];
+        if($seller){
+
+            $setting = [
+                'pay' => json_decode($seller->pay_type_id),
+                'sell' => json_decode($seller->sell_type_id)
+            ];
+        }
+        // $setting->pay = json_decode($seller->pay_type_id);
+        // $setting->sell = json_decode($seller->sell_type_id);
+
+        $currencies = Currency::all();
+        $payTypes = PayType::all();
+        $sellTypes = SellType::all();
+        $states = State::with('country')
+            ->whereHas('country', function($query) {
+                $query->where('name', 'Iran');
+            })
+            ->with(['postsetting' =>  function($queryPost) use($seller){
+                $queryPost->where('seller_id', $seller->id);
+            }])
+            ->get();
+
+        // $postSetting = PostSettings::where('seller_id', $seller->id)->get();
+        // return $states[0]->postsetting;
+
+        return view('seller.info.setting',[
+            'title' => 'تنظیمات فروشگاه',
+            'setting' => $setting,
+            'currencies' => $currencies,
+            'payTypes' => $payTypes,
+            'sellTypes' => $sellTypes,
+            'states' => $states,
+        ]);
+    }
+
+    public function settingPost(Request $request)
+    {
+        # code...
+        // return json_encode($request->pay);//$request->pay;//
+        // return $request->all();
+
+        $user = Auth::user();
+        // $seller = $user->seller->with('image');
+
+        $seller = Seller::where('user_id', $user->id)->first();
+
+        $seller->pay_type_id = json_encode($request->pay);
+        $seller->sell_type_id = json_encode($request->sell);
+
+        $seller->save();
+
+        return [
+            'status' => 'success',
+            'title' => '',
+            'message' => 'با موفقیت ثبت گردید.',
+            'data' => $seller,
+        ];
+    }
+
+    public function settingShipPost(Request $request)
+    {
+        # code...
+        // return $request->all();
+        
+        $user = Auth::user();
+
+        $seller = Seller::where('user_id', $user->id)->first();
+        if(!$user || !$seller){
+            return [
+                'status' => 'error',
+                'title' => '',
+                'message' => 'کاربر یا فروشگاه ایجاد نشده است.',
+            ];
+        }
+
+        foreach ($request->state_id as $key => $state) {
+            # code...
+            if(
+                $request->state_id[$key] && 
+                $request->country_id[$key] && 
+                $request->shipping_cost[$key] && 
+                $request->currency_id[$key] &&
+                $request->shipping_time[$key] &&
+                $request->unit_of_time[$key]
+                ){
+
+                PostSettings::updateOrCreate(
+                    [
+                        'user_id' => $user->id,
+                        'seller_id' => $seller->id,
+                        'state_id' => $request->state_id[$key],
+                        'country_id' => $request->country_id[$key],
+                    ],
+                    [
+                        'country_id'        => $request->country_id[$key],
+                        'state_id'          => $request->state_id[$key],
+                        'city_id'           => $request->city_id[$key],
+                        'shipping_cost'     => $request->shipping_cost[$key],
+                        'currency_id'       => $request->currency_id[$key],
+                        'shipping_time'     => $request->shipping_time[$key],
+                        'unit_of_time'      => $request->unit_of_time[$key],
+                    ]
+                );
+            }
+        }
+
+        
+        return [
+            'status' => 'success',
+            'title' => '',
+            'message' => 'با موفقیت ثبت گردید.',
         ];
     }
 }
