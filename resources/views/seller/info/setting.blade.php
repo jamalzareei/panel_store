@@ -65,7 +65,7 @@
                                                                                         <i class="vs-icon feather icon-check"></i>
                                                                                     </span>
                                                                                 </span>
-                                                                                <span class="">{{$pay->name}}{{$pay->id}}</span>
+                                                                                <span class="">{{$pay->name}}</span>
                                                                                 <small class="help-block text-danger error-pay"></small>
                                                                             </div>
                                                                         </fieldset>
@@ -88,7 +88,7 @@
                                                                                         <i class="vs-icon feather icon-check"></i>
                                                                                     </span>
                                                                                 </span>
-                                                                                <span class="">{{$sell->name}}{{$sell->id}}</span>
+                                                                                <span class="">{{$sell->name}}</span>
                                                                                 <small class="help-block text-danger error-sell"></small>
                                                                             </div>
                                                                         </fieldset>

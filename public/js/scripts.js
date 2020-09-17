@@ -60,6 +60,11 @@ $(() => {
                 if (response.autoRedirect && response.autoRedirect !== '') {
                     window.location.href = response.autoRedirect
                 }
+
+                if (response.dataLoad && response.dataLoad !== '' && $('#load-data-ajax').length > 0) {
+                    $('#load-data-ajax').html(response.dataLoad)
+                }
+
                 var item = $('#item_id');
                 if (item.length) {
                     var itemid = item.val();

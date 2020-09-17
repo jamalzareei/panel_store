@@ -87,11 +87,10 @@
                         </a></li>
                         <li class=" nav-item"><a href="{{ route('seller.setting.get') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تنظیمات فروشگاه</span>
+                            </a><a href="{{ route('seller.setting.get') }}" class="pt-0">
+                            <small class="small pl-3 font-small-1">(ارتباط با مشتری، هزینه و زمان ارسال)</small>
                         </a></li>
-                        <li class=" nav-item"><a href="{{ route('seller.setting.get') }}">
-                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تنظیمات پست</span>
-                        </a></li>
-                        <li class=" nav-item"><a href="{{ route('user.data.change.password') }}">
+                        <li class=" nav-item"><a href="{{ route('seller.socials.get') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">شبکه های اجتماعی</span>
                         </a></li>
                     </ul>

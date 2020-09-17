@@ -13,13 +13,13 @@ class CreateSocialSellersTable extends Migration
      */
     public function up()
     {
-        Schema::create('social_sellers', function (Blueprint $table) {
+        Schema::create('seller_social', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->index();
             $table->bigInteger('seller_id')->index();
             $table->bigInteger('social_id')->index();
-            $table->bigInteger('url')->nullable();
-            $table->bigInteger('username')->nullable()->index();
+            $table->string('url')->nullable();
+            $table->string('username', 50)->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +32,6 @@ class CreateSocialSellersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('social_sellers');
+        Schema::dropIfExists('seller_social');
     }
 }

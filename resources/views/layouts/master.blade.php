@@ -87,6 +87,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     <!-- END: Custom CSS-->
 
+    <link rel="stylesheet" href="{{ asset('assets/fontawesome/css/all.min.css') }}">
     <!-- BEGIN: Vendor JS-->
     <script src="{{ asset('app-assets/vendors/js/vendors.min.js') }}"></script>
     <!-- BEGIN Vendor JS-->

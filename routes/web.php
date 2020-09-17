@@ -134,4 +134,14 @@ Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(functi
     Route::get('/setting', 'SellersController@setting')->name('seller.setting.get');
     Route::post('/setting', 'SellersController@settingPost')->name('seller.setting.post');
     Route::post('/setting-ship', 'SellersController@settingShipPost')->name('seller.setting.ship.post');
+
+    Route::get('/socials', 'SocialsController@socials')->name('seller.socials.get');
+    Route::post('/add-social', 'SocialsController@socialsAddPost')->name('seller.social.add.post');
+    Route::post('/update-social/{id}', 'SocialsController@socialUpdate')->name('seller.social.update.post');
+    Route::delete('social/delete/{id}', 'SocialsController@socialDelete')->name('seller.social.delete');
+
+    Route::get('/finances', 'FinancesControler@finances')->name('seller.finances.get');
+    Route::post('/add-finance', 'FinancesControler@financesAddPost')->name('seller.finance.add.post');
+    Route::post('/update-finance/{id}', 'FinancesControler@financeUpdate')->name('seller.finance.update.post');
+    Route::delete('finance/delete/{id}', 'FinancesControler@financeDelete')->name('seller.finance.delete');
 });
