@@ -2,7 +2,7 @@
 $user = \App\User::where('id', Auth::id())
     ->with(['image' => function ($query) {
         $query->select('path', 'id', 'imageable_id')->where('default_use', 'MAIN')->orderBy('id', 'desc')->first();
-    }])
+    },'seller','roles'])
     ->first();
 ?>
 <nav class="header-navbar navbar-expand-lg navbar navbar-with-menu floating-nav navbar-light navbar-shadow">
@@ -38,18 +38,40 @@ $user = \App\User::where('id', Auth::id())
                     </ul>
                 </div>
                 <ul class="nav navbar-nav float-right">
-                    <li class="dropdown dropdown-language nav-item"><a class="dropdown-toggle nav-link" id="dropdown-flag" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flag-icon flag-icon-us"></i><span class="selected-language">English</span></a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown-flag"><a class="dropdown-item" href="#" data-language="en"><i class="flag-icon flag-icon-us"></i> English</a><a class="dropdown-item" href="#" data-language="fr"><i class="flag-icon flag-icon-fr"></i> French</a><a class="dropdown-item" href="#" data-language="de"><i class="flag-icon flag-icon-de"></i> German</a><a class="dropdown-item" href="#" data-language="pt"><i class="flag-icon flag-icon-pt"></i> Portuguese</a></div>
-                    </li>
+                    <?php if($user->roles->where('slug', 'SELLER')->first() && !$user->roles->where('slug', 'ADMIN')->first()): ?>
+                        
+                        <li class="nav-item d-none d-lg-block">
+                            <?php if($user && $user->seller && $user->seller->admin_active_id): ?>
+                                <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                                    <div class="user-nav d-sm-flex d-none">
+                                        <span class="user-name text-bold-600 py-1 text-success">فروشگاه شما تایید شده است.</span>
+                                    </div>
+                                </a>
+                            <?php elseif($user && $user->seller && $user->seller->actived_at): ?>
+                                <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                                    <div class="user-nav d-sm-flex d-none">
+                                        <span class="user-name text-bold-600 py-1 text-info">فروشگاه جهت بررسی مدیریت ارسال گردیده است.</span>
+                                    </div>
+                                </a>
+                            <?php else: ?>
+                                <a class="btn btn-primary text-white my-1" href="<?php echo e(route('seller.send.admin')); ?>">
+                                    ارسال به مدیریت جهت بررسی
+                                </a>
+                            <?php endif; ?>
+                        </li>
+                        <?php if($user && $user->seller && $user->seller->admin_active_id): ?>
+                            <li class="nav-item d-none d-lg-block">
+                                <a class="btn btn-primary text-white my-1 font-weight-bold" href="<?php echo e(route('seller.send.admin')); ?>">
+                                    اضافه کردن محصول
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                    
+                    <?php endif; ?>
+                    
+                    
                     <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon feather icon-maximize"></i></a></li>
-                    <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon feather icon-search"></i></a>
-                        <div class="search-input">
-                            <div class="search-input-icon"><i class="feather icon-search primary"></i></div>
-                            <input class="input" type="text" placeholder="Explore Vuexy..." tabindex="-1" data-search="template-list">
-                            <div class="search-input-close"><i class="feather icon-x"></i></div>
-                            <ul class="search-list search-list-main"></ul>
-                        </div>
-                    </li>
+                    
                     <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-shopping-cart"></i><span class="badge badge-pill badge-primary badge-up cart-item-count">6</span></a>
                         <ul class="dropdown-menu dropdown-menu-media dropdown-cart dropdown-menu-right">
                             <li class="dropdown-menu-header">

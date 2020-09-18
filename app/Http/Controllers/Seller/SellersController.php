@@ -119,6 +119,11 @@ class SellersController extends Controller
                 'sell' => json_decode($seller->sell_type_id)
             ];
         }
+        if(!$seller){
+            return view('seller.seller-not-exists', [
+                'title' => 'تکمیل اطلاعات فروشنده',
+            ]);
+        }
         // $setting->pay = json_decode($seller->pay_type_id);
         // $setting->sell = json_decode($seller->sell_type_id);
 
@@ -180,11 +185,11 @@ class SellersController extends Controller
 
         $seller = Seller::where('user_id', $user->id)->first();
         if(!$user || !$seller){
-            return [
-                'status' => 'error',
-                'title' => '',
-                'message' => 'کاربر یا فروشگاه ایجاد نشده است.',
-            ];
+            if(!$seller){
+                return view('seller.seller-not-exists', [
+                    'title' => 'تکمیل اطلاعات فروشنده',
+                ]);
+            }
         }
 
         foreach ($request->state_id as $key => $state) {
@@ -218,11 +223,44 @@ class SellersController extends Controller
             }
         }
 
-        
-        return [
-            'status' => 'success',
+        return response()->json([
+            [
+                'status' => 'success',
+                'title' => '',
+                'message' => 'با موفقیت ثبت گردید.',
+            ]
+        ], 200);
+        // return [
+        //     'status' => 'success',
+        //     'title' => '',
+        //     'message' => 'با موفقیت ثبت گردید.',
+        // ];
+    }
+
+    public function sellerSendAdmin(Request $request)
+    {
+        # code...
+        $user = Auth::user();
+
+        $seller = Seller::where('user_id', $user->id)->first();
+        if(!$user || !$seller){
+            if(!$seller){
+                return view('seller.seller-not-exists', [
+                    'title' => 'تکمیل اطلاعات فروشنده',
+                ]);
+            }
+        }
+
+        $seller->actived_at = Carbon::now();
+        $seller->save();
+
+        session()->put('noty', [
             'title' => '',
-            'message' => 'با موفقیت ثبت گردید.',
-        ];
+            'message' => 'با موفقیت ارسال گردید. لطفا دقت نمایید پس از ویرایش اطلاعات فروشگاه برای تایید مجدد مدیریت ارسال میگردد.',
+            'status' => 'success',
+            'data' => '',
+        ]);
+
+        return back();
     }
 }

@@ -23,19 +23,15 @@
                 </li> --}}
                 
                 @hasanyrole('admin')
-                <li class=" navigation-header"><span>مدیر سطح A</span>
-                </li>
+                <li class=" navigation-header"><span>داشبورد</span></li>
                 <li class=" nav-item"><a href="{{ route('admin.dashboard') }}"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">داشبورد</span></a>
-                @endhasanyrole
-                
-                
-                @hasanyrole('seller')
-                <li class=" navigation-header"><span>پنل فروشنده</span></li>
+                @else
+                <li class=" navigation-header"><span>داشبورد</span></li>
                 <li class=" nav-item"><a href="{{ route('seller.dashboard') }}">
                     <i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">داشبورد</span>
                 </a></li>
                 @endhasanyrole
-
+                
                 <li class=" nav-item"><a href="#"><i class="feather icon-user-check"></i><span class="menu-title" data-i18n="users">کاربری</span></a>
                     <ul class="menu-content">
                         <li class=" nav-item"><a href="{{ route('user.data') }}">
@@ -53,8 +49,10 @@
                     </ul>
                 </li>
                 
-                {{-- @can('edit articles') --}}
+                
                 @hasanyrole('admin')
+                
+                <li class=" navigation-header"><span>پنل مدیریت</span></li>
                 <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="users">کاربران و سطح دسترسی</span></a>
                     <ul class="menu-content">
                         <li><a href="{{ route('admin.users.list') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="">لیست کاربران</span></a>
@@ -74,8 +72,9 @@
                     </ul>
                 </li>
                 @endhasanyrole
-
+                
                 @hasanyrole('seller')
+                <li class=" navigation-header"><span>پنل فروشنده</span></li>
             
                 <li class=" nav-item"><a href="#"><i class="feather icon-shopping-bag"></i><span class="menu-title" data-i18n="users">فروشنده</span></a>
                     <ul class="menu-content">
@@ -97,8 +96,10 @@
                 </li>
                 <li class=" nav-item"><a href="#"><i class="fa fa-money"></i><span class="menu-title" data-i18n="users">اطلاعات مالی</span></a>
                     <ul class="menu-content">
-                        <li class=" nav-item"><a href="{{ route('user.data') }}">
+                        <li class=" nav-item"><a href="{{ route('seller.finances.get') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">اضافه / ویرایش حساب </span>
+                        </a><a href="{{ route('seller.finances.get') }}" class="pt-0">
+                            <small class="small pl-3 font-small-1">(لیست حساب ها، اضافه و ویرایش)</small>
                         </a></li>
                         <li class=" nav-item"><a href="{{ route('user.data.email') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">لیست تراکنش ها</span>

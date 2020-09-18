@@ -39,6 +39,11 @@ class SocialsController extends Controller
         
         $seller = Seller::where('user_id', $user->id)->first();
 
+        if(!$seller){
+            return view('seller.seller-not-exists', [
+                'title' => 'تکمیل اطلاعات فروشنده',
+            ]);
+        }
         $socials = SellerSocial::whereNull('deleted_at')
             ->where('seller_id', $seller->id)
             ->with('social')

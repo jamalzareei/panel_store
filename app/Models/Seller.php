@@ -56,4 +56,9 @@ class Seller extends Model
     {
         return $this->hasMany('App\Models\sellerSocial');
     }
+
+    public function finances()
+    {
+        return $this->hasMany('App\Models\Finance');
+    }
 }

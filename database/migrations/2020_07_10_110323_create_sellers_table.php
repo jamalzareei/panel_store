@@ -24,7 +24,7 @@ class CreateSellersTable extends Migration
             $table->string('sell_type_id')->nullable();
             $table->string('pay_type_id')->nullable();
             $table->bigInteger('admin_active_id');
-            $table->integer('active')->default(0)->index();
+            $table->timestamp('actived_at')->nullable();
             $table->timestamp('expire_at')->nullable();
             $table->timestamp('call_admin_at')->nullable();
             $table->string('name', 255)->nullable()->index();

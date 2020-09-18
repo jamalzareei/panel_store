@@ -37,7 +37,9 @@
                     
                 </tr>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                
+                <tr>
+                    <td valign="top" colspan="5" class="dataTables_empty text-center">هیچ موردی برای نمایش وجود ندارد</td>
+                </tr>
             <?php endif; ?>
             
         </tbody>

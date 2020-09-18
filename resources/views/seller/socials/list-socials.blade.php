@@ -35,7 +35,9 @@
                     
                 </tr>
             @empty
-                
+                <tr>
+                    <td valign="top" colspan="5" class="dataTables_empty text-center">هیچ موردی برای نمایش وجود ندارد</td>
+                </tr>
             @endforelse
             
         </tbody>

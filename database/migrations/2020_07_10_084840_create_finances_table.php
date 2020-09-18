@@ -16,12 +16,13 @@ class CreateFinancesTable extends Migration
         Schema::create('finances', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
+            $table->bigInteger('seller_id')->nullable();
             $table->string('name', 255);
             $table->string('bank', 255);
             $table->string('bank_cart_number', 30)->nullable();
             $table->string('bank_sheba_number', 30)->nullable();
             $table->string('bank_account_number', 30)->nullable();
-            $table->integer('active')->unsigned()->nullable()->default(1);
+            $table->timestamp('actived_at')->nullable();
             $table->integer('order_by')->default(1);
             $table->timestamps();
             $table->softDeletes();

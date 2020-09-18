@@ -122,6 +122,8 @@ Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(functi
     Route::get('/edit-seller', 'SellersController@sellerDataGet')->name('seller.data.get');
     Route::post('/edit-seller', 'SellersController@sellerDataPost')->name('seller.data.post');
 
+    Route::get('/send-to-admin', 'SellersController@sellerSendAdmin')->name('seller.send.admin');
+
     Route::get('/branches', 'BranchesController@branches')->name('seller.brancehs.get');
     Route::post('/add-branch', 'BranchesController@addeBranceh')->name('seller.branch.add');
     Route::get('/edit-branch/{id}', 'BranchesController@editBranch')->name('seller.branch.edit');
@@ -143,5 +145,6 @@ Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(functi
     Route::get('/finances', 'FinancesControler@finances')->name('seller.finances.get');
     Route::post('/add-finance', 'FinancesControler@financesAddPost')->name('seller.finance.add.post');
     Route::post('/update-finance/{id}', 'FinancesControler@financeUpdate')->name('seller.finance.update.post');
+    Route::post('finances/update', 'FinancesControler@financesUpdate')->name('admin.finances.update');
     Route::delete('finance/delete/{id}', 'FinancesControler@financeDelete')->name('seller.finance.delete');
 });

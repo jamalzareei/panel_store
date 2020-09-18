@@ -59,7 +59,7 @@
                                                                     <li class="d-inline-block mr-2">
                                                                         <fieldset>
                                                                             <div class="vs-checkbox-con vs-checkbox-primary">
-                                                                                <input type="checkbox" name="pay[]" value="<?php echo e($pay->id); ?>" <?php echo e(($setting && in_array($pay->id, $setting['pay'])) ? 'checked' : ''); ?> id="data-block">
+                                                                                <input type="checkbox" name="pay[]" value="<?php echo e($pay->id); ?>" <?php echo e(($setting && is_array($setting['pay']) && in_array($pay->id, $setting['pay'])) ? 'checked' : ''); ?> id="data-block">
                                                                                 <span class="vs-checkbox">
                                                                                     <span class="vs-checkbox--check">
                                                                                         <i class="vs-icon feather icon-check"></i>
@@ -82,7 +82,7 @@
                                                                     <li class="d-inline-block mr-2">
                                                                         <fieldset>
                                                                             <div class="vs-checkbox-con vs-checkbox-primary">
-                                                                                <input type="checkbox" name="sell[]" value="<?php echo e($sell->id); ?>" <?php echo e(($setting && in_array($sell->id, $setting['sell'])) ? 'checked' : ''); ?> id="data-block">
+                                                                                <input type="checkbox" name="sell[]" value="<?php echo e($sell->id); ?>" <?php echo e(($setting && is_array($setting['sell']) && in_array($sell->id, $setting['sell'])) ? 'checked' : ''); ?> id="data-block">
                                                                                 <span class="vs-checkbox">
                                                                                     <span class="vs-checkbox--check">
                                                                                         <i class="vs-icon feather icon-check"></i>

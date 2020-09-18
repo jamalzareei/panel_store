@@ -28,7 +28,11 @@ class BranchesController extends Controller
             ->first();
                     
         $countries = Country::all();
-        
+        if(!$seller){
+            return view('seller.seller-not-exists', [
+                'title' => 'تکمیل اطلاعات فروشنده',
+            ]);
+        }
         // return $seller;
 
         return view('seller.branches.list-branches', [
