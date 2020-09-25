@@ -83,6 +83,10 @@ Route::namespace('Admin')->middleware('admin')->prefix('admin')->group(function(
     Route::post('tags/update', 'TagsController@tagsUpdate')->name('admin.tags.update');
     Route::delete('tag/delete/{id}', 'TagsController@tagDelete')->name('admin.tag.delete');
 
+    Route::get('sellers/{type?}', 'SellersController@sellers')->name('admin.sellers.list');
+    Route::post('seller/update/status/{id}', 'SellersController@sellerUpdateStatus')->name('admin.seller.update.status');
+    Route::get('seller/{slug}', 'SellersController@sellerShow')->name('admin.seller.show');
+    Route::post('seller/status/{id}', 'SellersController@sellerActive')->name('admin.seller.active');
 });
 
 Route::namespace('User')->middleware('auth')->prefix('user')->group(function() {

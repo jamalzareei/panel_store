@@ -71,6 +71,18 @@
                         <li><a href="{{ route('admin.tags.list') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="">لیست تگ ها</span></a></li>
                     </ul>
                 </li>
+
+                <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="users">فروشندگان</span></a>
+                    <ul class="menu-content">
+                        <li><a href="{{ route('admin.sellers.list', ['type' => 'wait-active-admin']) }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> فروشندگان در انتظار تایید</span></a></li>
+                        <li><a href="{{ route('admin.sellers.list', ['type' => 'not-complete-data']) }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> فروشندگان در حال تکمیل</span></a></li>
+                        <li><a href="{{ route('admin.sellers.list', ['type' => 'compete-and-active-admin']) }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> فروشندگان تایید شده</span></a></li>
+                        {{-- <li><a href="{{ route('admin.roles.list') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="">سطح دسترسی ها</span></a>
+                        </li>
+                        <li><a href="{{ route('admin.permissions.list') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="">پرمیشن ها</span></a>
+                        </li> --}}
+                    </ul>
+                </li>
                 @endhasanyrole
                 
                 @hasanyrole('seller')

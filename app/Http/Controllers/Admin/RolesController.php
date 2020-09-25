@@ -50,7 +50,17 @@ class RolesController extends Controller
         return response()->json([
             'status' => 'success',
             'title' => '',
-            'message' => 'با موفقیت ویرایش گردید.'
+            'message' => 'با موفقیت ویرایش گردید.',
+            'rowInsert' => [
+                '',
+                $request->name,
+                $request->slug,
+                $request->code,
+                ($request->active) ? '<span class="badge badge-success">فعال</span>' : '<span class="badge badge-danger">غیرفعال</span>',
+                '0',
+                '0',
+
+            ]
         ]);
     }
 

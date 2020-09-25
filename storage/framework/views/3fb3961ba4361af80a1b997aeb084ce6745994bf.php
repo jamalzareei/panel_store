@@ -20,12 +20,12 @@
 
                         <?php endif; ?>
                     </td>
-                    <td col="username" class="text-left">
+                    <td col="username" class="text-right">
                         <?php echo e($social->username); ?>
 
                         
                     </td>
-                    <td col="url" class="text-left">
+                    <td col="url" class="text-right">
                         <?php echo e($social->url); ?>            
                     </td>
                     <td col="action">

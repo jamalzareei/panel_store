@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-4">
-        <select name="country_id" id="" class="select2">
+        <select name="country_id" id="" class="select2 form-control">
             <option value="">کشور</option>
             <?php if($country): ?>
                 <option selected value="<?php echo e($country->id); ?>"><?php echo e($country->name); ?></option>
@@ -11,7 +11,7 @@
         </select>
     </div>
     <div class="col-4">
-        <select name="state_id" id="" class="select2">
+        <select name="state_id" id="" class="select2 form-control">
             <option value="">استان</option>
             <?php if($state): ?>
                 <option selected value="<?php echo e($state->id); ?>"><?php echo e($state->name); ?></option>
@@ -19,7 +19,7 @@
         </select>
     </div>
     <div class="col-4">
-        <select name="city_id" id="" class="select2">
+        <select name="city_id" id="" class="select2 form-control">
             <option value="">شهر</option>
             <?php if($city): ?>
                 <option selected value="<?php echo e($city->id); ?>"><?php echo e($city->name); ?></option>

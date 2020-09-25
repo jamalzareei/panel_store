@@ -1,9 +1,17 @@
 <?php
 $user = \App\User::where('id', Auth::id())
-    ->with(['image' => function ($query) {
-        $query->select('path', 'id', 'imageable_id')->where('default_use', 'MAIN')->orderBy('id', 'desc')->first();
-    },'seller','roles'])
+    ->with([
+        'image' => function ($query) {
+            $query->select('path', 'id', 'imageable_id')->where('default_use', 'MAIN')->orderBy('id', 'desc')->first();
+        },
+        'seller' => function($qSeller){
+            $qSeller->with(['image']);
+        },
+        'roles'
+    ])
     ->first();
+    
+    // dd($user->seller);
 ?>
 <nav class="header-navbar navbar-expand-lg navbar navbar-with-menu floating-nav navbar-light navbar-shadow">
     <div class="navbar-wrapper">
@@ -53,7 +61,15 @@ $user = \App\User::where('id', Auth::id())
                                         <span class="user-name text-bold-600 py-1 text-info">فروشگاه جهت بررسی مدیریت ارسال گردیده است.</span>
                                     </div>
                                 </a>
-                            @else
+                            @elseif ($user && $user->seller && ( !$user->seller->image || !isset($user->seller->image[0]) || !isset($user->seller->image[0]->path )))
+                                <a class="btn btn-primary text-white my-1" href="{{ route('seller.data.get') }}" >
+                                    آپلود لوگو
+                                </a>
+                            @elseif ($user && $user->seller && (!$user->seller->sell_type_id || !$user->seller->pay_type_id))
+                                <a class="btn btn-primary text-white my-1" href="{{ route('seller.setting.get') }}" >
+                                    تنظیمات فروشگاه
+                                </a>
+                            @elseif ($user && $user->seller && !$user->seller->actived_at)
                                 <a class="btn btn-primary text-white my-1" href="{{ route('seller.send.admin') }}">
                                     ارسال به مدیریت جهت بررسی
                                 </a>
@@ -88,49 +104,16 @@ $user = \App\User::where('id', Auth::id())
                                     <h3 class="white"><span class="cart-item-count">6</span><span class="mx-50">Items</span></h3><span class="notification-title">In Your Cart</span>
                                 </div>
                             </li>
-                            <li class="scrollable-container media-list"><a class="cart-item" href="app-ecommerce-details.html">
+                            <li class="scrollable-container media-list">
+                                <a class="cart-item" href="app-ecommerce-details.html">
                                     <div class="media">
-                                        <div class="media-left d-flex justify-content-center align-items-center"><img src="../../../app-assets/images/pages/eCommerce/4.png" width="75" alt="Cart Item"></div>
+                                        <div class="media-left d-flex justify-content-center align-items-center"><img src="{{asset('app-assets/images/pages/eCommerce/4.png')}}" width="75" alt="Cart Item"></div>
                                         <div class="media-body"><span class="item-title text-truncate text-bold-500 d-block mb-50">Apple - Apple Watch Series 1 42mm Space Gray Aluminum Case Black Sport Band - Space Gray Aluminum</span><span class="item-desc font-small-2 text-truncate d-block"> Durable, lightweight aluminum cases in silver, space gray,gold, and rose gold. Sport Band in a variety of colors. All the features of the original Apple Watch, plus a new dual-core processor for faster performance. All models run watchOS 3. Requires an iPhone 5 or later to run this device.</span>
                                             <div class="d-flex justify-content-between align-items-center mt-1"><span class="align-middle d-block">1 x $299</span><i class="remove-cart-item feather icon-x danger font-medium-1"></i></div>
                                         </div>
                                     </div>
-                                </a><a class="cart-item" href="app-ecommerce-details.html">
-                                    <div class="media">
-                                        <div class="media-left d-flex justify-content-center align-items-center"><img class="mt-1 pl-50" src="../../../app-assets/images/pages/eCommerce/dell-inspirion.jpg" width="100" alt="Cart Item"></div>
-                                        <div class="media-body"><span class="item-title text-truncate text-bold-500 d-block mb-50">Apple - Macbook® (Latest Model) - 12" Display - Intel Core M5 - 8GB Memory - 512GB Flash Storage - Space Gray</span><span class="item-desc font-small-2 text-truncate d-block"> MacBook delivers a full-size experience in the lightest and most compact Mac notebook ever. With a full-size keyboard, force-sensing trackpad, 12-inch Retina display,1 sixth-generation Intel Core M processor, multifunctional USB-C port, and now up to 10 hours of battery life,2 MacBook features big thinking in an impossibly compact form.</span>
-                                            <div class="d-flex justify-content-between align-items-center mt-1"><span class="align-middle d-block">1 x $1599.99</span><i class="remove-cart-item feather icon-x danger font-medium-1"></i></div>
-                                        </div>
-                                    </div>
-                                </a><a class="cart-item" href="app-ecommerce-details.html">
-                                    <div class="media">
-                                        <div class="media-left d-flex justify-content-center align-items-center"><img src="../../../app-assets/images/pages/eCommerce/7.png" width="88" alt="Cart Item"></div>
-                                        <div class="media-body"><span class="item-title text-truncate text-bold-500 d-block mb-50">Sony - PlayStation 4 Pro Console</span><span class="item-desc font-small-2 text-truncate d-block"> PS4 Pro Dynamic 4K Gaming & 4K Entertainment* PS4 Pro gets you closer to your game. Heighten your experiences. Enrich your adventures. Let the super-charged PS4 Pro lead the way.** GREATNESS AWAITS</span>
-                                            <div class="d-flex justify-content-between align-items-center mt-1"><span class="align-middle d-block">1 x $399.99</span><i class="remove-cart-item feather icon-x danger font-medium-1"></i></div>
-                                        </div>
-                                    </div>
-                                </a><a class="cart-item" href="app-ecommerce-details.html">
-                                    <div class="media">
-                                        <div class="media-left d-flex justify-content-center align-items-center"><img src="../../../app-assets/images/pages/eCommerce/10.png" width="75" alt="Cart Item"></div>
-                                        <div class="media-body"><span class="item-title text-truncate text-bold-500 d-block mb-50">Beats by Dr. Dre - Geek Squad Certified Refurbished Beats Studio Wireless On-Ear Headphones - Red</span><span class="item-desc font-small-2 text-truncate d-block"> Rock out to your favorite songs with these Beats by Dr. Dre Beats Studio Wireless GS-MH8K2AM/A headphones that feature a Beats Acoustic Engine and DSP software for enhanced clarity. ANC (Adaptive Noise Cancellation) allows you to focus on your tunes.</span>
-                                            <div class="d-flex justify-content-between align-items-center mt-1"><span class="align-middle d-block">1 x $379.99</span><i class="remove-cart-item feather icon-x danger font-medium-1"></i></div>
-                                        </div>
-                                    </div>
-                                </a><a class="cart-item" href="app-ecommerce-details.html">
-                                    <div class="media">
-                                        <div class="media-left d-flex justify-content-center align-items-center"><img class="mt-1 pl-50" src="../../../app-assets/images/pages/eCommerce/sony-75class-tv.jpg" width="100" alt="Cart Item"></div>
-                                        <div class="media-body"><span class="item-title text-truncate text-bold-500 d-block mb-50">Sony - 75" Class (74.5" diag) - LED - 2160p - Smart - 3D - 4K Ultra HD TV with High Dynamic Range - Black</span><span class="item-desc font-small-2 text-truncate d-block"> This Sony 4K HDR TV boasts 4K technology for vibrant hues. Its X940D series features a bold 75-inch screen and slim design. Wires remain hidden, and the unit is easily wall mounted. This television has a 4K Processor X1 and 4K X-Reality PRO for crisp video. This Sony 4K HDR TV is easy to control via voice commands.</span>
-                                            <div class="d-flex justify-content-between align-items-center mt-1"><span class="align-middle d-block">1 x $4499.99</span><i class="remove-cart-item feather icon-x danger font-medium-1"></i></div>
-                                        </div>
-                                    </div>
-                                </a><a class="cart-item" href="app-ecommerce-details.html">
-                                    <div class="media">
-                                        <div class="media-left d-flex justify-content-center align-items-center"><img class="mt-1 pl-50" src="../../../app-assets/images/pages/eCommerce/canon-camera.jpg" width="70" alt="Cart Item"></div>
-                                        <div class="media-body"><span class="item-title text-truncate text-bold-500 d-block mb-50">Nikon - D810 DSLR Camera with AF-S NIKKOR 24-120mm f/4G ED VR Zoom Lens - Black</span><span class="item-desc font-small-2 text-truncate d-block"> Shoot arresting photos and 1080p high-definition videos with this Nikon D810 DSLR camera, which features a 36.3-megapixel CMOS sensor and a powerful EXPEED 4 processor for clear, detailed images. The AF-S NIKKOR 24-120mm lens offers shooting versatility. Memory card sold separately.</span>
-                                            <div class="d-flex justify-content-between align-items-center mt-1"><span class="align-middle d-block">1 x $4099.99</span><i class="remove-cart-item feather icon-x danger font-medium-1"></i></div>
-                                        </div>
-                                    </div>
-                                </a></li>
+                                </a>
+                            </li>
                             <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center text-primary" href="app-ecommerce-checkout.html"><i class="feather icon-shopping-cart align-middle"></i><span class="align-middle text-bold-600">Checkout</span></a></li>
                             <li class="empty-cart d-none p-2">Your Cart Is Empty.</li>
                         </ul>

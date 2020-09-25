@@ -82,6 +82,7 @@ class SellersController extends Controller
         $seller->name = $request->name;
         $seller->state_id = $request->state_id;
         $seller->title = $request->title;
+        $seller->admin_active_id = null;
 
         $seller->save();
 
@@ -165,6 +166,7 @@ class SellersController extends Controller
 
         $seller->pay_type_id = json_encode($request->pay);
         $seller->sell_type_id = json_encode($request->sell);
+        $seller->admin_active_id = null;
 
         $seller->save();
 
@@ -223,12 +225,14 @@ class SellersController extends Controller
             }
         }
 
+        
+        $seller->admin_active_id = null;
+        $seller->save();
+
         return response()->json([
-            [
                 'status' => 'success',
                 'title' => '',
                 'message' => 'با موفقیت ثبت گردید.',
-            ]
         ], 200);
         // return [
         //     'status' => 'success',
@@ -252,6 +256,7 @@ class SellersController extends Controller
         }
 
         $seller->actived_at = Carbon::now();
+        $seller->admin_active_id = null;
         $seller->save();
 
         session()->put('noty', [

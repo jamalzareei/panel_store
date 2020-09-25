@@ -19,11 +19,11 @@
                             {!! $social->social->icon !!} {{$social->social->name}}
                         @endif
                     </td>
-                    <td col="username" class="text-left">
+                    <td col="username" class="text-right">
                         {{$social->username}}
                         {{-- <input type="text" dir="ltr" name="" class="form-control" placeholder="نام کاربری" value=""> --}}
                     </td>
-                    <td col="url" class="text-left">
+                    <td col="url" class="text-right">
                         {{$social->url}}            
                     </td>
                     <td col="action">

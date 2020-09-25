@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-4">
-        <select name="country_id" id="" class="select2">
+        <select name="country_id" id="" class="select2 form-control">
             <option value="">کشور</option>
             @if ($country)
                 <option selected value="{{$country->id}}">{{$country->name}}</option>
@@ -11,7 +11,7 @@
         </select>
     </div>
     <div class="col-4">
-        <select name="state_id" id="" class="select2">
+        <select name="state_id" id="" class="select2 form-control">
             <option value="">استان</option>
             @if ($state)
                 <option selected value="{{$state->id}}">{{$state->name}}</option>
@@ -19,7 +19,7 @@
         </select>
     </div>
     <div class="col-4">
-        <select name="city_id" id="" class="select2">
+        <select name="city_id" id="" class="select2 form-control">
             <option value="">شهر</option>
             @if ($city)
                 <option selected value="{{$city->id}}">{{$city->name}}</option>

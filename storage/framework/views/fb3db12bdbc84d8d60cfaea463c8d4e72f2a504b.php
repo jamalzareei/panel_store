@@ -185,7 +185,7 @@
                                     </fieldset>
                                     <fieldset>
                                         <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox" name="active" checked value="1">
+                                            <input type="checkbox" name="actived_at" checked value="1">
                                             <span class="vs-checkbox">
                                                 <span class="vs-checkbox--check">
                                                     <i class="vs-icon feather icon-check"></i>
@@ -279,9 +279,9 @@
                                             <div class="hidden">deleted</div>
                                         </div>
                                     </div>
-                                    <?php elseif($property->active_at): ?>
+                                    <?php elseif($property->actived_at): ?>
                                         <div class="custom-control custom-switch custom-switch-success switch-md mr-2 mb-1">
-                                        <input type="checkbox" class="custom-control-input" name="active_at[<?php echo e($property->id); ?>]" id="customSwitch<?php echo e($property->id); ?>" checked onclick="changeStatus('<?php echo e(route('admin.property.update.status', ['id'=> $property->id])); ?>',this)">
+                                        <input type="checkbox" class="custom-control-input" name="actived_at[<?php echo e($property->id); ?>]" id="customSwitch<?php echo e($property->id); ?>" checked onclick="changeStatus('<?php echo e(route('admin.property.update.status', ['id'=> $property->id])); ?>',this)">
                                             <label class="custom-control-label" for="customSwitch<?php echo e($property->id); ?>">
                                                 <span class="switch-text-left">فعال</span>
                                                 <span class="switch-text-right">غیر فعال</span>
@@ -290,7 +290,7 @@
                                         <div class="hidden">ac-tive</div>
                                     <?php else: ?>
                                         <div class="custom-control custom-switch custom-switch-success switch-md mr-2 mb-1">
-                                            <input type="checkbox" class="custom-control-input" name="active_at[<?php echo e($property->id); ?>]" id="customSwitch<?php echo e($property->id); ?>" onclick="changeStatus('<?php echo e(route('admin.property.update.status', ['id'=> $property->id])); ?>',this)">
+                                            <input type="checkbox" class="custom-control-input" name="actived_at[<?php echo e($property->id); ?>]" id="customSwitch<?php echo e($property->id); ?>" onclick="changeStatus('<?php echo e(route('admin.property.update.status', ['id'=> $property->id])); ?>',this)">
                                             <label class="custom-control-label" for="customSwitch<?php echo e($property->id); ?>">
                                                 <span class="switch-text-left">فعال</span>
                                                 <span class="switch-text-right">غیر فعال</span>

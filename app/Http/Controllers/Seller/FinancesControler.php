@@ -63,6 +63,7 @@ class FinancesControler extends Controller
             // 'id' => $request->actived_at,
             'name' => $request->name,
         ]);
+        $this->deactvieAdminSeller();
 
         return response()->json([
             'status' => 'success',
@@ -74,6 +75,7 @@ class FinancesControler extends Controller
     public function financeUpdate(Request $request, $id)
     {
         # code...
+        $this->deactvieAdminSeller();
         $request->validate([
             // 'actived_at' => 'required',
             'bank' => 'required',
@@ -108,6 +110,7 @@ class FinancesControler extends Controller
     {
         # code...
         // return $request->all();
+        $this->deactvieAdminSeller();
         if(!$request->row){
             return response()->json([
                 'status' => 'warning',
@@ -136,6 +139,7 @@ class FinancesControler extends Controller
     {
         # code...
         $financeDelete = Finance::where('id',$id)->first();
+        $this->deactvieAdminSeller();
         if ($financeDelete) {
             $financeDelete->deleted_at = Carbon::now()->format('Y-m-d H:i:s');
             $financeDelete->save();
@@ -151,5 +155,17 @@ class FinancesControler extends Controller
                 'message' => 'دوباره تلاش نمایید.'
             ]);
         }
+    }
+    
+    public function deactvieAdminSeller()
+    {
+        # code...
+        
+        $user = Auth::user();
+        $seller = $user->seller;
+
+        $seller = Seller::where('id', $seller->id)->first();
+        $seller->admin_active_id = null;
+        $seller->save();
     }
 }

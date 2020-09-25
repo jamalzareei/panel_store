@@ -92,14 +92,14 @@
                                                                     <li class="d-inline-block mr-2">
                                                                         <fieldset>
                                                                             <div class="vs-checkbox-con vs-checkbox-primary">
-                                                                                <input type="checkbox" name="active_at" value="1" id="data-block" <?php echo e(($property && $property->active_at) ? 'checked' : ''); ?>>
+                                                                                <input type="checkbox" name="actived_at" value="1" id="data-block" <?php echo e(($property && $property->actived_at) ? 'checked' : ''); ?>>
                                                                                 <span class="vs-checkbox">
                                                                                     <span class="vs-checkbox--check">
                                                                                         <i class="vs-icon feather icon-check"></i>
                                                                                     </span>
                                                                                 </span>
                                                                                 <span class="">فعال</span>
-                                                                                <small class="help-block text-danger error-active_at"></small>
+                                                                                <small class="help-block text-danger error-actived_at"></small>
                                                                             </div>
                                                                         </fieldset>
                                                                     </li>

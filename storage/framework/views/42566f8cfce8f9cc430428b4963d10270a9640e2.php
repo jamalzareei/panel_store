@@ -185,7 +185,7 @@
                                     </fieldset>
                                     <fieldset>
                                         <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox" name="active_at" checked value="1">
+                                            <input type="checkbox" name="actived_at" checked value="1">
                                             <span class="vs-checkbox">
                                                 <span class="vs-checkbox--check">
                                                     <i class="vs-icon feather icon-check"></i>
@@ -291,9 +291,9 @@
                                             <div class="chip-text">حذف شده</div>
                                         </div>
                                     </div>
-                                    <?php elseif($category->active_at): ?>
+                                    <?php elseif($category->actived_at): ?>
                                         <div class="custom-control custom-switch custom-switch-success switch-md mr-2 mb-1">
-                                        <input type="checkbox" class="custom-control-input" name="active_at[<?php echo e($category->id); ?>]" id="customSwitch<?php echo e($category->id); ?>" checked onclick="changeStatus('<?php echo e(route('admin.category.update.status', ['id'=> $category->id])); ?>',this)">
+                                        <input type="checkbox" class="custom-control-input" name="actived_at[<?php echo e($category->id); ?>]" id="customSwitch<?php echo e($category->id); ?>" checked onclick="changeStatus('<?php echo e(route('admin.category.update.status', ['id'=> $category->id])); ?>',this)">
                                             <label class="custom-control-label" for="customSwitch<?php echo e($category->id); ?>">
                                                 <span class="switch-text-left">فعال</span>
                                                 <span class="switch-text-right">غیر فعال</span>
@@ -302,7 +302,7 @@
                                         <div class="hidden">فعال شده</div>
                                     <?php else: ?>
                                         <div class="custom-control custom-switch custom-switch-success switch-md mr-2 mb-1">
-                                            <input type="checkbox" class="custom-control-input" name="active_at[<?php echo e($category->id); ?>]" id="customSwitch<?php echo e($category->id); ?>" onclick="changeStatus('<?php echo e(route('admin.category.update.status', ['id'=> $category->id])); ?>',this)">
+                                            <input type="checkbox" class="custom-control-input" name="actived_at[<?php echo e($category->id); ?>]" id="customSwitch<?php echo e($category->id); ?>" onclick="changeStatus('<?php echo e(route('admin.category.update.status', ['id'=> $category->id])); ?>',this)">
                                             <label class="custom-control-label" for="customSwitch<?php echo e($category->id); ?>">
                                                 <span class="switch-text-left">فعال</span>
                                                 <span class="switch-text-right">غیر فعال</span>

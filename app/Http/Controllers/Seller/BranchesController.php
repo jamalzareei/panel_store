@@ -70,6 +70,7 @@ class BranchesController extends Controller
             'seller_id'     => $seller->id,
         ]);
         
+        $this->deactvieAdminSeller();
 
         return [
             
@@ -137,6 +138,8 @@ class BranchesController extends Controller
 
         $branch->save();
 
+        $this->deactvieAdminSeller();
+
         return [
             'status' => 'success',
             'title' => '',
@@ -195,6 +198,9 @@ class BranchesController extends Controller
     {
         # code...
         $branchDelete = SellerBranch::where('id',$id)->first();
+        
+        $this->deactvieAdminSeller();
+
         if ($branchDelete) {
             $branchDelete->deleted_at = Carbon::now()->format('Y-m-d H:i:s');
             $branchDelete->save();
@@ -211,5 +217,17 @@ class BranchesController extends Controller
             ]);
         }
 
+    }
+
+    public function deactvieAdminSeller()
+    {
+        # code...
+        
+        $user = Auth::user();
+        $seller = $user->seller;
+
+        $seller = Seller::where('id', $seller->id)->first();
+        $seller->admin_active_id = null;
+        $seller->save();
     }
 }

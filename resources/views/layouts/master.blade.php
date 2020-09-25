@@ -97,7 +97,7 @@
 <body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static   menu-collapsed" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 
     @include('components.navbar')
-    @include('components.header')
+    {{-- @include('components.header') --}}
     @include('components.main-menu')
     {{-- @include('components.sidebar') --}}
     

@@ -82,16 +82,18 @@
             .openPopup();
         return false;
     };
+    <?php if(!isset($showOnly)): ?>
 
-    map.on('click', function(e) {
-        $('#latitude').val(e.latlng.lat);
-        $('#longitude').val(e.latlng.lng);
-        updateMarker(e.latlng.lat, e.latlng.lng);
-    });
+        map.on('click', function(e) {
+            $('#latitude').val(e.latlng.lat);
+            $('#longitude').val(e.latlng.lng);
+            updateMarker(e.latlng.lat, e.latlng.lng);
+        });
 
-    var updateMarkerByInputs = function() {
-        return updateMarker($('#latitude').val(), $('#longitude').val());
-    }
-    $('#latitude').on('input', updateMarkerByInputs);
-    $('#longitude').on('input', updateMarkerByInputs);
-</script><?php /**PATH C:\wamp64\www\shixeh\resources\views/components/sections/location-pin.blade.php ENDPATH**/ ?>
+        var updateMarkerByInputs = function() {
+            return updateMarker($('#latitude').val(), $('#longitude').val());
+        }
+        $('#latitude').on('input', updateMarkerByInputs);
+        $('#longitude').on('input', updateMarkerByInputs);
+    <?php endif; ?>
+    </script><?php /**PATH C:\wamp64\www\shixeh\resources\views/components/sections/location-pin.blade.php ENDPATH**/ ?>

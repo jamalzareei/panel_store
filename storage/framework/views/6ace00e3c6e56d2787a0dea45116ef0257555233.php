@@ -64,6 +64,15 @@
                         <li><a href="<?php echo e(route('admin.tags.list')); ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="">لیست تگ ها</span></a></li>
                     </ul>
                 </li>
+
+                <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="users">فروشندگان</span></a>
+                    <ul class="menu-content">
+                        <li><a href="<?php echo e(route('admin.sellers.list', ['type' => 'wait-active-admin'])); ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> فروشندگان در انتظار تایید</span></a></li>
+                        <li><a href="<?php echo e(route('admin.sellers.list', ['type' => 'not-complete-data'])); ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> فروشندگان در حال تکمیل</span></a></li>
+                        <li><a href="<?php echo e(route('admin.sellers.list', ['type' => 'compete-and-active-admin'])); ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> فروشندگان تایید شده</span></a></li>
+                        
+                    </ul>
+                </li>
                 <?php endif; ?>
                 
                 <?php if(auth()->check() && auth()->user()->hasAnyRole('seller')): ?>

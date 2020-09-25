@@ -28,6 +28,11 @@ class Seller extends Model
     {
         return $this->morphMany('App\Models\Image', 'imageable')->where('default_use', 'MAIN')->orderBy('id', 'desc');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
     
     public function country()
     {
