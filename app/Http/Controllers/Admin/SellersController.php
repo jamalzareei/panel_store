@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
 use App\Models\Currency;
+use App\Models\Message;
 use App\Models\PayType;
 use App\Models\Seller;
 use App\Models\SellerSocial;
@@ -131,7 +132,7 @@ class SellersController extends Controller
 
         $seller->save();
 
-        Ticket::create([
+        Message::create([
             'user_sender_id'        => Auth::id(),
             'user_receiver_id'      => $seller->user_id,
             'user_receiver_type'    => 'seller',

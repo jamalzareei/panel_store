@@ -13,10 +13,10 @@ class CreateTicketReadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('ticket_reads', function (Blueprint $table) {
+        Schema::create('message_user', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->index();
-            $table->bigInteger('ticket_id')->index();
+            $table->bigInteger('message_id')->index();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +29,6 @@ class CreateTicketReadsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ticket_reads');
+        Schema::dropIfExists('message_user');
     }
 }

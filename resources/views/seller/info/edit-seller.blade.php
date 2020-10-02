@@ -137,8 +137,8 @@
                                                                             @include('components.sections.crop', ['head'=> '', 'type' => 'circle'])
                                                                         </div>
                                                                         <div class="col-md-6 m-auto text-center">
-                                                                            @if ($seller && $seller->image && isset($seller->image[0]) && $seller->image[0]->path)
-                                                                                <img src="{{config('shixeh.cdn_domain')}}/{{$seller->image[0]->path}}" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
+                                                                            @if ($seller && $seller->image && isset($seller->image) && $seller->image->path)
+                                                                                <img src="{{config('shixeh.cdn_domain')}}/{{$seller->image->path}}" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                                                             @else
                                                                                 <img src="{{config('shixeh.cdn_domain')}}/assets/images/logo.png" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                                                             @endif

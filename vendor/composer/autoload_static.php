@@ -33,6 +33,7 @@ class ComposerStaticInitea92287eb9037e673a10222af5fe81b1
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
         '4364d9898253482270d33c3e7d349234' => __DIR__ . '/..' . '/hekmatinasser/notowo/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '3109cb1a231dcd04bee1f9f620d46975' => __DIR__ . '/..' . '/paragonie/sodium_compat/autoload.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '4ad677cf23be1eeec8c74951804d4cb0' => __DIR__ . '/..' . '/hekmatinasser/verta/src/helpers.php',
         'f6cbce736bc5fc2e5188a8b035469160' => __DIR__ . '/..' . '/josh/faker/src/helpers.php',
@@ -99,6 +100,7 @@ class ComposerStaticInitea92287eb9037e673a10222af5fe81b1
         ),
         'P' => 
         array (
+            'Pusher\\' => 7,
             'Psy\\' => 4,
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
@@ -341,6 +343,10 @@ class ComposerStaticInitea92287eb9037e673a10222af5fe81b1
         array (
             0 => __DIR__ . '/..' . '/ramsey/collection/src',
         ),
+        'Pusher\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/pusher/pusher-php-server/src',
+        ),
         'Psy\\' => 
         array (
             0 => __DIR__ . '/..' . '/psy/psysh/src',
@@ -564,6 +570,7 @@ class ComposerStaticInitea92287eb9037e673a10222af5fe81b1
         'App\\Http\\Controllers\\Admin\\PermissionsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PermissionsController.php',
         'App\\Http\\Controllers\\Admin\\PropertiesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/PropertiesController.php',
         'App\\Http\\Controllers\\Admin\\RolesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/RolesController.php',
+        'App\\Http\\Controllers\\Admin\\SellersController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/SellersController.php',
         'App\\Http\\Controllers\\Admin\\TagsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/TagsController.php',
         'App\\Http\\Controllers\\Admin\\UsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/UsersController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
@@ -576,7 +583,11 @@ class ComposerStaticInitea92287eb9037e673a10222af5fe81b1
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\Seller\\BranchesController' => __DIR__ . '/../..' . '/app/Http/Controllers/Seller/BranchesController.php',
         'App\\Http\\Controllers\\Seller\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Seller/DashboardController.php',
+        'App\\Http\\Controllers\\Seller\\FinancesControler' => __DIR__ . '/../..' . '/app/Http/Controllers/Seller/FinancesControler.php',
         'App\\Http\\Controllers\\Seller\\SellersController' => __DIR__ . '/../..' . '/app/Http/Controllers/Seller/SellersController.php',
+        'App\\Http\\Controllers\\Seller\\SocialsController' => __DIR__ . '/../..' . '/app/Http/Controllers/Seller/SocialsController.php',
+        'App\\Http\\Controllers\\User\\MessagesController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/MessagesController.php',
+        'App\\Http\\Controllers\\User\\TicketsController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/TicketsController.php',
         'App\\Http\\Controllers\\User\\UsersController' => __DIR__ . '/../..' . '/app/Http/Controllers/User/UsersController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Admin' => __DIR__ . '/../..' . '/app/Http/Middleware/Admin.php',
@@ -603,6 +614,7 @@ class ComposerStaticInitea92287eb9037e673a10222af5fe81b1
         'App\\Models\\Image' => __DIR__ . '/../..' . '/app/Models/Image.php',
         'App\\Models\\Language' => __DIR__ . '/../..' . '/app/Models/Language.php',
         'App\\Models\\Login' => __DIR__ . '/../..' . '/app/Models/Login.php',
+        'App\\Models\\Message' => __DIR__ . '/../..' . '/app/Models/Message.php',
         'App\\Models\\Order' => __DIR__ . '/../..' . '/app/Models/Order.php',
         'App\\Models\\OrderDetail' => __DIR__ . '/../..' . '/app/Models/OrderDetail.php',
         'App\\Models\\Page' => __DIR__ . '/../..' . '/app/Models/Page.php',
@@ -621,6 +633,7 @@ class ComposerStaticInitea92287eb9037e673a10222af5fe81b1
         'App\\Models\\SellType' => __DIR__ . '/../..' . '/app/Models/SellType.php',
         'App\\Models\\Seller' => __DIR__ . '/../..' . '/app/Models/Seller.php',
         'App\\Models\\SellerBranch' => __DIR__ . '/../..' . '/app/Models/SellerBranch.php',
+        'App\\Models\\SellerSocial' => __DIR__ . '/../..' . '/app/Models/SellerSocial.php',
         'App\\Models\\SetProduct' => __DIR__ . '/../..' . '/app/Models/SetProduct.php',
         'App\\Models\\Setting' => __DIR__ . '/../..' . '/app/Models/Setting.php',
         'App\\Models\\Social' => __DIR__ . '/../..' . '/app/Models/Social.php',
@@ -4157,6 +4170,11 @@ class ComposerStaticInitea92287eb9037e673a10222af5fe81b1
         'Psy\\VersionUpdater\\GitHubChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/GitHubChecker.php',
         'Psy\\VersionUpdater\\IntervalChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/IntervalChecker.php',
         'Psy\\VersionUpdater\\NoopChecker' => __DIR__ . '/..' . '/psy/psysh/src/VersionUpdater/NoopChecker.php',
+        'Pusher\\Pusher' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/Pusher.php',
+        'Pusher\\PusherCrypto' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherCrypto.php',
+        'Pusher\\PusherException' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherException.php',
+        'Pusher\\PusherInstance' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/PusherInstance.php',
+        'Pusher\\Webhook' => __DIR__ . '/..' . '/pusher/pusher-php-server/src/Webhook.php',
         'Ramsey\\Collection\\AbstractArray' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractArray.php',
         'Ramsey\\Collection\\AbstractCollection' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractCollection.php',
         'Ramsey\\Collection\\AbstractSet' => __DIR__ . '/..' . '/ramsey/collection/src/AbstractSet.php',

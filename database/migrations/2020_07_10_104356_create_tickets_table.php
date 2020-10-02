@@ -13,7 +13,7 @@ class CreateTicketsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tickets', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_sender_id')->index();
             $table->bigInteger('user_receiver_id')->nullable()->index();
@@ -35,6 +35,6 @@ class CreateTicketsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tickets');
+        Schema::dropIfExists('messages');
     }
 }

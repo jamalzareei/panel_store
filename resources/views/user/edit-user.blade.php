@@ -131,8 +131,8 @@
                         <div class="card-content">
                             <div class="card-body">
                                 <div class="text-center">
-                                    @if ($user->image && isset($user->image[0]) && $user->image[0]->path)
-                                        <img src="{{config('shixeh.cdn_domain')}}/{{$user->image[0]->path}}" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
+                                    @if ($user->image && isset($user->image) && $user->image->path)
+                                        <img src="{{config('shixeh.cdn_domain')}}/{{$user->image->path}}" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                     @else
                                         <img src="{{config('shixeh.cdn_domain')}}/assets/images/logo.png" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                     @endif

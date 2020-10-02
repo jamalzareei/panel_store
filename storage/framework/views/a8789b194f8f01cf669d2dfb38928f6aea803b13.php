@@ -125,8 +125,8 @@
                                                                             <?php echo $__env->make('components.sections.crop', ['head'=> '', 'type' => 'circle'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                                                         </div>
                                                                         <div class="col-md-6 m-auto text-center">
-                                                                            <?php if($seller && $seller->image && isset($seller->image[0]) && $seller->image[0]->path): ?>
-                                                                                <img src="<?php echo e(config('shixeh.cdn_domain')); ?>/<?php echo e($seller->image[0]->path); ?>" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
+                                                                            <?php if($seller && $seller->image && isset($seller->image) && $seller->image->path): ?>
+                                                                                <img src="<?php echo e(config('shixeh.cdn_domain')); ?>/<?php echo e($seller->image->path); ?>" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                                                             <?php else: ?>
                                                                                 <img src="<?php echo e(config('shixeh.cdn_domain')); ?>/assets/images/logo.png" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                                                             <?php endif; ?>

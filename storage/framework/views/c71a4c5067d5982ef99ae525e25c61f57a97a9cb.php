@@ -135,6 +135,23 @@
     
     <script src="<?php echo e(asset('app-assets/vendors/js/extensions/toastr.min.js')); ?>"></script>
 
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script>
+
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('39a4b89b832a7867090d', {
+        cluster: 'us2'
+        });
+
+        var channel = pusher.subscribe('my-channel.<?php echo e(auth()->id()); ?>');
+        // var channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+        console.info(JSON.stringify(data));
+        });
+    </script>
+
     <?php echo $__env->yieldContent('footer'); ?>
     <script src="<?php echo e(asset('js/scripts.js')); ?>"></script>
 

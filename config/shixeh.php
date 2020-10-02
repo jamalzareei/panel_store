@@ -10,4 +10,5 @@ return [
     'mainInfo'                  => 'info@shixeh.com',
     'mailJob'                   => 'job@shixeh.com',
     'test'                      => 'test',
+    'path_logo'                 => 'http://localhost/cdn.shixeh.local/assets/images/logo.png',
 ];

@@ -102,6 +102,10 @@ Route::namespace('User')->middleware('auth')->prefix('user')->group(function() {
     Route::get('/user/change-password', 'UsersController@userChangePassword')->name('user.data.change.password');
     Route::post('/user/change-password', 'UsersController@postUserChangePassword')->name('user.data.change.password.post');
 
+    Route::get('/user/chats', 'MessagesController@messages')->name('user.messages');
+    Route::get('/user/load-chat/{user_id?}', 'MessagesController@loadChat')->name('user.load.chat');
+    Route::post('/send-message/{user_id?}', 'MessagesController@sendMessage')->name('user.send.message');
+
 });
 
 Route::get('/get-countries', 'Admin\LocationController@getCountries')->name('get.countries.location');

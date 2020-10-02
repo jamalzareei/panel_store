@@ -26,7 +26,7 @@ class Seller extends Model
     }
     public function image()
     {
-        return $this->morphMany('App\Models\Image', 'imageable')->where('default_use', 'MAIN')->orderBy('id', 'desc');
+        return $this->morphOne('App\Models\Image', 'imageable')->where('default_use', 'MAIN')->orderBy('id', 'desc');
     }
 
     public function user()

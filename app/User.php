@@ -68,16 +68,21 @@ class User extends Authenticatable
 
     public function image()
     {
-        return $this->morphMany('App\Models\Image', 'imageable');
+        return $this->morphOne('App\Models\Image', 'imageable')->whereNull('deleted_at')->where('default_use', 'MAIN')->orderBy('id', 'desc');
     }
 
     public function seller()
     {
-        return $this->hasOne('App\Models\Seller');
+        return $this->hasOne('App\Models\Seller')->whereNull('deleted_at');
     }
 
     public function finances()
     {
-        return $this->hasMany('App\Models\Finance');
+        return $this->hasMany('App\Models\Finance')->whereNull('deleted_at');
+    }
+
+    public function readAttach()
+    {
+        return $this->belongsToMany('App\Models\Message');//->where('user_id', auth()->id())->select('message_id','user_id');
     }
 }

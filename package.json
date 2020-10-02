@@ -27,6 +27,7 @@
         "cropperjs": "^1.5.7",
         "croppie": "^2.6.5",
         "dropify": "^0.2.2",
+        "laravel-echo": "^1.8.1",
         "toastr": "^2.1.4"
     }
 }
