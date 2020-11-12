@@ -95,6 +95,7 @@
                             <div class="modal-body">
                                 <fieldset class="form-group">
                                     <input type="text" class="new-todo-item-title form-control" name="title" placeholder="نام شعبه">
+                                    <small class="help-block text-danger error-title"></small>
                                 </fieldset>
                             </div>
                             <div class="modal-footer">

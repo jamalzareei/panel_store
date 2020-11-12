@@ -25,8 +25,18 @@ class Category extends Model
         ];
     }
 
+    public function children()
+    {
+        return $this->hasMany($this, 'parent_id', 'id');
+    }
+
     public function properties()
     {
         return $this->hasMany('App\Models\Property');
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany('App\Models\Product');
     }
 }

@@ -11,6 +11,10 @@
     #upload {
         display: none
     } */
+    .upload-demo-wrap {
+        width: 100%;
+        height: {{isset($width) ? $width.'px' : '200px'}} ;
+    }
 </style>
 
 <div class="demo-wrap upload-demo">
@@ -32,7 +36,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <label for="upload" class="upload-msg">
+                        <label for="upload" class="upload-msg w-100">
                             انتخاب عکس
                         </label>
                         <div class="upload-demo-wrap">
@@ -76,9 +80,9 @@
 
         $uploadCrop = $('#upload-demo').croppie({
             viewport: {
-                width: 200,
-                height: 200,
-                type: "{{$type ? $type : ''}}"// 'circle'
+                width: "{{isset($width) ? $width : '200'}}",// 200,
+                height:"{{isset($height) ? $height : '200'}}",// 200,
+                type: "{{isset($type) ? $type : ''}}"// 'circle'
             },
             enableExif: true
         });

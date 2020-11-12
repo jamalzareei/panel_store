@@ -43,3 +43,11 @@
     left: 3px;
     top: 3px;
 }
+
+.breadcrumb .breadcrumb-item+.breadcrumb-item:not(:empty):before {
+    transform: rotate(180deg);
+}
+
+.breadcrumb .breadcrumb-item+.breadcrumb-item:empty:before {
+    content: '';
+}

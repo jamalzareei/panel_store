@@ -135,6 +135,10 @@
     
     <script src="<?php echo e(asset('app-assets/vendors/js/extensions/toastr.min.js')); ?>"></script>
 
+    
+
+    <?php echo $__env->yieldContent('footer'); ?>
+    <script src="<?php echo e(asset('js/scripts.js')); ?>"></script>
     <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
 
@@ -148,12 +152,28 @@
         var channel = pusher.subscribe('my-channel.<?php echo e(auth()->id()); ?>');
         // var channel = pusher.subscribe('my-channel');
         channel.bind('my-event', function(data) {
-        console.info(JSON.stringify(data));
+            console.info((data));
+            var countNoty = $('li#notifictations-user-noty .badge.badge-up').text();
+            $('li#notifictations-user-noty .badge.badge-up').text(Number(countNoty) + 1);
+
+            var strNoty = `<a class="d-flex justify-content-between" href="javascript:void(0)">
+                <div class="media d-flex align-items-start">
+                    <div class="media-left"><i class="feather icon-plus-square font-medium-5 primary"></i></div>
+                    <div class="media-body">
+                        <h6 class="primary media-heading">`+data.message.message+`</h6>
+                        <small class="notification-text">`+data.message.message+`</small>
+                    </div><small>
+                        <time class="media-meta" datetime="2015-06-11T18:29:20+08:00"></time></small>
+                </div>
+            </a>`;
+
+            $('li#notifictations-user-noty .scrollable-container').prepend(strNoty)
+
+            messageToast("پیام", "شما یک پیغام جدید دارید.", "info", 5000)
+            // $('#notifictations-user-noty').val();
+            // $('#notifictations-user-noty').val();
         });
     </script>
-
-    <?php echo $__env->yieldContent('footer'); ?>
-    <script src="<?php echo e(asset('js/scripts.js')); ?>"></script>
 
     <script>
         <?php if(session('noty')): ?>

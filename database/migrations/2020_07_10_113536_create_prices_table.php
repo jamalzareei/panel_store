@@ -20,11 +20,15 @@ class CreatePricesTable extends Migration
             $table->bigInteger('product_id')->index();
             $table->bigInteger('amount');
             $table->bigInteger('price');
+            $table->bigInteger('old_price');
+            $table->bigInteger('currency_id')->default(1);
             $table->bigInteger('discount')->nullable()->index();
             $table->timestamp('start_discount_at')->nullable();
             $table->timestamp('end_discount_at')->nullable();
-            $table->integer('active')->unsigned()->nullable()->default(1)->index();
+            $table->timestamp('actived_at')->nullable()->index();
             $table->integer('order_by')->default(1);
+            $table->bigInteger('admin_id')->nullable();
+            $table->timestamp('admin_active_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

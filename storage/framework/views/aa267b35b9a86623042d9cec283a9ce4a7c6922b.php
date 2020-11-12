@@ -62,22 +62,22 @@ $user = \App\User::where('id', Auth::id())
                                     </div>
                                 </a>
                             <?php elseif($user && $user->seller && ( !$user->seller->image || !isset($user->seller->image) || !isset($user->seller->image->path ))): ?>
-                                <a class="btn btn-primary text-white my-1" href="<?php echo e(route('seller.data.get')); ?>" >
+                                <a class="btn btn-danger text-white my-1" href="<?php echo e(route('seller.data.get')); ?>" >
                                     آپلود لوگو
                                 </a>
                             <?php elseif($user && $user->seller && (!$user->seller->sell_type_id || !$user->seller->pay_type_id)): ?>
-                                <a class="btn btn-primary text-white my-1" href="<?php echo e(route('seller.setting.get')); ?>" >
+                                <a class="btn btn-danger text-white my-1" href="<?php echo e(route('seller.setting.get')); ?>" >
                                     تنظیمات فروشگاه
                                 </a>
                             <?php elseif($user && $user->seller && !$user->seller->actived_at): ?>
-                                <a class="btn btn-primary text-white my-1" href="<?php echo e(route('seller.send.admin')); ?>">
+                                <a class="btn btn-danger text-white my-1" href="<?php echo e(route('seller.send.admin')); ?>">
                                     ارسال به مدیریت جهت بررسی
                                 </a>
                             <?php endif; ?>
                         </li>
-                        <?php if($user && $user->seller && $user->seller->admin_active_id): ?>
+                        <?php if($user && $user->seller && $user->seller->admin_active_id && request()->route()->getName() != 'seller.product.updateorcreate'): ?>
                             <li class="nav-item d-none d-lg-block">
-                                <a class="btn btn-primary text-white my-1 font-weight-bold" href="<?php echo e(route('seller.send.admin')); ?>">
+                                <a class="btn bg-gradient-success text-white my-1 font-weight-bold" href="<?php echo e(route('seller.product.updateorcreate')); ?>">
                                     اضافه کردن محصول
                                 </a>
                             </li>
@@ -109,7 +109,10 @@ $user = \App\User::where('id', Auth::id())
                             <li class="empty-cart d-none p-2">Your Cart Is Empty.</li>
                         </ul>
                     </li>
-                    <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i><span class="badge badge-pill badge-primary badge-up">5</span></a>
+                    <li class="dropdown dropdown-notification nav-item" id="notifictations-user-noty">
+                        <a class="nav-link nav-link-label" href="#" data-toggle="dropdown">
+                            <i class="ficon feather icon-bell"></i><span class="badge badge-pill badge-primary badge-up">5</span>
+                        </a>
                         <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                             <li class="dropdown-menu-header">
                                 <div class="dropdown-header m-0 p-2">

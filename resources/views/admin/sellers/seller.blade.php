@@ -108,7 +108,7 @@ $(() => {
                             
                             <div class="col-md-12">
                                 <button type="submit" class="btn bg-gradient-info mr-1 waves-effect waves-light action-add-new" data-toggle="modal" data-target="#exampleModalCenter">
-                                    <i class="feather icon-plus"></i> فعال کردن فروشگاه
+                                    <i class="feather icon-plus"></i> ارسال پیام و تاییدیه ها
                                 </button>
                             </div>
                             

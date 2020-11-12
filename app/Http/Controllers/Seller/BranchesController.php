@@ -29,8 +29,15 @@ class BranchesController extends Controller
                     
         $countries = Country::all();
         if(!$seller){
-            return view('seller.seller-not-exists', [
+            return view('components.not-perrmission', [
                 'title' => 'تکمیل اطلاعات فروشنده',
+                'message' => '<br>
+                شما اجازه دسترسی به این بخش را ندارید.
+                <br>
+                <br>
+                لطفا ابتدا نسبت به تکمیل اطلاعات فروشگاه خود اقدام نمایید.',
+                'linkRedirect' => route('seller.data.get'),
+                'textRedirect' => 'تکمیل اطلاعات فروشنده',
             ]);
         }
         // return $seller;

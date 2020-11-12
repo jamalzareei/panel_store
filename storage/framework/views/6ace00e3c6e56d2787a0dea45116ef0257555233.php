@@ -111,6 +111,18 @@
                         </a></li>
                     </ul>
                 </li>
+                <li class=" nav-item"><a href="#"><i class="fa fa-money"></i><span class="menu-title" data-i18n="users">محصولات</span></a>
+                    <ul class="menu-content">
+                        <li class=" nav-item"><a href="<?php echo e(route('seller.product.updateorcreate')); ?>">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">اضافه محصول </span>
+                        </a><a href="<?php echo e(route('seller.product.updateorcreate')); ?>" class="pt-0">
+                            <small class="small pl-3 font-small-1">(لیست حساب ها، اضافه و ویرایش)</small>
+                        </a></li>
+                        <li class=" nav-item"><a href="<?php echo e(route('seller.products.get')); ?>">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">لیست محصولات</span>
+                        </a></li>
+                    </ul>
+                </li>
                 <?php endif; ?>
 
                 <li class=" navigation-header"><span>Apps</span>

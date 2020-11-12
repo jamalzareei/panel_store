@@ -29,4 +29,9 @@ class Property extends Model
     {
         return $this->belongsTo('App\Models\Category');
     }
+
+    public function propertyvalue()
+    {
+        return $this->hasOne('App\Models\PropertyValue');
+    }
 }

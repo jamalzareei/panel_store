@@ -55,6 +55,7 @@ class SellersController extends Controller
             
             'website' => 'nullable|url',
             'name' => 'required|string',
+            'code' => 'required|string',
             'manager' => 'required|string',
             'image_file' => 'nullable|string',
         ]);
@@ -80,6 +81,7 @@ class SellersController extends Controller
         $seller->meta_description = $request->meta_description;
         $seller->meta_keywords = $request->meta_keywords;
         $seller->name = $request->name;
+        $seller->code = $request->code;
         $seller->state_id = $request->state_id;
         $seller->title = $request->title;
         $seller->admin_active_id = null;
@@ -121,8 +123,15 @@ class SellersController extends Controller
             ];
         }
         if(!$seller){
-            return view('seller.seller-not-exists', [
+            return view('components.not-perrmission', [
                 'title' => 'تکمیل اطلاعات فروشنده',
+                'message' => '<br>
+                شما اجازه دسترسی به این بخش را ندارید.
+                <br>
+                <br>
+                لطفا ابتدا نسبت به تکمیل اطلاعات فروشگاه خود اقدام نمایید.',
+                'linkRedirect' => route('seller.data.get'),
+                'textRedirect' => 'تکمیل اطلاعات فروشنده',
             ]);
         }
         // $setting->pay = json_decode($seller->pay_type_id);
@@ -188,8 +197,15 @@ class SellersController extends Controller
         $seller = Seller::where('user_id', $user->id)->first();
         if(!$user || !$seller){
             if(!$seller){
-                return view('seller.seller-not-exists', [
+                return view('components.not-perrmission', [
                     'title' => 'تکمیل اطلاعات فروشنده',
+                    'message' => '<br>
+                    شما اجازه دسترسی به این بخش را ندارید.
+                    <br>
+                    <br>
+                    لطفا ابتدا نسبت به تکمیل اطلاعات فروشگاه خود اقدام نمایید.',
+                    'linkRedirect' => route('seller.data.get'),
+                    'textRedirect' => 'تکمیل اطلاعات فروشنده',
                 ]);
             }
         }
@@ -249,14 +265,21 @@ class SellersController extends Controller
         $seller = Seller::where('user_id', $user->id)->first();
         if(!$user || !$seller){
             if(!$seller){
-                return view('seller.seller-not-exists', [
+                return view('components.not-perrmission', [
                     'title' => 'تکمیل اطلاعات فروشنده',
+                    'message' => '<br>
+                    شما اجازه دسترسی به این بخش را ندارید.
+                    <br>
+                    <br>
+                    لطفا ابتدا نسبت به تکمیل اطلاعات فروشگاه خود اقدام نمایید.',
+                    'linkRedirect' => route('seller.data.get'),
+                    'textRedirect' => 'تکمیل اطلاعات فروشنده',
                 ]);
             }
         }
 
         $seller->actived_at = Carbon::now();
-        $seller->admin_active_id = null;
+        $seller->admin_active_at = null;
         $seller->save();
 
         session()->put('noty', [

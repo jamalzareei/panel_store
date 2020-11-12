@@ -20,17 +20,18 @@ class CreateProductsTable extends Migration
             $table->string('name', 255);
             $table->string('code', 255);
             $table->string('slug', 255)->unique();
-            $table->string('title', 255)->nullable();
-            $table->string('head', 255)->nullable();
-            $table->text('meta_keywords')->nullable();
-            $table->text('meta_description')->nullable();
             $table->integer('shixeh_show')->default(1);
+            $table->text('tags')->nullable();
+            $table->text('description_small')->nullable();
+            $table->longText('description_full')->nullable();
             $table->bigInteger('admin_id')->nullable();
             $table->bigInteger('website_id')->nullable();
-            $table->integer('active')->default(0);
+            $table->timestamp('admin_active_at')->nullable();
+            $table->timestamp('actived_at')->nullable();
             $table->timestamp('start_sale_at')->nullable();
             $table->timestamp('end_sale_at')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
         
         Schema::create('category_product', function (Blueprint $table) {

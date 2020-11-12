@@ -155,4 +155,26 @@ Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(functi
     Route::post('/update-finance/{id}', 'FinancesControler@financeUpdate')->name('seller.finance.update.post');
     Route::post('finances/update', 'FinancesControler@financesUpdate')->name('admin.finances.update');
     Route::delete('finance/delete/{id}', 'FinancesControler@financeDelete')->name('seller.finance.delete');
+    
+    
+    Route::middleware('selleractive')->group(function() {
+        Route::get('/products', 'ProductsController@products')->name('seller.products.get');
+        Route::get('/product/{slug?}', 'ProductsController@product')->name('seller.product.updateorcreate');
+        Route::post('/add-product', 'ProductsController@productsAddPost')->name('seller.product.add.post');
+        Route::get('/get-children-categories/{col}/{parent_id?}', 'ProductsController@getSubCategories')->name('seller.product.get.child.categories');
+        Route::post('/update-product/{id}/{type}', 'ProductsController@productUpdate')->name('seller.product.update.post');
+        // Route::post('products/update', 'ProductsController@productsUpdate')->name('admin.products.update');
+        Route::post('product/update/status/{id}', 'ProductsController@productUpdateStatus')->name('seller.product.update.status');
+        Route::post('products/update', 'ProductsController@productsUpdate')->name('seller.products.update');
+        Route::delete('product/delete/{id}', 'ProductsController@productDelete')->name('seller.product.delete');
+        
+        Route::get('/prices/{product_id}', 'ProductsController@getPrice')->name('seller.prices.product.get');
+        Route::post('price/update/status/{id}', 'ProductsController@priceUpdateStatus')->name('seller.price.update.status');
+        
+        Route::get('/images/{product_id}', 'ProductsController@getImages')->name('seller.image.product.get');
+        Route::post('image/update/status/{id}', 'ProductsController@imageUpdateStatus')->name('seller.image.update.status');
+        Route::delete('image/product/delete/{id}', 'ProductsController@imageProductDelete')->name('seller.image.product.delete');
+
+        Route::get('/product-send-to-admin/{id}', 'ProductsController@productSendAdmin')->name('product.send.admin');
+    });
 });

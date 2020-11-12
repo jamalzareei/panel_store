@@ -65,6 +65,10 @@ $(() => {
                     $('#load-data-ajax').html(response.dataLoad)
                 }
 
+                if (response.dataLoad2 && response.dataLoad2 !== '' && $('#load-data-2-ajax').length > 0) {
+                    $('#load-data-2-ajax').html(response.dataLoad2)
+                }
+
                 var item = $('#item_id');
                 if (item.length) {
                     var itemid = item.val();
@@ -207,6 +211,11 @@ function deleteRow(url, id) {
         success: function(response) {
             console.log(response)
             $('tr[row="' + id + '"]').remove();
+
+            if ($('#item-row-' + id).length > 0) {
+                $('#item-row-' + id).remove();
+            }
+
             messageToast(response.title, response.message, response.status, 5000)
         },
         error: function(request, status, error) {
@@ -229,4 +238,25 @@ function changeStatus(url, this_) {
         },
         error: function(request, status, error) {}
     })
+}
+
+function LoadCategories(url, col, name, _this_) {
+
+    for (var i = col; i <= 4; i++) {
+        $(".load-categories[col='" + i + "']").html('')
+        $(".breadcrumb-categories [col='" + i + "']").text('')
+    }
+    if ($(_this_).is(':checked')) {
+
+        $.ajax({
+            url: url,
+            method: 'get',
+            data: { ajax: 'true' },
+            success: function(response) {
+                $(".load-categories[col='" + col + "']").html(response)
+                $(".breadcrumb-categories [col='" + Number(col - 1) + "']").text(name);
+            },
+            error: function(request, status, error) {}
+        })
+    }
 }

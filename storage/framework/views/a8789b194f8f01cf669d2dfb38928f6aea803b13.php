@@ -24,6 +24,30 @@
                             <div class="card-header">
                                 <h4 class="card-title"><?php echo e($title); ?></h4>
 
+                                
+                                <?php if($seller && !$seller->actived_at): ?>
+                                    <a class="btn bg-gradient-danger text-white my-1" href="<?php echo e(route('seller.send.admin')); ?>">
+                                        ارسال به مدیریت جهت بررسی
+                                    </a>
+                                <?php elseif($seller && $seller->actived_at && !$seller->admin_active_at): ?>
+                                    <div class="chip chip-info my-1">
+                                        <div class="chip-body">
+                                            <div class="avatar bg-rgba-white">
+                                                <i class="fas fa-info"></i>
+                                            </div>
+                                            <span class="chip-text">در انتظار تایید</span>
+                                        </div>
+                                    </div>
+                                <?php elseif($seller && $seller->actived_at && $seller->admin_active_at): ?>
+                                    <div class="chip chip-success my-1">
+                                        <div class="chip-body">
+                                            <div class="avatar bg-rgba-white">
+                                                <i class="fas fa-check"></i>
+                                            </div>
+                                            <span class="chip-text">تایید شده</span>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
@@ -50,7 +74,19 @@
                                                 <div class="tab-pane active" id="info-fill" role="tabpanel" aria-labelledby="file-tab-fill">
                                                     <section id="basic-horizontal-layouts">
                                                         <div class="row match-height">
-                                                            <div class="col-6">
+                                                            <div class="col-3">
+                                                                <div class="form-group">
+                                                                    <label for="code">کد فروشگاه <small class="text-info">(کد محصولی)</small></label>
+                                                                    <div class="position-relative has-icon-left">
+                                                                        <input type="text" id="code" class="form-control" name="code" placeholder="کد فروشگاه" value="<?php echo e($seller->code ?? ''); ?>">
+                                                                        <div class="form-control-position">
+                                                                            <i class="feather icon-key"></i>
+                                                                        </div>
+                                                                        <small class="help-block text-danger error-code"></small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-5">
                                                                 <div class="form-group">
                                                                     <label for="name">نام فروشگاه</label>
                                                                     <div class="position-relative has-icon-left">
@@ -62,7 +98,7 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="col-6">
+                                                            <div class="col-4">
                                                                 <div class="form-group">
                                                                     <label for="manager">نام مدیریت</label>
                                                                     <div class="position-relative has-icon-left">

@@ -137,7 +137,7 @@ class CategoriesController extends Controller
         $request->validate([
             'order_by' =>  'required|numeric',
             'name' =>  'required|string',
-            'description_full' => 'required',
+            // 'description_full' => 'required',
         ]);
 
         $category = Category::create([
