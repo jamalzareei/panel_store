@@ -55,4 +55,9 @@ class Product extends Model
         ->select('prices.*', 'currencies.name as currency_name')
         ->leftJoin('currencies', 'currencies.id', 'prices.currency_id');
     }
+
+    public function seller()
+    {
+        return $this->belongsTo('App\Models\Seller');
+    }
 }

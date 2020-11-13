@@ -79,7 +79,7 @@ $(() => {
                             <div class="col-md-12 d-flex justify-content-start flex-wrap">
                                 <div class="custom-control custom-switch  custom-switch-success mr-2 mb-1">
                                     <p class="mb-0">فروشنده فعال شود؟</p>
-                                    <input type="checkbox" class="custom-control-input" name="admin_active_at" id="active-seller" {{($seller->admin_active_at) ? 'checked' : ''}}>
+                                    <input type="checkbox" class="custom-control-input" name="admin_actived_at" id="active-seller" {{($seller->admin_actived_at) ? 'checked' : ''}}>
                                     <label class="custom-control-label" for="active-seller">
                                         <span class="switch-text-left">بله</span>
                                         <span class="switch-text-right">خیر</span>
@@ -99,7 +99,7 @@ $(() => {
                                     <textarea data-length="500" class="form-control char-textarea active" id="textarea-seller" rows="10" placeholder="توضیحات برای فروشنده" style="color: rgb(78, 81, 84);" name='message_seller'>
                                     فروشگاه شما تایید گردید، هم اکنون میتوانید نسبت به فعال سازی پلن فروشگاه اقدام نمایید.
                                     <br>
-                                    دقت نمایید بعد از فعال سازی یکی از پلن های فروشگاهی امکان اصافه کردن محصول و دیگر امکانات را خواهید داشت.
+                                    دقت نمایید بعد از فعال سازی یکی از پلن های فروشگاهی امکان اضافه کردن محصول و دیگر امکانات را خواهید داشت.
                                     </textarea>
                                     <label for="textarea-seller">توضیحات برای فروشنده</label>
                                 </fieldset>

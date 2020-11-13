@@ -24,13 +24,13 @@ class SellersController extends Controller
         # code...
         $sellers = Seller::whereNull('deleted_at')
         ->when(($type == 'wait-active-admin'), function($query){
-            $query->whereNull('admin_active_id')->whereNotNull('actived_at');
+            $query->whereNull('admin_actived_id')->whereNotNull('actived_at');
         })
         ->when(($type == 'not-complete-data'), function($query){
-            $query->whereNull('actived_at')->whereNull('admin_active_id');
+            $query->whereNull('actived_at')->whereNull('admin_actived_id');
         })
         ->when(($type == 'compete-and-active-admin'), function($query){
-            $query->whereNotNull('actived_at')->whereNotNull('admin_active_id');
+            $query->whereNotNull('actived_at')->whereNotNull('admin_actived_id');
         })
         ->with(['city', 'user'])
         ->get();
@@ -117,16 +117,17 @@ class SellersController extends Controller
         // tell_at: "on"
 
         $request->validate([
-            'seller_id' => 'required|exists:sellers,id'
+            'seller_id' => 'required|exists:sellers,id',
+            'message_seller' => 'required'
         ]);
 
         $seller = Seller::where('id', $request->seller_id)->first();
 
-        $seller->admin_active_id = $request->admin_active_at ? Auth::id() : null;
-        $seller->admin_active_at = $request->admin_active_at ? Carbon::now() : null;
+        $seller->admin_actived_id = $request->admin_actived_at ? Auth::id() : null;
+        $seller->admin_actived_at = $request->admin_actived_at ? Carbon::now() : null;
         $seller->call_admin_at = $request->call_admin_at ? Carbon::now() : null;
         
-        if(!$request->admin_active_at){
+        if(!$request->admin_actived_at){
             $seller->actived_at = null;
         }
 

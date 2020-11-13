@@ -42,7 +42,7 @@
                         <a class="btn bg-gradient-danger text-white my-1" href="{{ route('product.send.admin', ['id' => $product->id]) }}">
                             ارسال به مدیریت جهت بررسی
                         </a>
-                    @elseif ($product && $product->actived_at && !$product->admin_active_at)
+                    @elseif ($product && $product->actived_at && !$product->admin_actived_at)
                         <div class="chip chip-info my-1">
                             <div class="chip-body">
                                 <div class="avatar bg-rgba-white">
@@ -51,7 +51,7 @@
                                 <span class="chip-text">در انتظار تایید</span>
                             </div>
                         </div>
-                    @elseif ($product && $product->actived_at && $product->admin_active_at)
+                    @elseif ($product && $product->actived_at && $product->admin_actived_at)
                         <div class="chip chip-success my-1">
                             <div class="chip-body">
                                 <div class="avatar bg-rgba-white">
@@ -67,17 +67,17 @@
                         <ul class="nav nav-pills flex-column ml-1">
                             <li class="nav-item mb-1">
                                 <a class="nav-link font-small-2 active" id="stacked-pill-info" data-toggle="pill" href="#vertical-pill-info" aria-expanded="true">
-                                    ویراش اطلاعات پایه محصول
+                                     اطلاعات پایه محصول
                                 </a>
                             </li>
                             <li class="nav-item mb-1">
                                 <a class="nav-link font-small-2 {{($product) ? '' : 'disabled'}}" id="stacked-pill-properties" data-toggle="pill" href="#vertical-pill-properties" aria-expanded="false">
-                                    ویرایش ویژگی های محصول
+                                     ویژگی های محصول
                                 </a>
                             </li>
                             <li class="nav-item mb-1">
                                 <a class="nav-link font-small-2 {{($product) ? '' : 'disabled'}} " id="stacked-pill-price" data-toggle="pill" href="#vertical-pill-price" aria-expanded="false">
-                                    ثبت قیمت محصول
+                                     قیمت محصول
                                 </a>
                             </li>
                             <li class="nav-item mb-1">
@@ -87,7 +87,7 @@
                             </li>
                             <li class="nav-item mb-1">
                                 <a class="nav-link font-small-2 {{($product) ? '' : 'disabled'}} " id="stacked-pill-tags" data-toggle="pill" href="#vertical-pill-tags" aria-expanded="false">
-                                    تگ ها محصول
+                                    تگ های محصول
                                 </a>
                             </li>
                             <li class="nav-item mb-1">
@@ -116,7 +116,7 @@
                                 @endif
                                     <div class="card-body border-left-light rounded my-3">
                                         <div class="divider divider-info">
-                                            <div class="divider-text">انتخاب دسته بندی محصول</div>
+                                            <div class="divider-text"> دسته بندی محصول و اطلاعات پایه </div>
                                         </div>
                                         <div class="row">
                                                 <div class="col" col="1">
@@ -313,7 +313,7 @@
                                         <input type="hidden" name="id" value="{{$product->id ?? ''}}">
                                         <div class="card-body border-left-light rounded my-3">
                                             <div class="divider divider-info">
-                                                <div class="divider-text">اضافه گردن تگ (جستجوی کلمات متصل به محصول)</div>
+                                                <div class="divider-text"> تگ (جستجوی کلمات متصل به محصول) </div>
                                             </div>
 
                                             <div class="row">
@@ -337,7 +337,7 @@
                                 <div role="tabpanel" class="tab-pane" id="vertical-pill-gallery" aria-labelledby="stacked-pill-gallery" aria-expanded="true">
                                     <div class="card-body border-left-light rounded my-3">
                                         <div class="divider divider-info">
-                                            <div class="divider-text">افزودن گالری عکس محصول</div>
+                                            <div class="divider-text"> گالری عکس محصول </div>
                                         </div>
         
                                         <form action="{{ route('seller.product.update.post', ['id'=>$product->id, 'type'=>'gallery']) }}" class="ajaxForm" method="post">

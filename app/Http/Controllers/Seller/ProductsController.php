@@ -46,7 +46,7 @@ class ProductsController extends Controller
                 $qStatus->whereNull('actived_at');
             })
             ->when(($status && $status == 'publish'), function ($qStatus) use ($status){
-                $qStatus->whereNotNull('actived_at')->whereNotNull('admin_active_at');
+                $qStatus->whereNotNull('actived_at')->whereNotNull('admin_actived_at');
             })
             ->latest()
             // ->get();
@@ -158,7 +158,7 @@ class ProductsController extends Controller
         }
 
         $product->actived_at = null;
-        $product->admin_active_at = null;
+        $product->admin_actived_at = null;
         $product->save();
 
         switch ($type) {
@@ -408,7 +408,7 @@ class ProductsController extends Controller
             ->get();
 
 
-        return view('seller.products.prices', [
+        return view('components.products.prices', [
             'prices' => $prices
         ])->render();
         return $prices;
@@ -438,7 +438,7 @@ class ProductsController extends Controller
 
         $images = $product->images;
 
-        return view('seller.products.images', [
+        return view('components.products.images', [
             'images' => $images
         ])->render();
         return $images;
@@ -495,7 +495,7 @@ class ProductsController extends Controller
             ->withCount('children')
             ->get();
 
-        return view('seller.products.load-categories', [
+        return view('components.products.load-categories', [
             'categories' => $categories,
             'col' => $col,
         ])->render();
@@ -522,7 +522,7 @@ class ProductsController extends Controller
         }
 
         $product->actived_at = Carbon::now();
-        $product->admin_active_at = null;
+        $product->admin_actived_at = null;
         $product->save();
 
         session()->put('noty', [

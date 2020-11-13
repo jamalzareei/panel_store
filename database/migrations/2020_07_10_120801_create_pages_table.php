@@ -25,7 +25,7 @@ class CreatePagesTable extends Migration
             $table->text('meta_keywords')->nullable();
             $table->text('meta_description')->nullable();
             $table->integer('shixeh_show')->default(1);
-            $table->bigInteger('admin_id')->nullable();
+            $table->bigInteger('admin_actived_id')->nullable();
             $table->bigInteger('website_id')->nullable()->index();
             $table->integer('order_by')->default(1);
             $table->timestamps();

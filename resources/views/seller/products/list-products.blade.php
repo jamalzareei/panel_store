@@ -63,13 +63,13 @@
                             <div class="col-12 col-sm-4 col-lg-4 form-group">
                                 <label for="categories-list-department">عنوان</label>
                                 <fieldset class="form-group">
-                                    <input type="text" name="name" value="" class="form-control filter" dir="ltr" placeholder="عنوان">
+                                    <input type="text" name="name" value="" class="form-control filter" placeholder="عنوان">
                                 </fieldset>
                             </div>
                             <div class="col-12 col-sm-4 col-lg-4 form-group">
                                 <label for="categories-list-department">کد محصول</label>
                                 <fieldset class="form-group">
-                                    <input type="text" name="code" value="" class="form-control filter" dir="ltr" placeholder="کد محصول">
+                                    <input type="text" name="code" value="" class="form-control filter" placeholder="کد محصول">
                                 </fieldset>
                             </div>
                             <div class="col-12 col-sm-3 col-lg-3 form-group">
@@ -160,7 +160,7 @@
                                             </div>
                                         </div>
                                         <div class="hidden">غیر فعال</div>
-                                    @elseif ($product && $product->actived_at && !$product->admin_active_at)
+                                    @elseif ($product && $product->actived_at && !$product->admin_actived_at)
                                         <div class="chip chip-info my-1">
                                             <div class="chip-body">
                                                 <div class="avatar bg-rgba-white">
@@ -170,7 +170,7 @@
                                             </div>
                                         </div>
                                         <div class="hidden">در انتظار تایید</div>
-                                    @elseif ($product && $product->actived_at && $product->admin_active_at)
+                                    @elseif ($product && $product->actived_at && $product->admin_actived_at)
                                         <div class="chip chip-success my-1">
                                             <div class="chip-body">
                                                 <div class="avatar bg-rgba-white">

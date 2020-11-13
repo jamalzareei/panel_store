@@ -20,7 +20,7 @@ class CreateOrderDetailsTable extends Migration
             $table->bigInteger('price_id')->index();
             $table->decimal('price', 20)->index();
             $table->bigInteger('seller_id');
-            $table->bigInteger('admin_id');
+            $table->bigInteger('admin_actived_id');
             $table->bigInteger('status_id');
             $table->bigInteger('website_id')->index();
             $table->bigInteger('order_id')->index();

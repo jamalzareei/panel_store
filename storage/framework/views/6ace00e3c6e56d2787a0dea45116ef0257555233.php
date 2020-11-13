@@ -25,8 +25,8 @@
                 </a></li>
                 <?php endif; ?>
                 
-                <li class=" nav-item"><a href="#"><i class="feather icon-user-check"></i><span class="menu-title" data-i18n="users">کاربری</span></a>
-                    <ul class="menu-content">
+                
+                <li class=" navigation-header"><span>کاربری</span></li>
                         <li class=" nav-item"><a href="<?php echo e(route('user.data')); ?>">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">اطلاعات کاربری</span>
                         </a></li>
@@ -42,8 +42,7 @@
                         <li class=" nav-item"><a href="<?php echo e(route('user.data.change.password')); ?>">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تغییر رمز عبور</span>
                         </a></li>
-                    </ul>
-                </li>
+                    
                 
                 
                 <?php if(auth()->check() && auth()->user()->hasAnyRole('admin')): ?>
@@ -73,7 +72,13 @@
                         <li><a href="<?php echo e(route('admin.sellers.list', ['type' => 'wait-active-admin'])); ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> فروشندگان در انتظار تایید</span></a></li>
                         <li><a href="<?php echo e(route('admin.sellers.list', ['type' => 'not-complete-data'])); ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> فروشندگان در حال تکمیل</span></a></li>
                         <li><a href="<?php echo e(route('admin.sellers.list', ['type' => 'compete-and-active-admin'])); ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> فروشندگان تایید شده</span></a></li>
-                        
+                    </ul>
+                </li>
+                
+                <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="users">محصولات</span></a>
+                    <ul class="menu-content">
+                        <li><a href="<?php echo e(route('admin.products.get', ['status' => 'active'])); ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> محصولات در انتظار تایید</span></a></li>
+                        <li><a href="<?php echo e(route('admin.products.get', ['status' => 'publish'])); ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> محصولات تایید شده</span></a></li>
                     </ul>
                 </li>
                 <?php endif; ?>

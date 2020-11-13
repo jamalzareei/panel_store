@@ -29,7 +29,7 @@
                                     <a class="btn bg-gradient-danger text-white my-1" href="{{ route('seller.send.admin') }}">
                                         ارسال به مدیریت جهت بررسی
                                     </a>
-                                @elseif ($seller && $seller->actived_at && !$seller->admin_active_at)
+                                @elseif ($seller && $seller->actived_at && !$seller->admin_actived_at)
                                     <div class="chip chip-info my-1">
                                         <div class="chip-body">
                                             <div class="avatar bg-rgba-white">
@@ -38,7 +38,7 @@
                                             <span class="chip-text">در انتظار تایید</span>
                                         </div>
                                     </div>
-                                @elseif ($seller && $seller->actived_at && $seller->admin_active_at)
+                                @elseif ($seller && $seller->actived_at && $seller->admin_actived_at)
                                     <div class="chip chip-success my-1">
                                         <div class="chip-body">
                                             <div class="avatar bg-rgba-white">

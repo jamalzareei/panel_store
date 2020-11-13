@@ -234,7 +234,7 @@ class BranchesController extends Controller
         $seller = $user->seller;
 
         $seller = Seller::where('id', $seller->id)->first();
-        $seller->admin_active_id = null;
+        $seller->admin_actived_id = null;
         $seller->save();
     }
 }

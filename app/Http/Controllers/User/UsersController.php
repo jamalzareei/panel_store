@@ -77,6 +77,7 @@ class UsersController extends Controller
         $user->save();
 
 
+        $avatar = null;
         if ($request->image_file) {
             $path_image = UploadService::convertBase64toPng('uploads/users/avatar', $request->image_file);
             Image::insert([ //,
@@ -85,6 +86,8 @@ class UsersController extends Controller
                 'imageable_type' => 'App\User',
                 'user_id' => $user->id
             ]);
+            
+            $avatar = $path_image;
         }
 
         return [
@@ -92,6 +95,8 @@ class UsersController extends Controller
             'title' => '',
             'message' => 'با موفقیت ویرایش گردید.',
             'data' => $user,
+            'fullname' => $user->full_name,
+            'avatar' => config('shixeh.cdn_domain').$avatar,
         ];
     }
 

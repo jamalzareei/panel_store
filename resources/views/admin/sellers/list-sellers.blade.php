@@ -121,13 +121,13 @@
                                                 <div class="chip-text">حذف شده</div>
                                             </div>
                                         </div>
-                                    @elseif (!$seller->actived_at && !$seller->admin_active_id)
+                                    @elseif (!$seller->actived_at && !$seller->admin_actived_id)
                                         <div class="chip chip-warning">
                                             <div class="chip-body">
                                                 <div class="chip-text">در حال تکمیل اطلاعات</div>
                                             </div>
                                         </div>
-                                    @elseif ($seller->actived_at && $seller->admin_active_id)
+                                    @elseif ($seller->actived_at && $seller->admin_actived_id)
                                         <div class="custom-control custom-switch custom-switch-success switch-md mr-2 mb-1">
                                         <input type="checkbox" class="custom-control-input" name="actived_at[{{$seller->id}}]" id="customSwitch{{$seller->id}}" checked onclick="changeStatus('{{ route('admin.seller.update.status', ['id'=> $seller->id]) }}',this)">
                                             <label class="custom-control-label" for="customSwitch{{$seller->id}}">
@@ -136,7 +136,7 @@
                                             </label>
                                         </div>
                                         <div class="hidden">فعال شده</div>
-                                    @elseif ($seller->actived_at && !$seller->admin_active_id)
+                                    @elseif ($seller->actived_at && !$seller->admin_actived_id)
                                         <div class="custom-control custom-switch custom-switch-success switch-md mr-2 mb-1">
                                         <input type="checkbox" class="custom-control-input" name="actived_at[{{$seller->id}}]" id="customSwitch{{$seller->id}}" onclick="changeStatus('{{ route('admin.seller.update.status', ['id'=> $seller->id]) }}',this)">
                                             <label class="custom-control-label" for="customSwitch{{$seller->id}}">

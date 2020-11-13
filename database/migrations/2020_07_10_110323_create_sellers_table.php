@@ -23,8 +23,8 @@ class CreateSellersTable extends Migration
             $table->bigInteger('role_id')->nullable();
             $table->string('sell_type_id')->nullable();
             $table->string('pay_type_id')->nullable();
-            $table->bigInteger('admin_active_id')->nullable();
-            $table->timestamp('admin_active_at')->nullable();
+            $table->bigInteger('admin_actived_id')->nullable();
+            $table->timestamp('admin_actived_at')->nullable();
             $table->timestamp('actived_at')->nullable();
             $table->timestamp('expire_at')->nullable();
             $table->timestamp('call_admin_at')->nullable();

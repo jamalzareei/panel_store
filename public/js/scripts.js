@@ -69,6 +69,14 @@ $(() => {
                     $('#load-data-2-ajax').html(response.dataLoad2)
                 }
 
+                if (response.fullname && response.fullname !== '' && $('.load-fullname').length > 0) {
+                    $('.load-fullname').html(response.fullname)
+                }
+
+                if (response.avatar && response.avatar !== '' && $('.load-avatar').length > 0) {
+                    $('.load-avatar').attr('src', response.avatar)
+                }
+
                 var item = $('#item_id');
                 if (item.length) {
                     var itemid = item.val();
@@ -132,14 +140,47 @@ $(() => {
                 this_.find('button[type="submit"] i').removeClass().addClass('fa fa-spinner fa-spin');
             },
             success: function(response) {
-
+                //////
                 if (response.status == 'success')
                     this_.find('button[type="submit"] i').removeClass().addClass('fa fa-check');
+
+                if (response.status == 'error')
+                    this_.find('button[type="submit"] i').removeClass().addClass('fa fa-refresh');
 
                 messageToast(response.title, response.message, response.status, 5000)
 
                 if (response.autoRedirect && response.autoRedirect !== '') {
                     window.location.href = response.autoRedirect
+                }
+
+                if (response.dataLoad && response.dataLoad !== '' && $('#load-data-ajax').length > 0) {
+                    $('#load-data-ajax').html(response.dataLoad)
+                }
+
+                if (response.dataLoad2 && response.dataLoad2 !== '' && $('#load-data-2-ajax').length > 0) {
+                    $('#load-data-2-ajax').html(response.dataLoad2)
+                }
+
+                if (response.fullname && response.fullname !== '' && $('.load-fullname').length > 0) {
+                    $('.load-fullname').html(response.fullname)
+                }
+
+                if (response.avatar && response.avatar !== '' && $('.load-avatar').length > 0) {
+                    $('.load-avatar').attr('src', response.avatar)
+                }
+
+                var item = $('#item_id');
+                if (item.length) {
+                    var itemid = item.val();
+                }
+
+
+                var dataTable = $('table.data-list-view');
+                if (dataTable.length > 0 && response.rowInsert) {
+                    var dt = dataTable.DataTable();
+                    dt.row.add(
+                        response.rowInsert
+                    ).draw(false);
                 }
             },
             error: function(request, status, error) {

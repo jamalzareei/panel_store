@@ -27,7 +27,7 @@ class CreateTagsTable extends Migration
             $table->text('meta_description')->nullable();
             $table->timestamp('actived_at')->nullable();
             $table->integer('shixeh_show')->default(1);
-            $table->bigInteger('admin_id');
+            $table->bigInteger('admin_actived_id');
             $table->bigInteger('website_id')->index();
             $table->timestamps();
             $table->softDeletes();

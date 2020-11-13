@@ -87,6 +87,13 @@ Route::namespace('Admin')->middleware('admin')->prefix('admin')->group(function(
     Route::post('seller/update/status/{id}', 'SellersController@sellerUpdateStatus')->name('admin.seller.update.status');
     Route::get('seller/{slug}', 'SellersController@sellerShow')->name('admin.seller.show');
     Route::post('seller/status/{id}', 'SellersController@sellerActive')->name('admin.seller.active');
+
+    
+    Route::get('/products/{status?}', 'ProductsController@products')->name('admin.products.get');
+    Route::get('/product/{slug?}', 'ProductsController@product')->name('admin.product.update');
+    Route::post('products/update', 'ProductsController@productsUpdate')->name('admin.products.update');
+    // Route::delete('product/delete/{id}', 'ProductsController@productDelete')->name('admin.product.delete');
+    Route::post('product/status/{id}', 'ProductsController@productActive')->name('admin.product.active');
 });
 
 Route::namespace('User')->middleware('auth')->prefix('user')->group(function() {
@@ -111,7 +118,8 @@ Route::namespace('User')->middleware('auth')->prefix('user')->group(function() {
 Route::get('/get-countries', 'Admin\LocationController@getCountries')->name('get.countries.location');
 Route::get('/get-states/{country_id?}', 'Admin\LocationController@getStates')->name('get.states.location');
 Route::get('/get-cities/{state_id?}', 'Admin\LocationController@getCities')->name('get.cities.location');
-
+Route::get('/get-children-categories/{col}/{parent_id?}', 'CategoriesController@getSubCategories')->name('get.children.categories');
+        
 Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(function() {
     Route::get('/', 'DashboardController@index')->name('seller.dashboard');
 
@@ -161,7 +169,6 @@ Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(functi
         Route::get('/products', 'ProductsController@products')->name('seller.products.get');
         Route::get('/product/{slug?}', 'ProductsController@product')->name('seller.product.updateorcreate');
         Route::post('/add-product', 'ProductsController@productsAddPost')->name('seller.product.add.post');
-        Route::get('/get-children-categories/{col}/{parent_id?}', 'ProductsController@getSubCategories')->name('seller.product.get.child.categories');
         Route::post('/update-product/{id}/{type}', 'ProductsController@productUpdate')->name('seller.product.update.post');
         // Route::post('products/update', 'ProductsController@productsUpdate')->name('admin.products.update');
         Route::post('product/update/status/{id}', 'ProductsController@productUpdateStatus')->name('seller.product.update.status');

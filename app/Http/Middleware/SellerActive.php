@@ -41,7 +41,7 @@ class SellerActive
                 'textRedirect' => 'تکمیل اطلاعات فروشنده',
             ]);
         }
-        if(!$seller->admin_active_at){
+        if(!$seller->admin_actived_at){
             return response()->view('components.not-perrmission', [
                 'title' => 'فعال سازی فروشنده',
                 'message' => '<br>
