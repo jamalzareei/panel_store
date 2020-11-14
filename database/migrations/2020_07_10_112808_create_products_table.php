@@ -25,7 +25,7 @@ class CreateProductsTable extends Migration
             $table->text('description_small')->nullable();
             $table->longText('description_full')->nullable();
             $table->bigInteger('admin_actived_id')->nullable();
-            $table->bigInteger('website_id')->nullable();
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamp('admin_actived_at')->nullable();
             $table->timestamp('actived_at')->nullable();
             $table->timestamp('start_sale_at')->nullable();

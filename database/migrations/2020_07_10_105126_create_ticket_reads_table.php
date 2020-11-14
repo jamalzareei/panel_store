@@ -17,6 +17,7 @@ class CreateTicketReadsTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->index();
             $table->bigInteger('message_id')->index();
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });

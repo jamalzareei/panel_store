@@ -38,9 +38,7 @@
                                     <div class="row">
                                         <div class="col-12 text-center mb-3">
                                             
-                                            <input type="hidden" name="image_file" class="image_file">
                                             <p class="text-info">برای تغییر عکس پروفایل از باکس سمت چپ عکس خود را انتخاب نمایید.</p>
-                                            <small class="help-block text-danger error-image_file w-100 m-1 row text-center"></small>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
@@ -132,10 +130,12 @@
                             <div class="card-body">
                                 <div class="text-center">
                                     <?php if($user->image && isset($user->image) && $user->image->path): ?>
-                                        <img src="<?php echo e(config('shixeh.cdn_domain')); ?>/<?php echo e($user->image->path); ?>" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
+                                        <img src="<?php echo e(config('shixeh.cdn_domain_files')); ?>/<?php echo e($user->image->path); ?>" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                     <?php else: ?>
-                                        <img src="<?php echo e(config('shixeh.cdn_domain')); ?>/assets/images/logo.png" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
+                                        <img src="<?php echo e(config('shixeh.cdn_domain_files')); ?>/assets/images/logo.png" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                     <?php endif; ?>
+                                    <input type="hidden" name="image_file" class="image_file">
+                                    <small class="help-block text-danger error-image_file w-100 m-1 row text-center"></small>
                                 </div>
                                 <?php echo $__env->make('components.sections.crop', ['head'=> '', 'type' => 'circle'], \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                                 

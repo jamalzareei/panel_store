@@ -20,6 +20,7 @@ class CreateVideosTable extends Migration
             $table->morphs('videoable');
             $table->integer('active')->unsigned()->nullable()->default(1)->index();
             $table->string('default_use')->nullable()->default('MAIN');
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });

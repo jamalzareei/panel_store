@@ -29,6 +29,7 @@ class CreatePricesTable extends Migration
             $table->integer('order_by')->default(1);
             $table->bigInteger('admin_actived_id')->nullable();
             $table->timestamp('admin_actived_at')->nullable();
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });

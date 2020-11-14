@@ -34,4 +34,9 @@ class Property extends Model
     {
         return $this->hasOne('App\Models\PropertyValue');
     }
+    
+    public function seo()
+    {
+        return $this->morphOne('App\Models\Seo', 'seoable');
+    }
 }

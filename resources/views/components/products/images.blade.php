@@ -4,7 +4,7 @@
 
                                         
         <div class="row  border-light rounded pt-1" style="margin: 5px">
-            <img src="{{config('shixeh.cdn_domain'). $image['path']}}" alt="" class=" user-circle m-auto">
+            <img src="{{config('shixeh.cdn_domain_files'). $image['path']}}" alt="" class=" user-circle m-auto">
             <div class="col-6 mt-2">
                 <div class="custom-control custom-switch custom-switch-success switch-md mr-2 mb-1">
                     <input type="checkbox" class="custom-control-input" name="actived_at[{{$image->id}}]" id="customSwitch-image-{{$image->id}}" {{($image->default_use == 'MAIN') ? 'checked' : ''}} onclick="changeStatus('{{ route('seller.image.update.status', ['id'=> $image->id]) }}',this)">

@@ -17,6 +17,7 @@ class CreateActivesTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->nullable()->default(12);
             $table->morphs('activeable');
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
         });
     }

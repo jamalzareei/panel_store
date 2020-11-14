@@ -14,7 +14,7 @@ class LocationController extends Controller
     public function getCountries(Request $request)
     {
         # code...
-        $countries = Country::all();
+        $countries = Country::select('id','native as name')->where('id', 103)->get();
 
         $str = '';
         foreach ($countries as $key => $country) {

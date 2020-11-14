@@ -5,7 +5,7 @@
 
             {{-- <img src="http://localhost/cdn.shixeh.local/images/3.jpg" alt="avatar" height="40" width="40"> --}}
             @if ($contact && isset($contact->image) && $contact->image->path)
-                <img src="{{config('shixeh.cdn_domain')}}{{$contact->image->path}}" alt="avatar" height="40" width="40" />
+                <img src="{{config('shixeh.cdn_domain_files')}}{{$contact->image->path}}" alt="avatar" height="40" width="40" />
             @else
                 <img src="{{config('shixeh.path_logo')}}" alt="avatar" height="40" width="40" />
             @endif

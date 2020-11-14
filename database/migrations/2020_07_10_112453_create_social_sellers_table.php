@@ -20,6 +20,7 @@ class CreateSocialSellersTable extends Migration
             $table->bigInteger('social_id')->index();
             $table->string('url')->nullable();
             $table->string('username', 50)->nullable()->index();
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });

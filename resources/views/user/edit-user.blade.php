@@ -38,9 +38,7 @@
                                     <div class="row">
                                         <div class="col-12 text-center mb-3">
                                             
-                                            <input type="hidden" name="image_file" class="image_file">
                                             <p class="text-info">برای تغییر عکس پروفایل از باکس سمت چپ عکس خود را انتخاب نمایید.</p>
-                                            <small class="help-block text-danger error-image_file w-100 m-1 row text-center"></small>
                                         </div>
                                         <div class="col-6">
                                             <div class="form-group">
@@ -132,10 +130,12 @@
                             <div class="card-body">
                                 <div class="text-center">
                                     @if ($user->image && isset($user->image) && $user->image->path)
-                                        <img src="{{config('shixeh.cdn_domain')}}/{{$user->image->path}}" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
+                                        <img src="{{config('shixeh.cdn_domain_files')}}/{{$user->image->path}}" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                     @else
-                                        <img src="{{config('shixeh.cdn_domain')}}/assets/images/logo.png" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
+                                        <img src="{{config('shixeh.cdn_domain_files')}}/assets/images/logo.png" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                     @endif
+                                    <input type="hidden" name="image_file" class="image_file">
+                                    <small class="help-block text-danger error-image_file w-100 m-1 row text-center"></small>
                                 </div>
                                 @include('components.sections.crop', ['head'=> '', 'type' => 'circle'])
                                 

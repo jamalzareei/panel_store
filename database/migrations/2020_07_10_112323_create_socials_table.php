@@ -18,6 +18,7 @@ class CreateSocialsTable extends Migration
             $table->string('icon', 255)->nullable();
             $table->string('name', 255)->nullable();
             $table->string('website', 255)->nullable();
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });

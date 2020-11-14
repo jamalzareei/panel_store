@@ -7,7 +7,7 @@
 
                     {{-- <img src="http://localhost/cdn.shixeh.local/images/3.jpg" alt="avatar" height="40" width="40"> --}}
                     @if ($contact && isset($contact->image) && $contact->image->path)
-                        <img src="{{config('shixeh.cdn_domain')}}{{$contact->image->path}}" alt="avatar" height="40" width="40" />
+                        <img src="{{config('shixeh.cdn_domain_files')}}{{$contact->image->path}}" alt="avatar" height="40" width="40" />
                     @else
                         <img src="{{config('shixeh.path_logo')}}" alt="avatar" height="40" width="40" />
                     @endif
@@ -31,7 +31,7 @@
                     <div class="chat-avatar">
                         <a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">
                             @if ($message && $message->sender && isset($message->sender->image) && $message->sender->image->path)
-                                <img src="{{config('shixeh.cdn_domain')}}{{$message->sender->image->path}}" alt="avatar" height="40" width="40" />
+                                <img src="{{config('shixeh.cdn_domain_files')}}{{$message->sender->image->path}}" alt="avatar" height="40" width="40" />
                             @else
                                 <img src="{{config('shixeh.path_logo')}}" alt="avatar" height="40" width="40" />
                             @endif
@@ -50,7 +50,7 @@
                     <div class="chat-avatar">
                         <a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title="">
                             @if ($message && $message->receiver && isset($message->receiver->image) && $message->receiver->image->path)
-                                <img src="{{config('shixeh.cdn_domain')}}{{$message->receiver->image->path}}" alt="avatar" height="40" width="40" />
+                                <img src="{{config('shixeh.cdn_domain_files')}}{{$message->receiver->image->path}}" alt="avatar" height="40" width="40" />
                             @else
                                 <img src="{{config('shixeh.path_logo')}}" alt="avatar" height="40" width="40" />
                             @endif

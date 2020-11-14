@@ -20,6 +20,7 @@ class CreateSeosTable extends Migration
             $table->string('head', 255)->nullable();
             $table->text('meta_keywords')->nullable();
             $table->text('meta_description')->nullable();
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
         });
     }

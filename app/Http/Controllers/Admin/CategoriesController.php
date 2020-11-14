@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Seo;
 use App\Services\UploadService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -96,10 +97,10 @@ class CategoriesController extends Controller
         
         if($request->active){ $category->actived_at  = Carbon::now(); }else{ $category->actived_at  = null; }
         
-        if($request->head)              $category->head  = $request->head;
+        // if($request->head)              $category->head  = $request->head;
         if($request->link)              $category->link  = $request->link;
-        if($request->meta_description)  $category->meta_description  = $request->meta_description;
-        if($request->meta_keywords)     $category->meta_keywords  = $request->meta_keywords;
+        // if($request->meta_description)  $category->meta_description  = $request->meta_description;
+        // if($request->meta_keywords)     $category->meta_keywords  = $request->meta_keywords;
         if($request->name)              $category->name  = $request->name;
         if($request->description_short) $category->description_short  = $request->description_short;
         if($request->description_full)  $category->description_full  = $request->description_full;
@@ -119,9 +120,21 @@ class CategoriesController extends Controller
             }
         }       
 
-        if($request->title)             $category->title  = $request->title;
+        // if($request->title)             $category->title  = $request->title;
         
         $category->save();
+
+        $seo = new Seo();
+        if ($category->seo) {
+            $seo = $category->seo;
+        }
+        // return $property->seo;
+        if($request->head)              $seo->head = $request->head;
+        if($request->title)             $seo->title = $request->title;
+        if($request->meta_description)  $seo->meta_description = $request->meta_description;
+        if($request->meta_keywords)     $seo->meta_keywords = $request->meta_keywords;
+        $seo->save();
+        $category->seo()->save($seo);
 
         return [
             'status' => 'success',

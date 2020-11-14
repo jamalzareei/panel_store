@@ -16,7 +16,6 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->bigInteger('website_id');
             $table->text('emails')->nullable();
             $table->text('phones')->nullable();
             $table->text('instagram')->nullable();
@@ -27,6 +26,7 @@ class CreateSettingsTable extends Migration
             $table->text('pintrest')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
         });
     }

@@ -20,10 +20,10 @@ class CreatePagesTable extends Migration
             $table->string('icon', 255)->nullable();
             $table->text('image')->nullable();
             $table->text('path')->nullable();
-            $table->string('title', 255)->nullable();
-            $table->string('head', 255)->nullable();
-            $table->text('meta_keywords')->nullable();
-            $table->text('meta_description')->nullable();
+            // $table->string('title', 255)->nullable();
+            // $table->string('head', 255)->nullable();
+            // $table->text('meta_keywords')->nullable();
+            // $table->text('meta_description')->nullable();
             $table->integer('shixeh_show')->default(1);
             $table->bigInteger('admin_actived_id')->nullable();
             $table->bigInteger('website_id')->nullable()->index();

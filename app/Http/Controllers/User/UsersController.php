@@ -29,7 +29,7 @@ class UsersController extends Controller
             }])
             ->first();
 
-        $countries = Country::all();
+        $countries = Country::select('id','native as name')->where('id', 103)->get();
 
         // return $user;
 
@@ -77,7 +77,7 @@ class UsersController extends Controller
         $user->save();
 
 
-        $avatar = null;
+        $avatar = '/logo.png';
         if ($request->image_file) {
             $path_image = UploadService::convertBase64toPng('uploads/users/avatar', $request->image_file);
             Image::insert([ //,
@@ -96,7 +96,7 @@ class UsersController extends Controller
             'message' => 'با موفقیت ویرایش گردید.',
             'data' => $user,
             'fullname' => $user->full_name,
-            'avatar' => config('shixeh.cdn_domain').$avatar,
+            'avatar' => config('shixeh.cdn_domain_files').$avatar,
         ];
     }
 

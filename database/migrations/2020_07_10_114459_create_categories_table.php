@@ -19,12 +19,12 @@ class CreateCategoriesTable extends Migration
             $table->string('slug', 255)->nullable()->unique()->index();
             $table->string('icon', 255)->nullable();
             $table->text('image')->nullable();
-            $table->string('title', 255)->nullable();
             $table->longText('description_full')->nullable();
             $table->text('description_short')->nullable();
-            $table->string('head', 255)->nullable();
-            $table->text('meta_keywords')->nullable();
-            $table->text('meta_description')->nullable();
+            // $table->string('title', 255)->nullable();
+            // $table->string('head', 255)->nullable();
+            // $table->text('meta_keywords')->nullable();
+            // $table->text('meta_description')->nullable();
             $table->timestamp('actived_at')->nullable();
             $table->integer('show_menu')->default(1);
             $table->integer('properties_active')->default(0);

@@ -1,17 +1,20 @@
 <div class="row">
     <div class="col-4">
-        <select name="country_id" id="" class="select2 form-control">
+        <label for="country_id">کشور</label>
+
+        <select name="country_id" id="country_id" class="select2 form-control">
             <option value="">کشور</option>
-            @if ($country)
+            {{-- @if ($country)
                 <option selected value="{{$country->id}}">{{$country->name}}</option>
-            @endif
-            @foreach($countries as $country)
-                <option value="{{$country->id}}">{{$country->name}}</option>
+            @endif --}}
+            @foreach($countries as $country_)
+                <option {{(($country && $country->id == $country_->id)) ? 'selected' : '' }}  value="{{$country_->id}}">{{$country_->name}}</option>
             @endforeach
         </select>
     </div>
     <div class="col-4">
-        <select name="state_id" id="" class="select2 form-control">
+        <label for="state_id">کشور</label>
+        <select name="state_id" id="state_id" class="select2 form-control">
             <option value="">استان</option>
             @if ($state)
                 <option selected value="{{$state->id}}">{{$state->name}}</option>
@@ -19,7 +22,8 @@
         </select>
     </div>
     <div class="col-4">
-        <select name="city_id" id="" class="select2 form-control">
+        <label for="city_id">کشور</label>
+        <select name="city_id" id="city_id" class="select2 form-control">
             <option value="">شهر</option>
             @if ($city)
                 <option selected value="{{$city->id}}">{{$city->name}}</option>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Seo;
 use App\Models\Tag;
 use App\Services\UploadService;
 use Carbon\Carbon;
@@ -118,12 +119,12 @@ class TagsController extends Controller
         
         if($request->actived_at){ $tag->actived_at  = Carbon::now(); }else{ $tag->actived_at  = null; }
         
-        if($request->head)              $tag->head  = $request->head;
+        // if($request->head)              $tag->head  = $request->head;
         if($request->link)              $tag->link  = $request->link;
-        if($request->meta_description)  $tag->meta_description  = $request->meta_description;
-        if($request->meta_keywords)     $tag->meta_keywords  = $request->meta_keywords;
+        // if($request->meta_description)  $tag->meta_description  = $request->meta_description;
+        // if($request->meta_keywords)     $tag->meta_keywords  = $request->meta_keywords;
         if($request->name)              $tag->name  = $request->name;
-        if($request->title)             $tag->title  = $request->title;
+        // if($request->title)             $tag->title  = $request->title;
 
         if($request->slug) {
             $catSlug = Tag::where('slug', $request->slug)->where('id', '!=', $id)->first();
@@ -139,6 +140,18 @@ class TagsController extends Controller
 
         
         $tag->save();
+
+        $seo = new Seo();
+        if ($tag->seo) {
+            $seo = $tag->seo;
+        }
+        // return $tag->seo;
+        if($request->head)              $seo->head = $request->head;
+        if($request->title)             $seo->title = $request->title;
+        if($request->meta_description)  $seo->meta_description = $request->meta_description;
+        if($request->meta_keywords)     $seo->meta_keywords = $request->meta_keywords;
+        $seo->save();
+        $tag->seo()->save($seo);
 
         return [
             'status' => 'success',

@@ -31,11 +31,11 @@ class UploadService
         filename: (string) Optional string to send as the filename in the part.
 
         */
-        // return config('shixeh.cdn_domain_upload_file');
+        // return config('shixeh.cdn_domain_files_upload_file');
 
         $client = new \GuzzleHttp\Client();
 
-        $res = $client->request('POST', config('shixeh.cdn_domain_upload_file'), [
+        $res = $client->request('POST', config('shixeh.cdn_domain_files_upload_file'), [
             // 'auth'      => [ env('API_USERNAME'), env('API_PASSWORD') ],
             'multipart' => [
                 [

@@ -21,6 +21,7 @@ class CreateStatusesTable extends Migration
             $table->text('details')->nullable();
             $table->integer('active')->unsigned()->nullable()->default(1);
             $table->integer('order_by')->default(1);
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });

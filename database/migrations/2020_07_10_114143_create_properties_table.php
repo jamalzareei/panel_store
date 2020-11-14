@@ -19,12 +19,12 @@ class CreatePropertiesTable extends Migration
             $table->string('name', 255)->nullable()->index();
             $table->string('slug', 255)->nullable()->unique()->index();
             $table->string('icon', 255)->nullable();
-            $table->string('title', 255)->nullable();
             $table->text('image')->nullable();
             $table->text('path')->nullable();
-            $table->string('head', 255)->nullable();
-            $table->text('meta_keywords')->nullable();
-            $table->text('meta_description')->nullable();
+            // $table->string('title', 255)->nullable();
+            // $table->string('head', 255)->nullable();
+            // $table->text('meta_keywords')->nullable();
+            // $table->text('meta_description')->nullable();
             $table->timestamp('actived_at')->nullable();
             $table->integer('is_filter')->default(0)->index();
             $table->text('filter_list')->nullable();

@@ -33,7 +33,7 @@ class SellersController extends Controller
             }])
             ->first();
             
-        $countries = Country::all();
+        $countries = Country::select('id','native as name')->where('id', 103)->get();
 
         // return $seller;
 
@@ -216,7 +216,7 @@ class SellersController extends Controller
                 $request->state_id[$key] && 
                 $request->country_id[$key] && 
                 $request->shipping_cost[$key] && 
-                $request->currency_id[$key] &&
+                // $request->currency_id[$key] &&
                 $request->shipping_time[$key] &&
                 $request->unit_of_time[$key]
                 ){
@@ -233,7 +233,7 @@ class SellersController extends Controller
                         'state_id'          => $request->state_id[$key],
                         'city_id'           => $request->city_id[$key],
                         'shipping_cost'     => $request->shipping_cost[$key],
-                        'currency_id'       => $request->currency_id[$key],
+                        'currency_id'       => $request->currency_id[$key] ?? 1,
                         'shipping_time'     => $request->shipping_time[$key],
                         'unit_of_time'      => $request->unit_of_time[$key],
                     ]

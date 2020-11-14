@@ -19,6 +19,7 @@ class CreatePropertyValuesTable extends Migration
             $table->bigInteger('product_id')->index();
             $table->string('value', 255)->nullable()->index();
             $table->integer('order_by')->default(1);
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });

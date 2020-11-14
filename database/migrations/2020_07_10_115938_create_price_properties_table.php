@@ -20,6 +20,7 @@ class CreatePricePropertiesTable extends Migration
             $table->bigInteger('property_id')->index();
             $table->string('value', 255)->index();
             $table->string('element_html', 255)->nullable();
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });

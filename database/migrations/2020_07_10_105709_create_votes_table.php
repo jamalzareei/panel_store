@@ -19,6 +19,7 @@ class CreateVotesTable extends Migration
             $table->bigInteger('user_id');
             $table->integer('star');
             $table->bigInteger('status_id');
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });

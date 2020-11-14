@@ -18,6 +18,7 @@ class CreateSellTypesTable extends Migration
             $table->string('name');
             $table->string('icon')->nullable();
             $table->string('details')->nullable();
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });

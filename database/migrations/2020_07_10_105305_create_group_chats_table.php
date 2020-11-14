@@ -18,6 +18,7 @@ class CreateGroupChatsTable extends Migration
             $table->bigInteger('user_id')->index();
             $table->string('title', 255)->index();
             $table->text('description')->nullable();
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });

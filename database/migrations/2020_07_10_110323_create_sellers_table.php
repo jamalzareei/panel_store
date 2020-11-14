@@ -37,6 +37,7 @@ class CreateSellersTable extends Migration
             $table->longText('details')->nullable();
             $table->text('meta_keywords')->nullable();
             $table->text('meta_description')->nullable();
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });

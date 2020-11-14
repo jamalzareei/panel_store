@@ -17,6 +17,7 @@ class CreateFavoritesTable extends Migration
             $table->id();
             $table->bigInteger('user_id');          
             $table->morphs('favoriteable');
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });

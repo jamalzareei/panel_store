@@ -24,6 +24,7 @@ class CreatePostSettingsTable extends Migration
             $table->bigInteger('currency_id');
             $table->string('shipping_time');
             $table->string('unit_of_time');
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });

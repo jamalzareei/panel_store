@@ -125,7 +125,7 @@
                                 <div class="pr-1">
                                     <span class="avatar m-0 avatar-md">
                                         @if ($user && $user->sender && isset($user->sender->image) && $user->sender->image->path)
-                                            <img class="media-object rounded-circle" src="{{config('shixeh.cdn_domain')}}{{$user->sender->image->path}}" height="42" width="42" alt="Generic placeholder image">
+                                            <img class="media-object rounded-circle" src="{{config('shixeh.cdn_domain_files')}}{{$user->sender->image->path}}" height="42" width="42" alt="Generic placeholder image">
                                             @else
                                             <img class="media-object rounded-circle" src="{{config('shixeh.path_logo')}}" height="42" width="42" alt="Generic placeholder image">
                                         @endif

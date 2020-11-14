@@ -16,7 +16,11 @@ class CreateStatesTable extends Migration
         Schema::create('states', function (Blueprint $table) {
             $table->id()->index();
             $table->string('name');
-            $table->integer('country_id');            
+            $table->string('name_en')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
+            $table->bigInteger('country_id');
+            $table->timestamps();
         });
     }
 

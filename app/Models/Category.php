@@ -39,4 +39,9 @@ class Category extends Model
     {
         return $this->belongsToMany('App\Models\Product');
     }
+
+    public function seo()
+    {
+        return $this->morphOne('App\Models\Seo', 'seoable');
+    }
 }

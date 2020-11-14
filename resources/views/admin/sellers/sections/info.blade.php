@@ -22,9 +22,9 @@
                     <div class="row match-height">
                         <div class="col-md-4 m-auto text-center">
                             @if ($seller && $seller->image && isset($seller->image) && $seller->image->path)
-                                <img src="{{config('shixeh.cdn_domain')}}/{{$seller->image->path}}" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
+                                <img src="{{config('shixeh.cdn_domain_files')}}/{{$seller->image->path}}" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                             @else
-                                <img src="{{config('shixeh.cdn_domain')}}/assets/images/logo.png" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
+                                <img src="{{config('shixeh.cdn_domain_files')}}/assets/images/logo.png" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                             @endif
                             <input type="hidden" name="image_file" class="image_file">
                             <small class="help-block text-danger error-image_file w-100 m-1 row text-center"></small>
@@ -111,9 +111,9 @@
                                     </div> --}}
                                     <div class="col-md-6 m-auto text-center offset-md-3">
                                         @if ($seller && $seller->image && isset($seller->image) && $seller->image->path)
-                                            <img src="{{config('shixeh.cdn_domain')}}/{{$seller->image->path}}" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
+                                            <img src="{{config('shixeh.cdn_domain_files')}}/{{$seller->image->path}}" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                         @else
-                                            <img src="{{config('shixeh.cdn_domain')}}/assets/images/logo.png" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
+                                            <img src="{{config('shixeh.cdn_domain_files')}}/assets/images/logo.png" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                         @endif
                                         <input type="hidden" name="image_file" class="image_file">
                                         <small class="help-block text-danger error-image_file w-100 m-1 row text-center"></small>

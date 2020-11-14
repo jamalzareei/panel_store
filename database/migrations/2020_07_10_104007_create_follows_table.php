@@ -17,6 +17,7 @@ class CreateFollowsTable extends Migration
             $table->id();
             $table->bigInteger('following_id')->index();
             $table->bigInteger('follower_id')->index();
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });

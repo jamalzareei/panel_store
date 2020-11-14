@@ -62,7 +62,7 @@
                                                     <fieldset>
                                                         
                                                         <label for="">اپلود عکس دسته بنده (عکس در سایز 512*512 و فرمت jpg) </label>
-                                                        <input type="file" name="image" class="dropify file-upload" data-default-file="<?php echo e(($category) ? config('shixeh.cdn_domain').$category->image : ''); ?>" />
+                                                        <input type="file" name="image" class="dropify file-upload" data-default-file="<?php echo e(($category) ? config('shixeh.cdn_domain_files').$category->image : ''); ?>" />
                                                         <small class="help-block text-danger error-image"></small>
                                                         
                                                         
@@ -168,28 +168,28 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="title">عنوان صفحه</label>
-                                                                    <input type="text" placeholder="عنوان صفحه" class="form-control" id="title" name="title" value="<?php echo e($category ? $category->title : ''); ?>">
+                                                                    <input type="text" placeholder="عنوان صفحه" class="form-control" id="title" name="title" value="<?php echo e(($category && $category->seo) ? $category->seo->title : ''); ?>">
                                                                     <small class="help-block text-danger error-title"></small>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="head">هدر h1 برای صفحه</label>
-                                                                    <input type="text" placeholder="هدر h1 برای صفحه" class="form-control" id="head" name="head" value="<?php echo e($category ? $category->head : ''); ?>">
+                                                                    <input type="text" placeholder="هدر h1 برای صفحه" class="form-control" id="head" name="head" value="<?php echo e(($category && $category->seo) ? $category->seo->head : ''); ?>">
                                                                     <small class="help-block text-danger error-head"></small>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="meta_keywords">متا تگ ها :</label>
-                                                                    <input type="text" placeholder="متا تگ ها" data-role="tagsinput" class="form-control" id="meta_keywords" name="meta_keywords" value="<?php echo e($category ? $category->meta_keywords : ''); ?>">
+                                                                    <input type="text" placeholder="متا تگ ها" data-role="tagsinput" class="form-control" id="meta_keywords" name="meta_keywords" value="<?php echo e(($category && $category->seo) ? $category->seo->meta_keywords : ''); ?>">
                                                                     <small class="help-block text-danger error-meta_keywords"></small>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="meta_description">متا توضیحات :</label>
-                                                                    <textarea placeholder="متا توضیحات" id="meta_description" name="meta_description" rows="5" class="form-control"><?php echo e($category ? $category->meta_description : ''); ?></textarea>
+                                                                    <textarea placeholder="متا توضیحات" id="meta_description" name="meta_description" rows="5" class="form-control"><?php echo e(($category && $category->seo) ? $category->seo->meta_description : ''); ?></textarea>
                                                                     <small class="help-block text-danger error-meta_description"></small>
                                                                 </div>
                                                             </div>

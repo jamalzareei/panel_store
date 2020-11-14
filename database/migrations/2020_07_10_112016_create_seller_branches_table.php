@@ -27,6 +27,7 @@ class CreateSellerBranchesTable extends Migration
             $table->string('latitude', 255)->nullable();
             $table->string('longitude', 255)->nullable();
             $table->timestamp('actived_at')->nullable();
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -23,6 +23,7 @@ class CreateTicketsTable extends Migration
             $table->string('title', 255)->nullable()->index();
             $table->text('message');
             $table->text('path')->nullable();
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });

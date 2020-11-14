@@ -22,7 +22,7 @@ class CreateOrderDetailsTable extends Migration
             $table->bigInteger('seller_id');
             $table->bigInteger('admin_actived_id');
             $table->bigInteger('status_id');
-            $table->bigInteger('website_id')->index();
+            $table->bigInteger('website_id')->nullable()->index();
             $table->bigInteger('order_id')->index();
             $table->integer('amount');
             $table->timestamps();

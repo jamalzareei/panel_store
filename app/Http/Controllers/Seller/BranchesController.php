@@ -27,7 +27,7 @@ class BranchesController extends Controller
             }])
             ->first();
                     
-        $countries = Country::all();
+        $countries = Country::select('id','native as name')->where('id', 103)->get();
         if(!$seller){
             return view('components.not-perrmission', [
                 'title' => 'تکمیل اطلاعات فروشنده',
@@ -96,7 +96,7 @@ class BranchesController extends Controller
 
         // return $branch;
         
-        $countries = Country::all();
+        $countries = Country::select('id','native as name')->where('id', 103)->get();
         return view('seller.branches.update-or-insert-branch', [
             'title' => 'ویرایش شعبه ',
             'branch' => $branch,

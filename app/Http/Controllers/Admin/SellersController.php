@@ -86,7 +86,7 @@ class SellersController extends Controller
             ])
             ->get();
             
-        $countries = Country::all();
+        $countries = Country::select('id','native as name')->where('id', 103)->get();
 
         $socials = SellerSocial::whereNull('deleted_at')
             ->where('seller_id', $seller->id)

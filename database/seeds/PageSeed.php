@@ -20,7 +20,6 @@ class PageSeed extends Seeder
             // DB::table('pages')->insert([ //,
                 'name' => Faker::fullname(),
                 'path' => $faker->unique()->username,
-                'title' => Faker::fullname(),
                 
             ]);
 

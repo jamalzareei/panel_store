@@ -16,6 +16,7 @@ class CreateLoginsTable extends Migration
         Schema::create('logins', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
+            $table->bigInteger('website_id')->nullable();
             $table->string('ip', 255)->nullable();
             $table->text('user_agent')->nullable();
             $table->text('token')->nullable();

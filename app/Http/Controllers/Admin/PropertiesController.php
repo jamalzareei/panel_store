@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Property;
+use App\Models\Seo;
 use App\Services\UploadService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -125,10 +126,10 @@ class PropertiesController extends Controller
         
         if($request->actived_at){ $property->actived_at  = Carbon::now(); }else{ $property->actived_at  = null; }
         
-        if($request->head)              $property->head  = $request->head;
+        // if($request->head)              $property->head  = $request->head;
         // if($request->link)              $property->link  = $request->link;
-        if($request->meta_description)  $property->meta_description  = $request->meta_description;
-        if($request->meta_keywords)     $property->meta_keywords  = $request->meta_keywords;
+        // if($request->meta_description)  $property->meta_description  = $request->meta_description;
+        // if($request->meta_keywords)     $property->meta_keywords  = $request->meta_keywords;
         if($request->name)              $property->name  = $request->name;
         // if($request->description_short) $property->description_short  = $request->description_short;
         // if($request->description_full)  $property->description_full  = $request->description_full;
@@ -152,10 +153,23 @@ class PropertiesController extends Controller
             }
         }       
 
-        if($request->title)             $property->title  = $request->title;
+        // if($request->title)             $property->title  = $request->title;
         
         $property->save();
 
+        $seo = new Seo();
+        if ($property->seo) {
+            $seo = $property->seo;
+        }
+        // return $property->seo;
+        if($request->head)              $seo->head = $request->head;
+        if($request->title)             $seo->title = $request->title;
+        if($request->meta_description)  $seo->meta_description = $request->meta_description;
+        if($request->meta_keywords)     $seo->meta_keywords = $request->meta_keywords;
+        $seo->save();
+        $property->seo()->save($seo);
+
+        
         return [
             'status' => 'success',
             'title' => '',

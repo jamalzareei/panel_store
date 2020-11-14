@@ -27,6 +27,7 @@ class CreateReviewsTable extends Migration
             $table->integer('active')->default(0);
             $table->morphs('reviewable');
             $table->string('type', 30)->nullable();
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });

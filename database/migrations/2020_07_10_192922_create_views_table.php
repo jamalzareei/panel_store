@@ -20,6 +20,7 @@ class CreateViewsTable extends Migration
             $table->text('user_agent');
             $table->string('link')->index();
             $table->morphs('viewable');
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
         });
     }

@@ -1,17 +1,18 @@
 <div class="row">
     <div class="col-4">
-        <select name="country_id" id="" class="select2 form-control">
+        <label for="country_id">کشور</label>
+
+        <select name="country_id" id="country_id" class="select2 form-control">
             <option value="">کشور</option>
-            <?php if($country): ?>
-                <option selected value="<?php echo e($country->id); ?>"><?php echo e($country->name); ?></option>
-            <?php endif; ?>
-            <?php $__currentLoopData = $countries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <option value="<?php echo e($country->id); ?>"><?php echo e($country->name); ?></option>
+            
+            <?php $__currentLoopData = $countries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $country_): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <option <?php echo e((($country && $country->id == $country_->id)) ? 'selected' : ''); ?>  value="<?php echo e($country_->id); ?>"><?php echo e($country_->name); ?></option>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </select>
     </div>
     <div class="col-4">
-        <select name="state_id" id="" class="select2 form-control">
+        <label for="state_id">کشور</label>
+        <select name="state_id" id="state_id" class="select2 form-control">
             <option value="">استان</option>
             <?php if($state): ?>
                 <option selected value="<?php echo e($state->id); ?>"><?php echo e($state->name); ?></option>
@@ -19,7 +20,8 @@
         </select>
     </div>
     <div class="col-4">
-        <select name="city_id" id="" class="select2 form-control">
+        <label for="city_id">کشور</label>
+        <select name="city_id" id="city_id" class="select2 form-control">
             <option value="">شهر</option>
             <?php if($city): ?>
                 <option selected value="<?php echo e($city->id); ?>"><?php echo e($city->name); ?></option>

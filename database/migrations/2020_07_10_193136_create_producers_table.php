@@ -29,6 +29,7 @@ class CreateProducersTable extends Migration
             $table->integer('time_transfor')->default(0);
             $table->timestamp('tell_verified_at')->nullable();
             $table->timestamp('active_verified_at')->nullable();
+            $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes(); 
         });

@@ -15,7 +15,7 @@ class CreateWebsitesTable extends Migration
     {
         Schema::create('websites', function (Blueprint $table) {
             $table->id();
-            $table->string('name_website', 255)->index();
+            $table->string('name', 255)->index();
             $table->string('url', 255);
             $table->string('token', 255);
             $table->string('name_owner', 255);
