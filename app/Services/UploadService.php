@@ -178,6 +178,31 @@ class UploadService
 
     }
 
+    public static function contentToHtml($path, $content_to_write){
+        $dir = dirname($path);
+        // return $dir;
+        // $dir = "new_folder_name";
+
+        $file_to_write = basename($path);
+
+        if( is_dir($dir) === false )
+        {
+            mkdir($dir, 0777, true);
+        }
+
+        $file = fopen($dir . '/' . $file_to_write,"w");
+
+        // a different way to write content into
+        // fwrite($file,"Hello World.");
+
+        fwrite($file, $content_to_write);
+
+        // closes the file
+        fclose($file);
+
+        return $dir.'/'.$file_to_write;
+    }
+
     public static function saveFileWithOrginalName($path, $photos,$filename_=null)
     {
         $path = '../../cdn.shixeh.local/public/files/' . $path;

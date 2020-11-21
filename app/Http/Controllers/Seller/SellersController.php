@@ -11,6 +11,7 @@ use App\Models\PostSettings;
 use App\Models\Seller;
 use App\Models\SellerBranch;
 use App\Models\SellType;
+use App\Models\Seo;
 use App\Models\State;
 use App\Services\UploadService;
 use Carbon\Carbon;
@@ -27,7 +28,7 @@ class SellersController extends Controller
         // $seller = $user->seller->with('image');
 
         $seller = Seller::where('user_id', $user->id)
-            ->with(['country', 'state', 'city'])
+            ->with(['country', 'state', 'city', 'seo'])
             ->with(['image' => function ($query) {
                 // $query->select('path', 'id', 'imageable_id')->where('default_use', 'MAIN')->orderBy('id', 'desc')->first();
             }])
@@ -74,19 +75,32 @@ class SellersController extends Controller
         $seller->city_id = $request->city_id;
         $seller->country_id = $request->country_id;
         $seller->details = $request->details;
-        $seller->head = $request->head;
+        // $seller->head = $request->head;
         
         $seller->website = $request->website;
         $seller->manager = $request->manager;
-        $seller->meta_description = $request->meta_description;
-        $seller->meta_keywords = $request->meta_keywords;
+        // $seller->meta_description = $request->meta_description;
+        // $seller->meta_keywords = $request->meta_keywords;
         $seller->name = $request->name;
         $seller->code = $request->code;
         $seller->state_id = $request->state_id;
-        $seller->title = $request->title;
+        // $seller->title = $request->title;
         $seller->admin_actived_at = null;
 
         $seller->save();
+
+        $seo = new Seo();
+        if ($seller->seo) {
+            $seo = $seller->seo;
+        }
+        // return $seller->seo;
+        $seo->head = $request->head;
+        $seo->title = $request->title;
+        $seo->meta_description = $request->meta_description;
+        $seo->meta_keywords = $request->meta_keywords;
+        $seo->save();
+
+        $seller->seo()->save($seo);
 
         if ($request->image_file) {
             $path_image = UploadService::convertBase64toPng('uploads/sellers/logo', $request->image_file);

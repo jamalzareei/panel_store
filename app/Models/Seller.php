@@ -66,4 +66,9 @@ class Seller extends Model
     {
         return $this->hasMany('App\Models\Finance');
     }
+    
+    public function seo()
+    {
+        return $this->morphOne('App\Models\Seo', 'seoable');
+    }
 }

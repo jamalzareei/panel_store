@@ -94,23 +94,30 @@ Route::namespace('Admin')->middleware('admin')->prefix('admin')->group(function(
     Route::post('products/update', 'ProductsController@productsUpdate')->name('admin.products.update');
     // Route::delete('product/delete/{id}', 'ProductsController@productDelete')->name('admin.product.delete');
     Route::post('product/status/{id}', 'ProductsController@productActive')->name('admin.product.active');
+
+    Route::get('/pages', 'PagesController@pages')->name('admin.pages.get');
+    Route::get('/page/{slug?}', 'PagesController@page')->name('admin.page.get');
+    Route::post('/page/{id}', 'PagesController@pageUpdate')->name('admin.page.update');
+    Route::post('/add-page', 'PagesController@addePage')->name('admin.page.add');
+    Route::post('page/update/status/{id}', 'PagesController@pageUpdateStatus')->name('admin.page.update.status');
+    Route::post('pages/update', 'PagesController@pagesUpdate')->name('admin.pages.update');
 });
 
 Route::namespace('User')->middleware('auth')->prefix('user')->group(function() {
-    Route::get('/user', 'UsersController@getUserData')->name('user.data');
-    Route::post('/user', 'UsersController@postUserData')->name('user.data.post');
+    Route::get('/u', 'UsersController@getUserData')->name('user.data');
+    Route::post('/u', 'UsersController@postUserData')->name('user.data.post');
 
-    Route::get('/user/email', 'UsersController@userMail')->name('user.data.email');
-    Route::post('/user/email', 'UsersController@postUserMail')->name('user.data.email.post');
+    Route::get('/u/email', 'UsersController@userMail')->name('user.data.email');
+    Route::post('/u/email', 'UsersController@postUserMail')->name('user.data.email.post');
     
-    Route::get('/user/phone', 'UsersController@userPhone')->name('user.data.phone');
-    Route::post('/user/phone', 'UsersController@postUserPhone')->name('user.data.phone.post');
+    Route::get('/u/phone', 'UsersController@userPhone')->name('user.data.phone');
+    Route::post('/u/phone', 'UsersController@postUserPhone')->name('user.data.phone.post');
     
-    Route::get('/user/change-password', 'UsersController@userChangePassword')->name('user.data.change.password');
-    Route::post('/user/change-password', 'UsersController@postUserChangePassword')->name('user.data.change.password.post');
+    Route::get('/u/change-password', 'UsersController@userChangePassword')->name('user.data.change.password');
+    Route::post('/u/change-password', 'UsersController@postUserChangePassword')->name('user.data.change.password.post');
 
-    Route::get('/user/chats', 'MessagesController@messages')->name('user.messages');
-    Route::get('/user/load-chat/{user_id?}', 'MessagesController@loadChat')->name('user.load.chat');
+    Route::get('/u/chats', 'MessagesController@messages')->name('user.messages');
+    Route::get('/u/load-chat/{user_id?}', 'MessagesController@loadChat')->name('user.load.chat');
     Route::post('/send-message/{user_id?}', 'MessagesController@sendMessage')->name('user.send.message');
 
 });

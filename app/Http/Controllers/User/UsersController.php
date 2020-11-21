@@ -96,7 +96,7 @@ class UsersController extends Controller
             'message' => 'با موفقیت ویرایش گردید.',
             'data' => $user,
             'fullname' => $user->full_name,
-            'avatar' => config('shixeh.cdn_domain_files').$avatar,
+            'avatar' => ($request->image_file) ? config('shixeh.cdn_domain_files').$avatar : null,
         ];
     }
 

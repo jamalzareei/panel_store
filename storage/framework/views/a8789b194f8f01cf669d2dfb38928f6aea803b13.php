@@ -156,7 +156,7 @@
                                                                                 <?php if($seller && $seller->image && isset($seller->image) && $seller->image->path): ?>
                                                                                     <img src="<?php echo e(config('shixeh.cdn_domain_files')); ?>/<?php echo e($seller->image->path); ?>" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                                                                 <?php else: ?>
-                                                                                    <img src="<?php echo e(config('shixeh.cdn_domain_files')); ?>/assets/images/logo.png" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
+                                                                                    <img src="<?php echo e(config('shixeh.cdn_domain_files')); ?>/logo.png" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                                                                 <?php endif; ?>
                                                                                 <input type="hidden" name="image_file" class="image_file">
                                                                                 <small class="help-block text-danger error-image_file w-100 m-1 row text-center"></small>
@@ -178,28 +178,28 @@
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="title">عنوان صفحه</label>
-                                                                    <input type="text" placeholder="عنوان صفحه" class="form-control" id="title" name="title" value="<?php echo e($seller ? $seller->title : ''); ?>">
+                                                                    <input type="text" placeholder="عنوان صفحه" class="form-control" id="title" name="title" value="<?php echo e(($seller && $seller->seo) ? $seller->seo->title : ''); ?>">
                                                                     <small class="help-block text-danger error-title"></small>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
                                                                     <label for="head">هدر h1 برای صفحه</label>
-                                                                    <input type="text" placeholder="هدر h1 برای صفحه" class="form-control" id="head" name="head" value="<?php echo e($seller ? $seller->head : ''); ?>">
+                                                                    <input type="text" placeholder="هدر h1 برای صفحه" class="form-control" id="head" name="head" value="<?php echo e(($seller && $seller->seo) ? $seller->seo->head : ''); ?>">
                                                                     <small class="help-block text-danger error-head"></small>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="meta_keywords">متا تگ ها :</label>
-                                                                    <input type="text" placeholder="متا تگ ها" data-role="tagsinput" class="form-control" id="meta_keywords" name="meta_keywords" value="<?php echo e($seller ? $seller->meta_keywords : ''); ?>">
+                                                                    <input type="text" placeholder="متا تگ ها" data-role="tagsinput" class="form-control" id="meta_keywords" name="meta_keywords" value="<?php echo e(($seller && $seller->seo) ? $seller->seo->meta_keywords : ''); ?>">
                                                                     <small class="help-block text-danger error-meta_keywords"></small>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="meta_description">متا توضیحات :</label>
-                                                                    <textarea placeholder="متا توضیحات" id="meta_description" name="meta_description" rows="5" class="form-control"><?php echo e($seller ? $seller->meta_description : ''); ?></textarea>
+                                                                    <textarea placeholder="متا توضیحات" id="meta_description" name="meta_description" rows="5" class="form-control"><?php echo e(($seller && $seller->seo) ? $seller->seo->meta_description : ''); ?></textarea>
                                                                     <small class="help-block text-danger error-meta_description"></small>
                                                                 </div>
                                                             </div>

@@ -15,20 +15,21 @@ class CreatePagesTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
             $table->string('name', 255)->index();
             $table->string('slug', 255)->index();
             $table->string('icon', 255)->nullable();
-            $table->text('image')->nullable();
+            $table->text('image_path')->nullable();
             $table->text('path')->nullable();
-            // $table->string('title', 255)->nullable();
-            // $table->string('head', 255)->nullable();
-            // $table->text('meta_keywords')->nullable();
-            // $table->text('meta_description')->nullable();
+            $table->text('tags')->nullable();
             $table->integer('shixeh_show')->default(1);
+            $table->timestamp('actived_at')->nullable();
+            $table->timestamp('admin_actived_at')->nullable();
             $table->bigInteger('admin_actived_id')->nullable();
             $table->bigInteger('website_id')->nullable()->index();
             $table->integer('order_by')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

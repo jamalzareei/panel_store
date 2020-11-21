@@ -46,7 +46,7 @@ $user = \App\User::where('id', Auth::id())
                     </ul>
                 </div>
                 <ul class="nav navbar-nav float-right">
-                    <?php if($user->roles->where('slug', 'SELLER')->first() && !$user->roles->where('slug', 'ADMIN')->first()): ?>
+                    <?php if($user && $user->roles && $user->roles->where('slug', 'SELLER')->first() && !$user->roles->where('slug', 'ADMIN')->first()): ?>
                         
                         <li class="nav-item d-none d-lg-block">
                             <?php if($user && $user->seller && $user->seller->admin_actived_id): ?>

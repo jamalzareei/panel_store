@@ -84,10 +84,16 @@
                     </ul>
                 </li>
                 
-                <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="users">محصولات</span></a>
+                <li class=" nav-item"><a href="#"><i class="feather icon-product"></i><span class="menu-title" data-i18n="users">محصولات</span></a>
                     <ul class="menu-content">
                         <li><a href="{{ route('admin.products.get', ['status' => 'active']) }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> محصولات در انتظار تایید</span></a></li>
                         <li><a href="{{ route('admin.products.get', ['status' => 'publish']) }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> محصولات تایید شده</span></a></li>
+                    </ul>
+                </li>
+                
+                <li class=" nav-item"><a href="#"><i class="feather icon-page"></i><span class="menu-title" data-i18n="users">صفحه ایستا</span></a>
+                    <ul class="menu-content">
+                        <li><a href="{{ route('admin.pages.get') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> لیست صفحات </span></a></li>
                     </ul>
                 </li>
                 @endhasanyrole

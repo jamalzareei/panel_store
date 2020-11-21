@@ -32,11 +32,11 @@ class CreateSellersTable extends Migration
             $table->string('slug', 255)->nullable()->unique()->index();
             $table->string('website', 255)->nullable()->index();
             $table->string('manager', 255)->nullable();
-            $table->text('title')->nullable();
-            $table->text('head')->nullable();
+            // $table->text('title')->nullable();
+            // $table->text('head')->nullable();
             $table->longText('details')->nullable();
-            $table->text('meta_keywords')->nullable();
-            $table->text('meta_description')->nullable();
+            // $table->text('meta_keywords')->nullable();
+            // $table->text('meta_description')->nullable();
             $table->bigInteger('website_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();

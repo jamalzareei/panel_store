@@ -291,7 +291,7 @@
                                                 <img src="{{config('shixeh.path_logo')}}" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto"> --}}
                                                 {{-- @if ($seller && $seller->image && isset($seller->image) && $seller->image->path)
                                                 @else
-                                                    <img src="{{config('shixeh.cdn_domain_files')}}/assets/images/logo.png" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
+                                                    <img src="{{config('shixeh.cdn_domain_files')}}/logo.png" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                                 @endif --}}
                                             
                                             </div>
