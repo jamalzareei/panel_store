@@ -1304,11 +1304,11 @@
             instead of text.</p>
           <div class="bd-example">
             <h1 class="text-hide my-2"
-              style="background-image: url('images/logo/logo.png'); width: 30px; height: 20px; background-size: 30px;">
+              style="background-image: url('{{config('shixeh.path_logo')}}'); width: 30px; height: 20px; background-size: 30px;">
               Bootstrap</h1>
           </div>
           <pre><code class="language-html">
-                  &lt;h1 class="text-hide my-2" style="background-image: url('/images/logo/logo.png'); width: 30px; height: 26px;"&gt;Bootstrap&lt;/h1&gt;
+                  &lt;h1 class="text-hide my-2" style="background-image: url('/{{config('shixeh.path_logo')}}'); width: 30px; height: 26px;"&gt;Bootstrap&lt;/h1&gt;
                   </code></pre>
         </div>
       </div>

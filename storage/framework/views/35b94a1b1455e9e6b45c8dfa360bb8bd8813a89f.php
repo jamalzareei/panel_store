@@ -132,7 +132,7 @@
                                     <?php if($user->image && isset($user->image) && $user->image->path): ?>
                                         <img src="<?php echo e(config('shixeh.cdn_domain_files')); ?>/<?php echo e($user->image->path); ?>" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                     <?php else: ?>
-                                        <img src="<?php echo e(config('shixeh.cdn_domain_files')); ?>/logo.png" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
+                                        <img src="<?php echo e(config('shixeh.path_logo')); ?>" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                     <?php endif; ?>
                                     <input type="hidden" name="image_file" class="image_file">
                                     <small class="help-block text-danger error-image_file w-100 m-1 row text-center"></small>

@@ -31,7 +31,7 @@
       <div id="invoice-company-details" class="row">
           <div class="col-md-6 col-sm-12 text-left pt-1">
               <div class="media pt-1">
-                  <img src="{{ asset('images/logo/logo.png') }}" alt="company logo" class=""/>
+                  <img src="{{config('shixeh.path_logo')}}" alt="company logo" class=""/>
               </div>
           </div>
           <div class="col-md-6 col-sm-12 text-right">
