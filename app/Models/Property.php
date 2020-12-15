@@ -24,10 +24,9 @@ class Property extends Model
             ]
         ];
     }
-
-    public function category()
-    {
-        return $this->belongsTo('App\Models\Category');
+    
+    public function category() {
+		return $this->belongsToMany('App\Models\Category');
     }
 
     public function propertyvalue()

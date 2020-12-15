@@ -16,7 +16,8 @@
     $(".select2").select2({
         dir: "rtl",
         dropdownAutoWidth: true,
-        width: '100%'
+        width: '100%',
+        placeholder: 'وبسایت انتخاب نمایید'
     });
     
     // On Edit
@@ -175,8 +176,16 @@
                                 <input type="hidden" name="parent_id" value="{{$parent_id}}">
                                 <div class="modal-body">
                                     <fieldset class="form-group">
-                                        <input type="number" class="new-todo-item-title form-control" name="order_by" placeholder="موقعیت نمایش (عددی)">
-                                        <small class="help-block text-danger error-order_by"></small>
+                                        <label for="categories-list-websites">وبسایت متصل</label>
+                                        <select class="form-control filter select2" data-placeholder="انتخاب نمایید" name="websites[]" multiple id="categories-list-websites">
+                                            {{-- <option value="">انتخاب نمایید</option> --}}
+                                            @forelse ($websites as $website)
+                                                <option value="{{$website->id}}">{{$website->name}} ({{$website->url}})</option>
+                                            @empty
+                                                
+                                            @endforelse
+                                        </select>
+                                        <small class="help-block text-danger error-websites"></small>
                                     </fieldset>
                                     <fieldset class="form-group">
                                         <input type="text" class="new-todo-item-title form-control" name="name" placeholder="عنوان">

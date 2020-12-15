@@ -16,7 +16,8 @@
     $(".select2").select2({
         dir: "rtl",
         dropdownAutoWidth: true,
-        width: '100%'
+        width: '100%',
+        placeholder: 'وبسایت انتخاب نمایید'
     });
     
     // On Edit
@@ -175,8 +176,16 @@
                                 <input type="hidden" name="parent_id" value="<?php echo e($parent_id); ?>">
                                 <div class="modal-body">
                                     <fieldset class="form-group">
-                                        <input type="number" class="new-todo-item-title form-control" name="order_by" placeholder="موقعیت نمایش (عددی)">
-                                        <small class="help-block text-danger error-order_by"></small>
+                                        <label for="categories-list-websites">وبسایت متصل</label>
+                                        <select class="form-control filter select2" data-placeholder="انتخاب نمایید" name="websites[]" multiple id="categories-list-websites">
+                                            
+                                            <?php $__empty_1 = true; $__currentLoopData = $websites; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $website): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                                <option value="<?php echo e($website->id); ?>"><?php echo e($website->name); ?> (<?php echo e($website->url); ?>)</option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                                                
+                                            <?php endif; ?>
+                                        </select>
+                                        <small class="help-block text-danger error-websites"></small>
                                     </fieldset>
                                     <fieldset class="form-group">
                                         <input type="text" class="new-todo-item-title form-control" name="name" placeholder="عنوان">

@@ -14,4 +14,5 @@ return [
     'mailJob'                   => 'job@shixeh.com',
     'test'                      => 'test',
     'path_logo'                 => 'http://localhost/cdn.shixeh.local/shixeh/logo.png',
+    'listWebsites'            => ['shixeh.com', 'shixmod.com', 'shixcar.com', 'shixmarket.com', 'shixdigi.com', 'shixhome.com', 'shixdesign.com'],
 ];

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Seo;
+use App\Models\Website;
+use App\Models\WebsiteShow;
 use App\Services\UploadService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -14,8 +16,14 @@ class CategoriesController extends Controller
     //
     public function categories(Request $request, $parent_id = null)
     {
-
         if (!$parent_id) $parent_id = 0;
+
+        $title = 'لیست دسته بندی ها';
+        $category = Category::where('id', $parent_id)->first();
+        if($category){
+            $title = 'لیست دسته بندی های '. $category->name;
+        }
+
         $categories = Category::whereNull('deleted_at')
             ->when($parent_id, function ($query) use ($parent_id) {
                 $query->where('parent_id', $parent_id);
@@ -27,10 +35,14 @@ class CategoriesController extends Controller
             ->orderBy('id', 'desc')
             ->get();
         // return $categories;
+
+        $websites = Website::whereNull('deleted_at')->whereIn('url', config('shixeh.listWebsites'))->get();
+        
         return view('admin.categories.list-categories', [
             'parent_id' => $parent_id,
             'categories' => $categories,
-            'title' => 'لیست دسته بندی ها',
+            'websites' => $websites,
+            'title' => $title,
         ]);
     }
 
@@ -148,21 +160,37 @@ class CategoriesController extends Controller
         # code...
         // return $request->all();
         $request->validate([
-            'order_by' =>  'required|numeric',
+            // 'order_by' =>  'required|numeric',
             'name' =>  'required|string',
+            'websites' =>  'required|exists:websites,id',
             // 'description_full' => 'required',
         ]);
 
         $category = Category::create([
-            'order_by' =>  $request->order_by,
+            'order_by' =>  ($request->order_by) ?? 1,
             'name' =>  $request->name,
             'parent_id' =>  $request->parent_id ?? 0 ,
             'description_full' =>  $request->description_full,
             'actived_at' => ($request->actived_at) ? Carbon::now() : null,
             'show_menu' => ($request->show_menu) ? 1 : 0,
+            'properties_active' => 1,// ($request->properties_active) ? 1 : 0,
         ]);
 
         $category = Category::where('id', $category->id)->first();// ;
+
+
+        if($request->websites){
+            // $category->websites()->async($request->websites);
+            foreach ($request->websites as $key => $value) {
+                # code...
+                $websiteshow = new WebsiteShow();
+                $websiteshow->user_id = auth()->id();
+                $websiteshow->website_id = $value;
+                $websiteshow->active_at = Carbon::now();
+    
+                $category->websites()->save($websiteshow);
+            }
+        }
 
         session()->put('noty', [
             'status' => 'success',

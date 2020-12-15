@@ -29,10 +29,9 @@ class Category extends Model
     {
         return $this->hasMany($this, 'parent_id', 'id');
     }
-
-    public function properties()
-    {
-        return $this->hasMany('App\Models\Property');
+    
+    public function properties() {
+		return $this->belongsToMany('App\Models\Property');
     }
 
     public function products()
@@ -43,5 +42,11 @@ class Category extends Model
     public function seo()
     {
         return $this->morphOne('App\Models\Seo', 'seoable');
+    }
+
+    
+    public function websites()
+    {
+        return $this->morphMany('App\Models\Website', 'websiteable')->whereNull('deleted_at');
     }
 }
