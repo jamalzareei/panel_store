@@ -2,43 +2,38 @@
 
 @section('head')
     
-<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css') }}"> @endsection @section('footer')
-<style>
-    .accordion input, .accordion textarea:not([name='message-seller']), .accordion select{
-        pointer-events: none !important;
-        cursor: pointer !important;
-        background-color: #F5F5F1 !important;
-        border: none !important
-    }
-</style>
-<!-- include summernote css/js -->
-<link href="{{asset('assets/summernote/summernote.min.css')}}" rel="stylesheet">
-<script src="{{asset('assets/summernote/summernote.min.js')}}"></script>
-<script>
-    $(document).ready(function() {
-        $('textarea').summernote();
-    });
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css') }}"> @endsection @section('footer')
+    <style>
+        .accordion input, .accordion textarea:not([name='message-seller']), .accordion select{
+            pointer-events: none !important;
+            cursor: pointer !important;
+            background-color: #F5F5F1 !important;
+            border: none !important
+        }
+    </style>
+    <!-- include summernote css/js -->
+    <link href="{{asset('assets/summernote/summernote.min.css')}}" rel="stylesheet">
+    <script src="{{asset('assets/summernote/summernote.min.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+            $('textarea').summernote();
+        });
+        </script>
+
+    <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
+    <script>
+        
+        $(".select2").select2({
+            dir: "rtl",
+            dropdownAutoWidth: true,
+            width: '100%',
+        });
     </script>
 @endsection
 
 @section('footer')
-    
-<script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
-<script>
-    $(".select2").select2({
-        dir: "rtl",
-        dropdownAutoWidth: true,
-        width: '100%'
-    });
 
-$(() => {
-})
-    $(document).ready(function(){
-        $("input").prop('disabled', true);
 
-    })
-
-</script>
 @endsection
 
 @section('content')
@@ -92,6 +87,20 @@ $(() => {
                                         <span class="switch-text-left">بله</span>
                                         <span class="switch-text-right">خیر</span>
                                     </label>
+                                </div>
+                                <div class="mr-2 mb-1">
+                                    <fieldset class="form-group">
+                                        <label for="categories-list-websites">وبسایت متصل <small class="danger">(وبسایت های متصل به فروشنده را انتخاب و یا ویرایش نمایید)</small></label>
+                                        <select class="form-control select2" data-placeholder="انتخاب نمایید" name="websites[]" multiple id="categories-list-websites">
+                                            
+                                            @forelse ($websites as $website)
+                                                <option value="{{$website->id}}" {{($seller->websites->where('id', $website->id)->count()) ? 'selected' : ''}}>{{$website->name}} ({{$website->url}})</option>
+                                            @empty
+                                                
+                                            @endforelse
+                                        </select>
+                                        <small class="help-block text-danger error-websites"></small>
+                                    </fieldset>
                                 </div>
                             </div>
                             <div class="col-12">

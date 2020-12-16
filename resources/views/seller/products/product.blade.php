@@ -133,6 +133,9 @@
                                                 <div class="col load-categories" col="4">
 
                                                 </div>
+                                                <div class="col load-categories" col="5">
+
+                                                </div>
 
                                             <div class="col-12">
                                                 <ol class="breadcrumb breadcrumb-categories">
@@ -140,6 +143,7 @@
                                                     <li class="breadcrumb-item" col="2">{{(isset($product) && isset($product->categories) && isset($product->categories[1]) && isset($product->categories[1]->name)) ? $product->categories[1]->name : ''}}</li>
                                                     <li class="breadcrumb-item" col="3">{{(isset($product) && isset($product->categories) && isset($product->categories[2]) && isset($product->categories[2]->name)) ? $product->categories[2]->name : ''}}</li>
                                                     <li class="breadcrumb-item" col="4">{{(isset($product) && isset($product->categories) && isset($product->categories[3]) && isset($product->categories[3]->name)) ? $product->categories[3]->name : ''}}</li>
+                                                    <li class="breadcrumb-item" col="5">{{(isset($product) && isset($product->categories) && isset($product->categories[4]) && isset($product->categories[4]->name)) ? $product->categories[4]->name : ''}}</li>
                                                 </ol>
                                             </div>
                                         </div>

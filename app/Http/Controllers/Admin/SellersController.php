@@ -12,6 +12,8 @@ use App\Models\SellerSocial;
 use App\Models\SellType;
 use App\Models\State;
 use App\Models\Ticket;
+use App\Models\Website;
+use App\Models\Websiteable;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -57,7 +59,8 @@ class SellersController extends Controller
                 'branches' => function ($query) {
                     $query->with(['country', 'state', 'city'])->whereNull('deleted_at');
                 },
-                'user'
+                'user',
+                'websites'
             ])
             ->first();
 
@@ -94,6 +97,7 @@ class SellersController extends Controller
             ->get();
         // return $seller;
 
+        $websites = Website::all();
         return view('admin.sellers.seller', [
             'title' => $seller->name,
             'seller' => $seller,
@@ -104,6 +108,7 @@ class SellersController extends Controller
             'sellTypes' => $sellTypes,
             'states' => $states,
             'socials' => $socials,
+            'websites' => $websites,
         ]); 
     }
 
@@ -131,8 +136,13 @@ class SellersController extends Controller
             $seller->actived_at = null;
         }
 
-        $seller->save();
 
+        if($request->websites){
+            
+            $seller->websites()->sync($request->websites);
+        }
+
+        $seller->save();
         Message::create([
             'user_sender_id'        => Auth::id(),
             'user_receiver_id'      => $seller->user_id,

@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css-rtl/plugins/forms/wizard.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/dropify/dist/css/dropify.min.css') }}">
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css') }}">
 @endsection
 
 @section('footer')
@@ -14,7 +15,15 @@
     <script src="{{ asset('app-assets/js/scripts/forms/wizard-steps.js') }}"></script>
     <!-- END: Page JS-->
     <script src="{{ asset('assets/dropify/dist/js/dropify.min.js') }}"></script>
-
+    <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
+    <script>
+        
+        $(".select2").select2({
+            dir: "rtl",
+            dropdownAutoWidth: true,
+            width: '100%',
+        });
+    </script>
 @endsection
 
 @section('content')
@@ -114,6 +123,18 @@
                                                                                 <span class="">قابلیت اضافه کردن ویژگی محصول</span>
                                                                                 <small class="help-block text-danger error-properties_active"></small>
                                                                             </div>
+                                                                        </fieldset>
+                                                                    </li>
+                                                                    <li class="d-inline-block mr-2 w-100">
+                                                                        <fieldset class="my-2">
+                                                                            <label for="websites">وبسایت های مرتبط</label>
+                                                                            <select name="websites[]" multiple class="form-control w-100 select2" id="websites" data-placeholder="وبسایت های مرتبط را انتخاب نمایید">
+                                                                                @forelse ($websites as $webite)
+                                                                                    <option value="{{$webite->id}}" {{($category->websites->where('id', $webite->id)->count()) ? 'selected' : ''}}>{{$webite->name}}</option>
+                                                                                @empty
+                                                                                    
+                                                                                @endforelse
+                                                                            </select>
                                                                         </fieldset>
                                                                     </li>
                                                                 </ul>

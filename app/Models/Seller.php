@@ -74,6 +74,6 @@ class Seller extends Model
     
     public function websites()
     {
-        return $this->morphMany('App\Models\Website', 'websiteable')->whereNull('deleted_at');
+        return $this->morphToMany('App\Models\Website', 'websiteable')->whereNull('websites.deleted_at');
     }
 }

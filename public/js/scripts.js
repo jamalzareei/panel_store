@@ -283,7 +283,7 @@ function changeStatus(url, this_) {
 
 function LoadCategories(url, col, name, _this_) {
 
-    for (var i = col; i <= 4; i++) {
+    for (var i = col; i <= 5; i++) {
         $(".load-categories[col='" + i + "']").html('')
         $(".breadcrumb-categories [col='" + i + "']").text('')
     }

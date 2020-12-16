@@ -65,14 +65,16 @@ class CategoriesController extends Controller
     public function categoryEdit(Request $request, $slug = null)
     {
         # code...
-        $category = Category::where('slug', $slug)->first();
+        $category = Category::where('slug', $slug)->with('websites')->first();
 
+        $websites = Website::all();
         // return $category;
         if(!$category){ abort(404); }
         // admin.categories.update-or-insert-category.blade.php
         return view('admin.categories.update-or-insert-category', [
             'title' => $category ? 'ویرایش دسته بندی '.$category->name.'' : 'اضافه کردن دسته بندی',
-            'category' => $category
+            'category' => $category,
+            'websites' => $websites,
         ]);
     }
 
@@ -88,6 +90,12 @@ class CategoriesController extends Controller
                 'title' => '',
                 'message' => 'دسته بندی فوق وجود ندارد یا حذف شده است.'
             ];
+        }
+
+        if($request->websites){
+            $category->websites()->sync($request->websites);
+        }else{
+            $category->websites()->sync([]);
         }
 
         $photos = null;
@@ -180,16 +188,7 @@ class CategoriesController extends Controller
 
 
         if($request->websites){
-            // $category->websites()->async($request->websites);
-            foreach ($request->websites as $key => $value) {
-                # code...
-                $websiteable = new Websiteable();
-                $websiteable->user_id = auth()->id();
-                $websiteable->website_id = $value;
-                $websiteable->active_at = Carbon::now();
-    
-                $category->websites()->save($websiteable);
-            }
+            $category->websites()->sync($request->websites);
         }
 
         session()->put('noty', [
