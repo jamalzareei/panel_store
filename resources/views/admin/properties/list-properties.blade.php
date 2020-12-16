@@ -179,9 +179,11 @@
                                 <div class="modal-body">
                                     <fieldset class="form-group">
                                         <input type="number" class="new-todo-item-title form-control" name="order_by" placeholder="موقعیت نمایش (عددی)">
+                                        <small class="help-block text-danger error-order_by"></small>
                                     </fieldset>
                                     <fieldset class="form-group">
                                         <input type="text" class="new-todo-item-title form-control" name="name" placeholder="عنوان">
+                                        <small class="help-block text-danger error-name"></small>
                                     </fieldset>
                                     <fieldset>
                                         <div class="vs-checkbox-con vs-checkbox-primary">

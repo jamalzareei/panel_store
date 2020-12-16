@@ -13,4 +13,9 @@ class Website extends Model
     {
         return $this->morphedByMany('App\Models\Category', 'websiteable');
     }
+    
+    public function sellers()
+    {
+        return $this->morphedByMany('App\Models\Seller', 'websiteable');
+    }
 }

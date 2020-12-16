@@ -25,7 +25,7 @@ class Property extends Model
         ];
     }
     
-    public function category() {
+    public function categories() {
 		return $this->belongsToMany('App\Models\Category');
     }
 

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Seo;
 use App\Models\Website;
-use App\Models\WebsiteShow;
+use App\Models\Websiteable;
 use App\Services\UploadService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -183,12 +183,12 @@ class CategoriesController extends Controller
             // $category->websites()->async($request->websites);
             foreach ($request->websites as $key => $value) {
                 # code...
-                $websiteshow = new WebsiteShow();
-                $websiteshow->user_id = auth()->id();
-                $websiteshow->website_id = $value;
-                $websiteshow->active_at = Carbon::now();
+                $websiteable = new Websiteable();
+                $websiteable->user_id = auth()->id();
+                $websiteable->website_id = $value;
+                $websiteable->active_at = Carbon::now();
     
-                $category->websites()->save($websiteshow);
+                $category->websites()->save($websiteable);
             }
         }
 

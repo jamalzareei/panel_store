@@ -71,4 +71,9 @@ class Seller extends Model
     {
         return $this->morphOne('App\Models\Seo', 'seoable');
     }
+    
+    public function websites()
+    {
+        return $this->morphMany('App\Models\Website', 'websiteable')->whereNull('deleted_at');
+    }
 }

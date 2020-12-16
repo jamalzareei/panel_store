@@ -19,9 +19,12 @@ class PropertiesController extends Controller
         $category = Category::where('id', $category_id)->first();
 
         $properties = Property::whereNull('deleted_at')
-            ->when($category_id, function ($query) use ($category_id) {
-                $query->where('category_id', $category_id);
+            ->whereHas('categories', function($queryCat) use($category_id){
+                $queryCat->where('category_id', $category_id);
             })
+            // ->when($category_id, function ($query) use ($category_id) {
+            //     $query->where('category_id', $category_id);
+            // })
             // ->with('category')
             ->orderBy('id', 'desc');
 
@@ -49,13 +52,13 @@ class PropertiesController extends Controller
         # code...
         // return $request->all();
         $request->validate([
-            'category_id' =>  'required|exists:categories,id',
+            'category_id' =>  'nullable|exists:categories,id',
             'order_by' =>  'required|numeric',
             'name' =>  'required|string',
         ]);
 
         $property = Property::create([
-            'category_id'   =>  $request->category_id,
+            // 'category_id'   =>  $request->category_id,
             'order_by'      =>  $request->order_by,
             'name'          =>  $request->name,
             'actived_at'     => ($request->actived_at) ? Carbon::now() : null,
@@ -64,6 +67,9 @@ class PropertiesController extends Controller
 
         $property = Property::where('id', $property->id)->first();// ;
 
+        if($request->category_id){
+            $property->categories()->sync([$request->category_id]);
+        }
         session()->put('noty', [
             'status' => 'success',
             'title' => '',
@@ -82,14 +88,17 @@ class PropertiesController extends Controller
     public function propertyEdit(Request $request, $slug = null)
     {
         # code...
-        $property = Property::where('slug', $slug)->first();
+        $property = Property::where('slug', $slug)->with('categories')->first();
 
-        // return $property;
+        $categories = Category::all();
+
+        // return $property->categories->where('id', 2)->count();
         if(!$property){ abort(404); }
         
         return view('admin.properties.update-or-insert-property', [
             'title' => $property ? 'ویرایش پراپرتی '.$property->name.'' : 'اضافه کردن پراپرتی',
-            'property' => $property
+            'property' => $property,
+            'categories' => $categories,
         ]);
     }
 
@@ -156,6 +165,11 @@ class PropertiesController extends Controller
         // if($request->title)             $property->title  = $request->title;
         
         $property->save();
+
+        // if($request->categories){
+            $property->categories()->sync($request->categories);
+        // }
+        
 
         $seo = new Seo();
         if ($property->seo) {

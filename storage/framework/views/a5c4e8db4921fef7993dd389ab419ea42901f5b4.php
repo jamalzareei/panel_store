@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo e(asset('app-assets/css-rtl/plugins/forms/wizard.css')); ?>">
     <link rel="stylesheet" type="text/css" href="<?php echo e(asset('assets/dropify/dist/css/dropify.min.css')); ?>">
 
+    <link rel="stylesheet" type="text/css" href="<?php echo e(asset('app-assets/vendors/css/forms/select/select2.min.css')); ?>">
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('footer'); ?>
@@ -14,7 +15,15 @@
     <script src="<?php echo e(asset('app-assets/js/scripts/forms/wizard-steps.js')); ?>"></script>
     <!-- END: Page JS-->
     <script src="<?php echo e(asset('assets/dropify/dist/js/dropify.min.js')); ?>"></script>
-
+    <script src="<?php echo e(asset('app-assets/vendors/js/forms/select/select2.full.min.js')); ?>"></script>
+    <script>
+        
+        $(".select2").select2({
+            dir: "rtl",
+            dropdownAutoWidth: true,
+            width: '100%',
+        });
+    </script>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -129,6 +138,19 @@
                                                                                 <span class="">تاثیر روی قیمت</span>
                                                                                 <small class="help-block text-danger error-is_price"></small>
                                                                             </div>
+                                                                        </fieldset>
+                                                                    </li>
+                                                                    
+                                                                    <li class="d-inline-block mr-2 w-100">
+                                                                        <fieldset class="my-2">
+                                                                            <label for="categories">دسته بندی های مرتبط</label>
+                                                                            <select name="categories[]" multiple class="form-control w-100 select2" id="categories" data-placeholder="دسته بندی های مرتبط را انتخاب نمایید">
+                                                                                <?php $__empty_1 = true; $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                                                                    <option value="<?php echo e($category->id); ?>" <?php echo e(($property->categories->where('id', $category->id)->count()) ? 'selected' : ''); ?>><?php echo e($category->name); ?></option>
+                                                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                                                                                    
+                                                                                <?php endif; ?>
+                                                                            </select>
                                                                         </fieldset>
                                                                     </li>
                                                                 </ul>
