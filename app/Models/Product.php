@@ -60,4 +60,9 @@ class Product extends Model
     {
         return $this->belongsTo('App\Models\Seller');
     }
+    
+    public function websites()
+    {
+        return $this->morphToMany('App\Models\Website', 'websiteable')->whereNull('websites.deleted_at');
+    }
 }

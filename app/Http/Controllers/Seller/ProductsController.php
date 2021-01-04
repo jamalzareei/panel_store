@@ -117,6 +117,8 @@ class ProductsController extends Controller
         $user = Auth::user();
 
         $seller = $user->seller;
+        
+        $websites_id = $seller->websites->pluck('id')->toArray();
 
         $product = Product::create([
             "name" => $request->name,
@@ -124,6 +126,12 @@ class ProductsController extends Controller
             "user_id" => $user->id,
             "seller_id" => $seller->id,
         ]);
+
+        if($websites_id){
+            $product->websites()->sync($websites_id);
+        }else{
+            $product->websites()->sync([]);
+        }
 
         if ($request->categories) {
             # code...
