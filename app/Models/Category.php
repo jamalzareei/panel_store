@@ -29,7 +29,12 @@ class Category extends Model
     {
         return $this->hasMany($this, 'parent_id', 'id');
     }
-    
+
+    public function parent()
+    {
+        return $this->belongsTo($this, 'parent_id', 'id');
+    }
+
     public function properties() {
 		return $this->belongsToMany('App\Models\Property');
     }
@@ -44,7 +49,7 @@ class Category extends Model
         return $this->morphOne('App\Models\Seo', 'seoable');
     }
 
-    
+
     public function websites()
     {
         return $this->morphToMany('App\Models\Website', 'websiteable')->whereNull('websites.deleted_at');

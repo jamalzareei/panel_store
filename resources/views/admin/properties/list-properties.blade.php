@@ -12,13 +12,13 @@
 @section('footer')
 <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
 <script>
-    
+
     $(".select2").select2({
         dir: "rtl",
         dropdownAutoWidth: true,
         width: '100%'
     });
-    
+
     // On Edit
     $(document).ready(function() {
 
@@ -33,7 +33,7 @@
         });
 
         var table = $('.data-list-view').DataTable();
-        
+
         // Event listener to the two range filtering inputs to redraw on input
         $('select.filter').change( function() {
             table.draw();
@@ -56,11 +56,11 @@
             $('.ajaxForm').attr('action', this_.attr('action'))
             $('.ajaxForm #data-phone, .ajaxForm #data-email').attr('disabled', true)
             $('#item_id').val(this_.attr('item_id'))
-            
+
             $(".add-new-data").addClass("show");
             $(".overlay-bg").addClass("show");
         });
-        
+
 
     } );
 
@@ -140,30 +140,42 @@
     <!-- Data list view starts -->
     <section id="data-list-view" class="data-list-view-header">
         <div class="row d-flex div-action-btns" dir="ltr">
-            
+
             <button type="button" class="btn bg-gradient-primary mr-1 waves-effect waves-light action-add-new" data-toggle="modal" data-target="#exampleModalCenter">
                 <i class="feather icon-plus"></i> افزودن پراپرتی جدید
             </button>
-            
+
             <a href="{{ route('admin.categories.list') }}" class="btn bg-gradient-info mr-1 waves-effect waves-light action-add-new">
                 <i class="feather icon-list"></i> لیست دسته بندی ها
             </a>
-            
+
             <div class="col-sm-3">
                 <select name="" id="" class="select2" onchange="location = this.value;">
                     <option value="">انتخاب پراپرتی های دسته انتخابی</option>
                     @forelse ($categories as $item)
-                        <option value="{{route('admin.properties.list', ['category_id' => $item->id])}}">{{$item->name}}</option>
+                        <option value="{{route('admin.properties.list', ['category_id' => $item->id])}}">
+                            {{$item->name}}
+                                @if ($item->parent && $item->parent->name)
+                                    @if ($item->parent->parent && $item->parent->parent->name)
+                                        @if ($item->parent->parent->parent && $item->parent->parent->parent->name)
+                                            {{ $item->parent->parent->parent->name }} >
+                                        @endif
+                                        {{ $item->parent->parent->name }} >
+                                    @endif
+                                    {{ $item->parent->name }} >
+                                @endif
+                                {{$item->name}}
+                        </option>
                     @empty
-                        
+
                     @endforelse
                 </select>
             </div>
-            
+
         </div>
             <!-- Modal -->
             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                            
+
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm" role="document">
                     <div class="modal-content">
                         <section class="todo-form">
@@ -272,7 +284,7 @@
                                 </td>
                                 <td col="name" class=""><a href="{{ route('admin.property.edit', ['slug'=>$property->slug]) }}">{{$property->name}}</a></td>
                                 <td col="slug" class=""><a href="{{ route('admin.property.edit', ['slug'=>$property->slug]) }}">{{$property->slug}}</a></td>
-                                
+
                                 <td col="verify">
                                     @if($property->deleted_at)
                                     <div class="chip chip-warning">
@@ -300,20 +312,20 @@
                                         </div>
                                         <div class="hidden">deactive</div>
                                     @endif
-                                    
+
                                 </td>
                                 <td col="action" class="td-action">
                                     <a href="{{ route('admin.property.edit', ['slug'=>$property->slug]) }}">
                                         <i class="feather icon-edit"></i>
                                     </a>
                                     <span class="action-delete" onclick="deleteRow('{{ route('admin.property.delete', ['id'=>$property->id]) }}', '{{$property->id}}')"><i class="feather icon-trash"></i></span>
-                                
+
                                 </td>
                             </tr>
                         @empty
-                            
+
                         @endforelse
-                        
+
                     </tbody>
                 </table>
             </div>

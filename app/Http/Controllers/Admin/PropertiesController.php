@@ -19,8 +19,10 @@ class PropertiesController extends Controller
         $category = Category::where('id', $category_id)->first();
 
         $properties = Property::whereNull('deleted_at')
-            ->whereHas('categories', function($queryCat) use($category_id){
-                $queryCat->where('category_id', $category_id);
+            ->when($category_id, function($query) use ($category_id){
+                $query->whereHas('categories', function ($queryCat) use ($category_id) {
+                    $queryCat->where('category_id', $category_id);
+                });
             })
             // ->when($category_id, function ($query) use ($category_id) {
             //     $query->where('category_id', $category_id);
@@ -28,14 +30,29 @@ class PropertiesController extends Controller
             // ->with('category')
             ->orderBy('id', 'desc');
 
-            if($category_id){
-                $properties = $properties->get();
-            }else{
-                $properties = $properties->paginate(10);
-            }
-            
+        if ($category_id) {
+            $properties = $properties->get();
+        } else {
+            $properties = $properties->paginate(10);
+        }
 
-        $categories = Category::whereNull('deleted_at')->where('properties_active', 1)->get();
+
+        // $categories = Category::whereNull('deleted_at')->where('properties_active', 1)->get();
+        $categories = Category::whereNull('deleted_at')
+            ->with([
+                'parent' => function ($query) {
+                    $query->with([
+                        'parent' => function ($query) {
+                            $query->with([
+                                'parent' => function ($query) {
+                                    $query->with('parent');
+                                }
+                            ]);
+                        }
+                    ]);
+                }
+            ])->get();
+
         // return $properties;
 
         return view('admin.properties.list-properties', [
@@ -46,7 +63,7 @@ class PropertiesController extends Controller
         ]);
     }
 
-    
+
     public function propertyInsert(Request $request)
     {
         # code...
@@ -65,9 +82,9 @@ class PropertiesController extends Controller
             'is_filter'     => ($request->is_filter) ? 1 : 0,
         ]);
 
-        $property = Property::where('id', $property->id)->first();// ;
+        $property = Property::where('id', $property->id)->first(); // ;
 
-        if($request->category_id){
+        if ($request->category_id) {
             $property->categories()->sync([$request->category_id]);
         }
         session()->put('noty', [
@@ -76,7 +93,7 @@ class PropertiesController extends Controller
             'message' => 'با موفقیت اضافه گردید.',
             'data' => '',
         ]);
-        
+
         return response()->json([
             'status' => 'success',
             'title' => '',
@@ -90,13 +107,28 @@ class PropertiesController extends Controller
         # code...
         $property = Property::where('slug', $slug)->with('categories')->first();
 
-        $categories = Category::all();
+        $categories = Category::whereNull('deleted_at')->where('properties_active', 1)
+            ->with([
+                'parent' => function ($query) {
+                    $query->with([
+                        'parent' => function ($query) {
+                            $query->with([
+                                'parent' => function ($query) {
+                                    $query->with('parent');
+                                }
+                            ]);
+                        }
+                    ]);
+                }
+            ])->get();
 
-        // return $property->categories->where('id', 2)->count();
-        if(!$property){ abort(404); }
-        
+        // return $categories; //->categories->where('id', 2)->count();
+        if (!$property) {
+            abort(404);
+        }
+
         return view('admin.properties.update-or-insert-property', [
-            'title' => $property ? 'ویرایش پراپرتی '.$property->name.'' : 'اضافه کردن پراپرتی',
+            'title' => $property ? 'ویرایش پراپرتی ' . $property->name . '' : 'اضافه کردن پراپرتی',
             'property' => $property,
             'categories' => $categories,
         ]);
@@ -107,8 +139,8 @@ class PropertiesController extends Controller
         # code...
         // return $request->all();
         $property = Property::where('id', $id)->first();
-        
-        if(!$property){
+
+        if (!$property) {
             return [
                 'status' => 'error',
                 'title' => '',
@@ -117,7 +149,7 @@ class PropertiesController extends Controller
         }
 
         $photos = null;
-        if($request->imageUrl != 'undefined'){
+        if ($request->imageUrl != 'undefined') {
             $request->validate([
                 'imageUrl' => 'image|max:300|mimes:jpeg,jpg,png',
             ]);
@@ -126,64 +158,80 @@ class PropertiesController extends Controller
             $photos = [$request->imageUrl];
             $photos = UploadService::saveFile($path, $photos);
 
-            if($property->image){
+            if ($property->image) {
                 UploadService::destroyFile($property->image);
             }
 
             $property->image = $photos;
         }
-        
-        if($request->actived_at){ $property->actived_at  = Carbon::now(); }else{ $property->actived_at  = null; }
-        
+
+        if ($request->actived_at) {
+            $property->actived_at  = Carbon::now();
+        } else {
+            $property->actived_at  = null;
+        }
+
         // if($request->head)              $property->head  = $request->head;
         // if($request->link)              $property->link  = $request->link;
         // if($request->meta_description)  $property->meta_description  = $request->meta_description;
         // if($request->meta_keywords)     $property->meta_keywords  = $request->meta_keywords;
-        if($request->name)              $property->name  = $request->name;
+        if ($request->name)              $property->name  = $request->name;
         // if($request->description_short) $property->description_short  = $request->description_short;
         // if($request->description_full)  $property->description_full  = $request->description_full;
-        
-        if($request->default_list) $property->default_list  = $request->default_list;
-        if($request->filter_list)  $property->filter_list  = $request->filter_list;
 
-        if($request->is_filter){ $property->is_filter  = 1; }else{ $property->is_filter  = 0; } 
-        if($request->is_show_less){ $property->is_show_less  = 1; }else{ $property->is_show_less  = 0; } 
-        if($request->is_price){ $property->is_price  = 1; }else{ $property->is_price  = 0; } 
+        if ($request->default_list) $property->default_list  = $request->default_list;
+        if ($request->filter_list)  $property->filter_list  = $request->filter_list;
 
-        if($request->slug) {
+        if ($request->is_filter) {
+            $property->is_filter  = 1;
+        } else {
+            $property->is_filter  = 0;
+        }
+        if ($request->is_show_less) {
+            $property->is_show_less  = 1;
+        } else {
+            $property->is_show_less  = 0;
+        }
+        if ($request->is_price) {
+            $property->is_price  = 1;
+        } else {
+            $property->is_price  = 0;
+        }
+
+        if ($request->slug) {
             $catSlug = property::where('slug', $request->slug)->where('id', '!=', $id)->first();
-            if($catSlug){
+            if ($catSlug) {
                 return response()->json([
                     'status' => 'error',
                     'errors' => ['slug' => 'این اسلاگ قبلا تعریف شده است.'],
                 ], 422);
-            }else{
+            } else {
                 $property->slug  = $request->slug;
             }
-        }       
+        }
 
         // if($request->title)             $property->title  = $request->title;
-        
+
         $property->save();
 
         // if($request->categories){
-            $property->categories()->sync($request->categories);
+        $property->categories()->sync($request->categories);
         // }
-        
+
 
         $seo = new Seo();
         if ($property->seo) {
             $seo = $property->seo;
         }
         // return $property->seo;
-        if($request->head)              $seo->head = $request->head;
-        if($request->title)             $seo->title = $request->title;
-        if($request->meta_description)  $seo->meta_description = $request->meta_description;
-        if($request->meta_keywords)     $seo->meta_keywords = $request->meta_keywords;
+        if ($request->head)              $seo->head = $request->head;
+        if ($request->title)             $seo->title = $request->title;
+        if ($request->meta_description)  $seo->meta_description = $request->meta_description;
+        if ($request->meta_keywords)     $seo->meta_keywords = $request->meta_keywords;
         $seo->save();
         $property->seo()->save($seo);
 
-        
+
         return [
             'status' => 'success',
             'title' => '',
@@ -191,11 +239,11 @@ class PropertiesController extends Controller
         ];
     }
 
-    public function propertyUpdateStatus (Request $request, $id)
+    public function propertyUpdateStatus(Request $request, $id)
     {
         # code...
         // return $request->all();
-        
+
         $property = Property::where('id', $id)->update([
             'actived_at' => ($request->status == 'true') ? Carbon::now() : null
         ]);
@@ -207,43 +255,43 @@ class PropertiesController extends Controller
         ], 200);
     }
 
-    
+
     public function propertiesUpdate(Request $request)
     {
         # code...
         // return $request->all();
-        
-        if($request->type == 'active'){
-            if(!$request->row){
+
+        if ($request->type == 'active') {
+            if (!$request->row) {
                 return response()->json([
                     'status' => 'warning',
                     'title' => '',
                     'message' => 'لطفا حداقل یک مورد را انتخاب نمایید.'
                 ]);
             }
-            Property::whereIn('id', $request->row)->update([ 
-                'deleted_at'=> null,
-                'actived_at'=> Carbon::now()->format('Y-m-d H:i:s')
+            Property::whereIn('id', $request->row)->update([
+                'deleted_at' => null,
+                'actived_at' => Carbon::now()->format('Y-m-d H:i:s')
             ]);
-        }else if($request->type == 'delete'){
-            if(!$request->row){
+        } else if ($request->type == 'delete') {
+            if (!$request->row) {
                 return response()->json([
                     'status' => 'warning',
                     'title' => '',
                     'message' => 'لطفا حداقل یک مورد را انتخاب نمایید.'
                 ]);
             }
-            Property::whereIn('id', $request->row)->update([ 'deleted_at'=> Carbon::now()->format('Y-m-d H:i:s') ]);
-        }else if($request->type == 'deactive'){
-            if(!$request->row){
+            Property::whereIn('id', $request->row)->update(['deleted_at' => Carbon::now()->format('Y-m-d H:i:s')]);
+        } else if ($request->type == 'deactive') {
+            if (!$request->row) {
                 return response()->json([
                     'status' => 'warning',
                     'title' => '',
                     'message' => 'لطفا حداقل یک مورد را انتخاب نمایید.'
                 ]);
             }
-            Property::whereIn('id', $request->row)->update([ 'actived_at'=> null ]);
-        }else if($request->type == 'update'){
+            Property::whereIn('id', $request->row)->update(['actived_at' => null]);
+        } else if ($request->type == 'update') {
             foreach ($request->ids as $key => $value) {
                 # code...
                 Property::where('id', $value)->update([
@@ -259,10 +307,10 @@ class PropertiesController extends Controller
         ]);
     }
 
-    public function propertyDelete (Request $request, $id)
+    public function propertyDelete(Request $request, $id)
     {
         # code...
-        $propertyDelete = Property::where('id',$id)->first();
+        $propertyDelete = Property::where('id', $id)->first();
         if ($propertyDelete) {
             $propertyDelete->deleted_at = Carbon::now()->format('Y-m-d H:i:s');
             $propertyDelete->save();
@@ -278,7 +326,5 @@ class PropertiesController extends Controller
                 'message' => 'دوباره تلاش نمایید.'
             ]);
         }
-
     }
-
 }

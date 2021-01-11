@@ -17,7 +17,7 @@
     <script src="{{ asset('assets/dropify/dist/js/dropify.min.js') }}"></script>
     <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
     <script>
-        
+
         $(".select2").select2({
             dir: "rtl",
             dropdownAutoWidth: true,
@@ -30,7 +30,7 @@
 
 <section id="basic-vertical-layouts">
     <div class="row match-height">
-        
+
         <div class="col-md-12 col-12">
             <section id="number-tabs">
                 <div class="row">
@@ -38,7 +38,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">{{$title}}</h4>
-                                
+
                                 @if ($property && $property->category_id)
                                     <a href="{{ route('admin.properties.list', ['category_id'=> $property->category_id]) }}" class="btn bg-gradient-info mr-1 waves-effect waves-light action-add-new" >
                                         <i class="feather icon-list"></i> لیست دیگر پراپرتی های هم گروه
@@ -65,17 +65,17 @@
                                         </ul>
 
                                         <!-- Tab panes -->
-                                        
+
                                         <form class="ajaxUpload" action="{{ route('admin.property.update.post', ['id'=> $property->id]) }}" action="" method="post">
                                             @csrf
                                             <div class="tab-content pt-1">
                                                 <div class="tab-pane" id="file-fill" role="tabpanel" aria-labelledby="file-tab-fill">
                                                     <fieldset>
-                                                        
+
                                                         <label for="">اپلود عکس دسته بنده (عکس در سایز 512*512 و فرمت jpg) </label>
                                                         <input type="file" name="image" class="dropify file-upload" data-default-file="{{($property) ? config('shixeh.cdn_domain_files').$property->image : ''}}" />
                                                         <small class="help-block text-danger error-image"></small>
-                                                        
+
                                                         <button class="btn btn-primary btn-md my-2 " type="submit"> <i class=""></i> اپلود و ذخیره عکس </button>
                                                     </fieldset>
                                                 </div>
@@ -140,15 +140,27 @@
                                                                             </div>
                                                                         </fieldset>
                                                                     </li>
-                                                                    
+
                                                                     <li class="d-inline-block mr-2 w-100">
                                                                         <fieldset class="my-2">
                                                                             <label for="categories">دسته بندی های مرتبط</label>
                                                                             <select name="categories[]" multiple class="form-control w-100 select2" id="categories" data-placeholder="دسته بندی های مرتبط را انتخاب نمایید">
                                                                                 @forelse ($categories as $category)
-                                                                                    <option value="{{$category->id}}" {{($property->categories->where('id', $category->id)->count()) ? 'selected' : ''}}>{{$category->name}}</option>
+                                                                                    <option value="{{$category->id}}" {{($property->categories->where('id', $category->id)->count()) ? 'selected' : ''}}>
+
+                                                                                        @if ($category->parent && $category->parent->name)
+                                                                                            @if ($category->parent->parent && $category->parent->parent->name)
+                                                                                                @if ($category->parent->parent->parent && $category->parent->parent->parent->name)
+                                                                                                    {{ $category->parent->parent->parent->name }} >
+                                                                                                @endif
+                                                                                                {{ $category->parent->parent->name }} >
+                                                                                            @endif
+                                                                                            {{ $category->parent->name }} >
+                                                                                        @endif
+                                                                                        {{$category->name}}
+                                                                                    </option>
                                                                                 @empty
-                                                                                    
+
                                                                                 @endforelse
                                                                             </select>
                                                                         </fieldset>
@@ -197,8 +209,8 @@
                                                                     <small class="help-block text-danger error-description_full"></small>
                                                                 </div>
                                                             </div> --}}
-                                                            
-                                                            
+
+
                                                         <button class="btn btn-primary btn-md my-2 " type="submit"> <i class=""></i> ویرایش اطلاعات </button>
                                                         </div>
                                                     </fieldset>
@@ -234,16 +246,16 @@
                                                                     <small class="help-block text-danger error-meta_description"></small>
                                                                 </div>
                                                             </div>
-                                                            
+
                                                             <button class="btn btn-primary btn-md my-2 " type="submit"> <i class=""></i> ویرایش اطلاعات </button>
                                                         </div>
                                                     </fieldset>
                                                 </div>
                                             </div>
-                                        
+
                                         </form>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>

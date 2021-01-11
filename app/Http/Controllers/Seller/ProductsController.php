@@ -25,13 +25,13 @@ class ProductsController extends Controller
         $title = $request->title ?? null;
         $code = $request->code ?? null;
         $status = $request->status ?? null;
-        
+
         $user = Auth::user();
 
         $seller = $user->seller;
         $products = Product::whereNull('deleted_at')
             ->where('user_id', $user->id)
-            
+
             ->with('price')
             ->when($title, function ($qTitle) use ($title){
                 $qTitle->where('name', 'like', "%$title%");
@@ -117,7 +117,7 @@ class ProductsController extends Controller
         $user = Auth::user();
 
         $seller = $user->seller;
-        
+
         $websites_id = $seller->websites->pluck('id')->toArray();
 
         $product = Product::create([
@@ -199,18 +199,20 @@ class ProductsController extends Controller
                 # code...
                 // return $request->all();
                 $request->validate([]);
+                if($request->properties){
 
-                foreach ($request->properties as $key => $property) {
-                    # code...
-                    if (is_array($property)) {
-                        $property = implode(',', $property);
+                    foreach ($request->properties as $key => $property) {
+                        # code...
+                        if (is_array($property)) {
+                            $property = implode(',', $property);
+                        }
+                        PropertyValue::updateOrCreate([
+                            'property_id' => $key,
+                            'product_id' => $id,
+                        ], [
+                            'value' => $property,
+                        ]);
                     }
-                    PropertyValue::updateOrCreate([
-                        'property_id' => $key,
-                        'product_id' => $id,
-                    ], [
-                        'value' => $property,
-                    ]);
                 }
                 return response()->json([
                     'status' => 'success',
@@ -258,7 +260,7 @@ class ProductsController extends Controller
                     'price' => 'required|numeric',
                 ]);
                 // return $request->all();
-                Price::where(['user_id' => $user->id, 'product_id' => $id])->update(['actived_at' => null]);
+                // Price::where(['user_id' => $user->id, 'product_id' => $id])->update(['actived_at' => null]);
                 $price = Price::create([
                     'user_id' => $user->id,
                     'seller_id' => $seller->id,
@@ -380,7 +382,7 @@ class ProductsController extends Controller
             ]);
         }
         if($request->type == 'active'){
-            Product::whereIn('id', $request->row)->update([ 
+            Product::whereIn('id', $request->row)->update([
                 'deleted_at'=> null,
                 'actived_at'=> Carbon::now()
             ]);
@@ -490,12 +492,12 @@ class ProductsController extends Controller
     public function getSubCategories($col, $parent_id = 0)
     {
         # code...
-        
+
         $user = Auth::user();
 
         $seller = $user->seller;
         $websites_id = $seller->websites->pluck('id')->toArray();
-        
+
         $col++;
         $categories = Category::select('id', 'name')
             ->when($parent_id, function ($query) use ($parent_id) {
