@@ -45,7 +45,7 @@ Route::namespace('Admin')->middleware('admin')->prefix('admin')->group(function(
     Route::post('users/update', 'UsersController@usersUpdate')->name('admin.users.update');
     Route::delete('user/delete/{id}', 'UsersController@userDelete')->name('admin.user.delete');
 
-    
+
     Route::get('roles', 'RolesController@roles')->name('admin.roles.list');
     Route::post('role/add', 'RolesController@roleAdd')->name('admin.role.add');
     Route::post('role/update/{id}', 'RolesController@roleUpdate')->name('admin.role.update');
@@ -57,15 +57,15 @@ Route::namespace('Admin')->middleware('admin')->prefix('admin')->group(function(
     Route::post('permission/update/{id}', 'PermissionsController@permissionUpdate')->name('admin.permission.update');
     Route::post('permissions/update', 'PermissionsController@permissionsUpdate')->name('admin.permissions.update');
     Route::delete('permission/delete/{id}', 'PermissionsController@permissionDelete')->name('admin.permission.delete');
-    
-    Route::get('categories/{parent_id?}', 'categoriesController@categories')->name('admin.categories.list');
-    Route::get('category/edit/{slug}', 'categoriesController@categoryEdit')->name('admin.category.edit');
-    Route::post('category/update/status/{id}', 'categoriesController@categoryUpdateStatus')->name('admin.category.update.status');
-    Route::post('category/add', 'categoriesController@categoryInsert')->name('admin.category.add');
-    Route::post('category/update/{id}', 'categoriesController@categoryUpdate')->name('admin.category.update.post');
-    Route::post('categories/update', 'categoriesController@categoriesUpdate')->name('admin.categories.update');
-    Route::delete('category/delete/{id}', 'categoriesController@categoryDelete')->name('admin.category.delete');
-    
+
+    Route::get('categories/{parent_id?}', 'CategoriesController@categories')->name('admin.categories.list');
+    Route::get('category/edit/{slug}', 'CategoriesController@categoryEdit')->name('admin.category.edit');
+    Route::post('category/update/status/{id}', 'CategoriesController@categoryUpdateStatus')->name('admin.category.update.status');
+    Route::post('category/add', 'CategoriesController@categoryInsert')->name('admin.category.add');
+    Route::post('category/update/{id}', 'CategoriesController@categoryUpdate')->name('admin.category.update.post');
+    Route::post('categories/update', 'CategoriesController@categoriesUpdate')->name('admin.categories.update');
+    Route::delete('category/delete/{id}', 'CategoriesController@categoryDelete')->name('admin.category.delete');
+
     Route::get('properties/{category_id?}', 'PropertiesController@properties')->name('admin.properties.list');
     Route::get('property/edit/{slug}', 'PropertiesController@propertyEdit')->name('admin.property.edit');
     Route::post('property/update/status/{id}', 'PropertiesController@propertyUpdateStatus')->name('admin.property.update.status');
@@ -74,7 +74,7 @@ Route::namespace('Admin')->middleware('admin')->prefix('admin')->group(function(
     Route::post('properties/update', 'PropertiesController@propertiesUpdate')->name('admin.properties.update');
     Route::delete('property/delete/{id}', 'PropertiesController@propertyDelete')->name('admin.property.delete');
 
-    
+
     Route::get('tags/{category_id?}', 'TagsController@tags')->name('admin.tags.list');
     Route::get('tag/edit/{slug}', 'TagsController@tagEdit')->name('admin.tag.edit');
     Route::post('tag/update/status/{id}', 'TagsController@tagUpdateStatus')->name('admin.tag.update.status');
@@ -88,7 +88,7 @@ Route::namespace('Admin')->middleware('admin')->prefix('admin')->group(function(
     Route::get('seller/{slug}', 'SellersController@sellerShow')->name('admin.seller.show');
     Route::post('seller/status/{id}', 'SellersController@sellerActive')->name('admin.seller.active');
 
-    
+
     Route::get('/products/{status?}', 'ProductsController@products')->name('admin.products.get');
     Route::get('/product/{slug?}', 'ProductsController@product')->name('admin.product.update');
     Route::post('products/update', 'ProductsController@productsUpdate')->name('admin.products.update');
@@ -109,10 +109,10 @@ Route::namespace('User')->middleware('auth')->prefix('user')->group(function() {
 
     Route::get('/u/email', 'UsersController@userMail')->name('user.data.email');
     Route::post('/u/email', 'UsersController@postUserMail')->name('user.data.email.post');
-    
+
     Route::get('/u/phone', 'UsersController@userPhone')->name('user.data.phone');
     Route::post('/u/phone', 'UsersController@postUserPhone')->name('user.data.phone.post');
-    
+
     Route::get('/u/change-password', 'UsersController@userChangePassword')->name('user.data.change.password');
     Route::post('/u/change-password', 'UsersController@postUserChangePassword')->name('user.data.change.password.post');
 
@@ -126,7 +126,7 @@ Route::get('/get-countries', 'Admin\LocationController@getCountries')->name('get
 Route::get('/get-states/{country_id?}', 'Admin\LocationController@getStates')->name('get.states.location');
 Route::get('/get-cities/{state_id?}', 'Admin\LocationController@getCities')->name('get.cities.location');
 Route::get('/get-children-categories/{col}/{parent_id?}', 'CategoriesController@getSubCategories')->name('get.children.categories');
-        
+
 Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(function() {
     Route::get('/', 'DashboardController@index')->name('seller.dashboard');
 
@@ -135,10 +135,10 @@ Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(functi
 
     // Route::get('/user/email', 'UsersController@userMail')->name('seller.user.data.email');
     // Route::post('/user/email', 'UsersController@postUserMail')->name('seller.user.data.email.post');
-    
+
     // Route::get('/user/phone', 'UsersController@userPhone')->name('seller.user.data.phone');
     // Route::post('/user/phone', 'UsersController@postUserPhone')->name('seller.user.data.phone.post');
-    
+
     // Route::get('/user/change-password', 'UsersController@userChangePassword')->name('seller.user.data.change.password');
     // Route::post('/user/change-password', 'UsersController@postUserChangePassword')->name('seller.user.data.change.password.post');
 
@@ -155,7 +155,7 @@ Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(functi
     Route::post('branches/update', 'BranchesController@branchesUpdate')->name('seller.branches.update');
     Route::delete('branches/delete/{id}', 'BranchesController@branchesDelete')->name('seller.branches.delete');
 
-    
+
     Route::get('/setting', 'SellersController@setting')->name('seller.setting.get');
     Route::post('/setting', 'SellersController@settingPost')->name('seller.setting.post');
     Route::post('/setting-ship', 'SellersController@settingShipPost')->name('seller.setting.ship.post');
@@ -170,8 +170,8 @@ Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(functi
     Route::post('/update-finance/{id}', 'FinancesControler@financeUpdate')->name('seller.finance.update.post');
     Route::post('finances/update', 'FinancesControler@financesUpdate')->name('admin.finances.update');
     Route::delete('finance/delete/{id}', 'FinancesControler@financeDelete')->name('seller.finance.delete');
-    
-    
+
+
     Route::middleware('selleractive')->group(function() {
         Route::get('/products', 'ProductsController@products')->name('seller.products.get');
         Route::get('/product/{slug?}', 'ProductsController@product')->name('seller.product.updateorcreate');
@@ -181,14 +181,16 @@ Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(functi
         Route::post('product/update/status/{id}', 'ProductsController@productUpdateStatus')->name('seller.product.update.status');
         Route::post('products/update', 'ProductsController@productsUpdate')->name('seller.products.update');
         Route::delete('product/delete/{id}', 'ProductsController@productDelete')->name('seller.product.delete');
-        
+
         Route::get('/prices/{product_id}', 'ProductsController@getPrice')->name('seller.prices.product.get');
         Route::post('price/update/status/{id}', 'ProductsController@priceUpdateStatus')->name('seller.price.update.status');
-        
+
         Route::get('/images/{product_id}', 'ProductsController@getImages')->name('seller.image.product.get');
         Route::post('image/update/status/{id}', 'ProductsController@imageUpdateStatus')->name('seller.image.update.status');
         Route::delete('image/product/delete/{id}', 'ProductsController@imageProductDelete')->name('seller.image.product.delete');
 
         Route::get('/product-send-to-admin/{id}', 'ProductsController@productSendAdmin')->name('product.send.admin');
+
+        Route::get('/product-read-instagram', 'ApiController@readInstagram')->name('seller.read.instragram');
     });
 });

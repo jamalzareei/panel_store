@@ -20,7 +20,7 @@ class RolesController extends Controller
 
         $permissions = Permission::whereNull('deleted_at')->get();
         // return $roles;
-        
+
         return view('admin.roles.list-roles',[
             'roles' => $roles,
             'permissions' => $permissions,
@@ -40,7 +40,7 @@ class RolesController extends Controller
         ]);
 
         $role = Role::create([
-            'active' => ($request->active) ? 1 : 0,
+            'actived_at' => ($request->active) ? Carbon::now() : null,
             'slug' => $request->slug,
             'code' => $request->code,
             'details' => $request->details,
@@ -76,12 +76,12 @@ class RolesController extends Controller
         ]);
 
         $role = Role::where('id', $request->id)->update([
-            'active' => ($request->active) ? 1 : 0,
+            'actived_at' => ($request->active) ? Carbon::now() : null,
             'code' => $request->code,
             'details' => $request->details,
             'name' => $request->name,
         ]);
-        
+
         return response()->json([
             'status' => 'success',
             'title' => '',
@@ -94,9 +94,9 @@ class RolesController extends Controller
         # code...
         // return $request->all();
         if($request->type == 'active'){
-            Role::whereIn('id', $request->row)->update([ 
+            Role::whereIn('id', $request->row)->update([
                 'deleted_at'=> null,
-                'active'=> 1
+                'actived_at'=> Carbon::now()
             ]);
         }else if($request->type == 'delete'){
             Role::whereIn('id', $request->row)->update([ 'deleted_at'=> Carbon::now()->format('Y-m-d H:i:s') ]);

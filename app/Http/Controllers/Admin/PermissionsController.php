@@ -23,7 +23,7 @@ class PermissionsController extends Controller
         $permissions = Permission::with(['roles' => function ($query) {
             $query->select('name');
         }])->get();
-        $roles = Role::whereNull('deleted_at')->where('active', 1)->get();
+        $roles = Role::whereNull('deleted_at')->where('actived_at', 1)->get();
 
         $listControllersMethods = $this->Controllers();
         // return $listControllersMethods;
@@ -63,14 +63,14 @@ class PermissionsController extends Controller
         $permission = Permission::create(['name' => $request->name]);
 
         $roles = $request['roles'];
-        
+
         if (isset($roles)) {
 
             foreach ($roles as $role) {
-                $role_r = Role::where('slug', '=', $role)->firstOrFail();            
+                $role_r = Role::where('slug', '=', $role)->firstOrFail();
                 $permission->assignRole($role_r);
             }
-        } 
+        }
 
         return response()->json([
             'status' => 'success',
@@ -88,14 +88,14 @@ class PermissionsController extends Controller
             'name' => "required|string",
             'roles.*' => "required|string|exists:roles,slug",
         ]);
-        
+
         $permission = Permission::where('id', $request->id)->first();
         $permission->name = $request->name;
         $permission->save();
 
         $roles = $request['roles'];
-        
-        // $roles = Role::whereIn('slug', $request['roles'])->pluck('id'); 
+
+        // $roles = Role::whereIn('slug', $request['roles'])->pluck('id');
         // return $roles;
         // $permission->assignRole($role);
         // $permission->syncRoles($roles);
@@ -103,11 +103,11 @@ class PermissionsController extends Controller
         if (isset($roles)) {
 
             foreach ($roles as $role) {
-                $role_r = Role::where('slug', '=', $role)->firstOrFail();            
+                $role_r = Role::where('slug', '=', $role)->firstOrFail();
                 // $permission->assignRole($role_r);
                 $role_r->givePermissionTo($permission);
             }
-        } 
+        }
 
         session()->put('noty', [
             'title' => '',
@@ -134,7 +134,7 @@ class PermissionsController extends Controller
         } else if ($request->type == 'delete') {
             Permission::whereIn('id', $request->row)->update(['deleted_at' => Carbon::now()->format('Y-m-d H:i:s')]);
         }
-        
+
         return response()->json([
             'status' => 'success',
             'title' => '',

@@ -12,7 +12,7 @@ class UploadService
 
     public function __construct()
     {
-        $this->file_path = config('shixeh.path_upload');// '../../cdn.shixeh.local/public/'
+        $this->file_path = config('shixeh.path_upload'); // '../../cdn.shixeh.local/public/'
     }
 
     public static function apiUpload()
@@ -47,7 +47,7 @@ class UploadService
                     'name'     => 'FileInfo',
                     'contents' => 'json_encode($fileinfo)'
                 ]
-                
+
                 // [
                 //     'name'     => 'file',
                 //     'contents' => fopen('data://text/plain;base64,'.$avatar, 'r'),
@@ -92,21 +92,21 @@ class UploadService
             $name = sha1(date('YmdHis') . Str::random(40));
             $save_name = $name . '.' . $photo->getClientOriginalExtension();
             // echo $path; return;
-            self::resizeImage($photo, str_replace(config('shixeh.path_upload'), config('shixeh.path_upload').'resize/big/',$path), $save_name, 1000, ($image_height * 1000) / $image_width);
-            if($image_width == $image_height){
-                self::resizeImage($photo, str_replace(config('shixeh.path_upload'), config('shixeh.path_upload').'resize/medium/',$path), $save_name, 420, ($image_height * 420) / $image_width);
-            }else{
-                self::resizeImage($photo, str_replace(config('shixeh.path_upload'), config('shixeh.path_upload').'resize/medium/',$path), $save_name, 465, ($image_height * 465) / $image_width);
+            self::resizeImage($photo, str_replace(config('shixeh.path_upload'), config('shixeh.path_upload') . 'resize/big/', $path), $save_name, 1000, ($image_height * 1000) / $image_width);
+            if ($image_width == $image_height) {
+                self::resizeImage($photo, str_replace(config('shixeh.path_upload'), config('shixeh.path_upload') . 'resize/medium/', $path), $save_name, 420, ($image_height * 420) / $image_width);
+            } else {
+                self::resizeImage($photo, str_replace(config('shixeh.path_upload'), config('shixeh.path_upload') . 'resize/medium/', $path), $save_name, 465, ($image_height * 465) / $image_width);
             }
-            self::resizeImage($photo, str_replace(config('shixeh.path_upload'), config('shixeh.path_upload').'resize/small/',$path), $save_name, 230, ($image_height * 230) / $image_width);
-            
+            self::resizeImage($photo, str_replace(config('shixeh.path_upload'), config('shixeh.path_upload') . 'resize/small/', $path), $save_name, 230, ($image_height * 230) / $image_width);
+
 
             $photo->move($pathFull, $save_name);
 
             $protocol = stripos($_SERVER['SERVER_PROTOCOL'], 'https') === true ? 'https://' : 'http://';
-            
+
             $path = str_replace(config('shixeh.path_upload'), '', $path);
-            
+
             $lists = $path . '/' . $save_name;
         }
         return $lists;
@@ -141,10 +141,28 @@ class UploadService
         }
     }
 
+    public static function saveImageFromURL($path, $urlImage)
+    {
+        ini_set("memory_limit", "256M");
+
+        $path_ = config('shixeh.path_upload') . $path;
+
+        $pathFull = public_path($path_);
+
+        if (!is_dir($pathFull)) {
+            mkdir($pathFull, 0777, true);
+        }
+
+        $cover = file_get_contents($urlImage);
+        $imageName = sha1(date('YmdHis') . Str::random(40)) . '.jpg';
+        Image::make($cover)->resize(300, 300)->save("$pathFull/$imageName");//$path_ . $imageName
+        return $path . $imageName;
+    }
+
     public static function convertBase64toPng($path, $base64)
     {
         # code...
-        ini_set("memory_limit","256M");
+        ini_set("memory_limit", "256M");
 
         $path_ = config('shixeh.path_upload') . $path;
         $path_save = $path_;
@@ -156,10 +174,10 @@ class UploadService
         }
         $data = base64_decode($base64);
 
-        $imageName = sha1(date('YmdHis') . Str::random(40)).'.jpg';
-        
+        $imageName = sha1(date('YmdHis') . Str::random(40)) . '.svg';
+
         $data = $base64;
-        
+
         list($type, $data) = explode(';', $data);
         list(, $data)      = explode(',', $data);
         $data = base64_decode($data);
@@ -178,19 +196,19 @@ class UploadService
 
     }
 
-    public static function contentToHtml($path, $content_to_write){
+    public static function contentToHtml($path, $content_to_write)
+    {
         $dir = dirname($path);
         // return $dir;
         // $dir = "new_folder_name";
 
         $file_to_write = basename($path);
 
-        if( is_dir($dir) === false )
-        {
+        if (is_dir($dir) === false) {
             mkdir($dir, 0777, true);
         }
 
-        $file = fopen($dir . '/' . $file_to_write,"w");
+        $file = fopen($dir . '/' . $file_to_write, "w");
 
         // a different way to write content into
         // fwrite($file,"Hello World.");
@@ -200,10 +218,10 @@ class UploadService
         // closes the file
         fclose($file);
 
-        return $dir.'/'.$file_to_write;
+        return $dir . '/' . $file_to_write;
     }
 
-    public static function saveFileWithOrginalName($path, $photos,$filename_=null)
+    public static function saveFileWithOrginalName($path, $photos, $filename_ = null)
     {
         $path = '../../cdn.shixeh.local/public/files/' . $path;
         $path_save = $path;
@@ -237,19 +255,19 @@ class UploadService
             $name = sha1(date('YmdHis') . Str::random(40));
             $save_name = $photo->getClientOriginalName();
             // echo $path; return;
-            if(in_array($photo->getClientOriginalExtension(),[ 'jpg','png','gif','jpeg'])){
+            if (in_array($photo->getClientOriginalExtension(), ['jpg', 'png', 'gif', 'jpeg'])) {
 
-                self::resizeImage($photo, str_replace(config('shixeh.path_upload'),'../../cdn.shixeh.local/public/resize/big/',$path), $save_name, 1000, ($image_height * 1000) / $image_width);
-                if($image_width == $image_height){
-                    self::resizeImage($photo, str_replace(config('shixeh.path_upload'),'../../cdn.shixeh.local/public/resize/medium/',$path), $save_name, 420, ($image_height * 420) / $image_width);
-                }else{
-                    self::resizeImage($photo, str_replace(config('shixeh.path_upload'),'../../cdn.shixeh.local/public/resize/medium/',$path), $save_name, 465, ($image_height * 465) / $image_width);
+                self::resizeImage($photo, str_replace(config('shixeh.path_upload'), '../../cdn.shixeh.local/public/resize/big/', $path), $save_name, 1000, ($image_height * 1000) / $image_width);
+                if ($image_width == $image_height) {
+                    self::resizeImage($photo, str_replace(config('shixeh.path_upload'), '../../cdn.shixeh.local/public/resize/medium/', $path), $save_name, 420, ($image_height * 420) / $image_width);
+                } else {
+                    self::resizeImage($photo, str_replace(config('shixeh.path_upload'), '../../cdn.shixeh.local/public/resize/medium/', $path), $save_name, 465, ($image_height * 465) / $image_width);
                 }
-                self::resizeImage($photo, str_replace(config('shixeh.path_upload'),'../../cdn.shixeh.local/public/resize/small/',$path), $save_name, 230, ($image_height * 230) / $image_width);
-            }else{
+                self::resizeImage($photo, str_replace(config('shixeh.path_upload'), '../../cdn.shixeh.local/public/resize/small/', $path), $save_name, 230, ($image_height * 230) / $image_width);
+            } else {
                 // $save_name =($filename_? $filename_.".": $save_name.'.') . $photo->getClientOriginalExtension();
             }
-            
+
 
             $photo->move($pathFull, $save_name);
 
@@ -260,13 +278,13 @@ class UploadService
             // array_push($lists, $protocol.$_SERVER['HTTP_HOST'].'/'.$path.'/'. $save_name);
             //$protocol.$_SERVER['HTTP_HOST']
 
-            
+
             // $lists= self::baseUrl().'/'.$path.'/'. $save_name;
             $path = str_replace(config('shixeh.path_upload'), '', $path);
-            
+
             // $resizepath = "$pathFull/$save_name";
             // self::uploadImageWithCopies(str_replace(config('shixeh.path_upload'),'../../cdn.shixeh.local/public/resize/big/',$resizepath), "$pathFull/$save_name", $save_name, '420');
-            
+
             // self::resizeFinal($resizepath,str_replace(config('shixeh.path_upload'),'../../cdn.shixeh.local/public/resize/big/',$resizepath), 420, 420);
             // $request->file('photo')->getRealPath()
 
@@ -303,18 +321,18 @@ class UploadService
             // $name = sha1(date('YmdHis') . Str::random(40));
             $save_name = $name . '.html';
             // echo $path; return;
-            
+
             $photo->move($pathFull, $save_name);
 
             $protocol = stripos($_SERVER['SERVER_PROTOCOL'], 'https') === true ? 'https://' : 'http://';
-            
+
             $path = str_replace(config('shixeh.path_upload'), '', $path);
 
             $lists = $path . '/' . $save_name;
         }
         return $lists;
     }
-    
+
 
     public static function resizeImage($image, $path, $save_name, $width, $height = null)
     {
@@ -335,7 +353,7 @@ class UploadService
         }
 
         // $image       = $request->file('image');
-        $filename    = $save_name;//'zareie' . '-' . time() . '.' . $image->getClientOriginalName();
+        $filename    = $save_name; //'zareie' . '-' . time() . '.' . $image->getClientOriginalName();
 
         $image_resize = Image::make($image->getRealPath());
         $image_resize->resize($width, $height);
@@ -378,7 +396,7 @@ class UploadService
                 // throw new Exception("Invalid Image");
                 return false;
             }
-            //1 
+            //1
             $inc = 0;
             $newwidth   = array();
             $newheight  = array();
@@ -398,15 +416,18 @@ class UploadService
             $inc = 0;
             foreach ($custom_sizes as $cS) {
                 if ($mime_type == "image/jpeg") {
-                    if (imagejpeg($tmp[$inc], $location[$inc], 100)) { } else {
+                    if (imagejpeg($tmp[$inc], $location[$inc], 100)) {
+                    } else {
                         return false;
                     }
                 } else if ($mime_type == "image/png") {
-                    if (imagepng($tmp[$inc], $location[$inc], 9)) { } else {
+                    if (imagepng($tmp[$inc], $location[$inc], 9)) {
+                    } else {
                         return false;
                     }
                 } else if ($mime_type == "image/gif") {
-                    if (imagegif($tmp[$inc], $location[$inc], 9)) { } else {
+                    if (imagegif($tmp[$inc], $location[$inc], 9)) {
+                    } else {
                         return false;
                     }
                 } else {
@@ -426,38 +447,40 @@ class UploadService
     }
 
 
-    function resizeImage_2($imagePath, $width, $height, $filterType, $blur, $bestFit, $cropZoom) {
+    function resizeImage_2($imagePath, $width, $height, $filterType, $blur, $bestFit, $cropZoom)
+    {
         //The blur factor where &gt; 1 is blurry, &lt; 1 is sharp.
         $imagick = new \Imagick(realpath($imagePath));
-    
+
         $imagick->resizeImage($width, $height, $filterType, $blur, $bestFit);
-    
+
         $cropWidth = $imagick->getImageWidth();
         $cropHeight = $imagick->getImageHeight();
-    
+
         if ($cropZoom) {
             $newWidth = $cropWidth / 2;
             $newHeight = $cropHeight / 2;
-    
+
             $imagick->cropimage(
                 $newWidth,
                 $newHeight,
                 ($cropWidth - $newWidth) / 2,
                 ($cropHeight - $newHeight) / 2
             );
-    
+
             $imagick->scaleimage(
                 $imagick->getImageWidth() * 4,
                 $imagick->getImageHeight() * 4
             );
         }
-    
-    
+
+
         header("Content-Type: image/jpg");
         echo $imagick->getImageBlob();
     }
 
-    public static function resizeFinal($path, $path_save, $width, $height){
+    public static function resizeFinal($path, $path_save, $width, $height)
+    {
 
         // ../../cdn.shixeh.local/public/resize/big/files/uploads/suppliers/2019-12-09/197f0692d7f104d561af1db926c5090272e737f1.jpg
         // ../../cdn.shixeh.local/public/resize/big/uploads/suppliers/2019-12-09/197f0692d7f104d561af1db926c5090272e737f1.jpg
@@ -484,8 +507,9 @@ class UploadService
         // imagejpeg($thumb);
     }
 
-    
-    public static function resizeFinal_2($path, $path_save, $width, $height){
+
+    public static function resizeFinal_2($path, $path_save, $width, $height)
+    {
         $filename = $path;
         $percent = 0.5;
 

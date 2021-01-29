@@ -21,7 +21,7 @@
                         </li>
                     </ul>
                 </li> --}}
-                
+
                 @hasanyrole('admin')
                 <li class=" navigation-header"><span>داشبورد</span></li>
                 <li class=" nav-item"><a href="{{ route('admin.dashboard') }}"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">داشبورد</span></a>
@@ -31,7 +31,7 @@
                     <i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">داشبورد</span>
                 </a></li>
                 @endhasanyrole
-                
+
                 {{-- <li class=" nav-item"><a href="#"><i class="feather icon-user-check"></i><span class="menu-title" data-i18n="users">کاربری</span></a>
                     <ul class="menu-content"> --}}
                 <li class=" navigation-header"><span>کاربری</span></li>
@@ -52,10 +52,10 @@
                         </a></li>
                     {{-- </ul>
                 </li> --}}
-                
-                
+
+
                 @hasanyrole('admin')
-                
+
                 <li class=" navigation-header"><span>پنل مدیریت</span></li>
                 <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="users">کاربران و سطح دسترسی</span></a>
                     <ul class="menu-content">
@@ -67,7 +67,7 @@
                         </li>
                     </ul>
                 </li>
-                
+
                 <li class=" nav-item"><a href="#"><i class="feather icon-list"></i><span class="menu-title" data-i18n="users">لیست ها</span></a>
                     <ul class="menu-content">
                         <li><a href="{{ route('admin.categories.list') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="">لیست دسته بندی ها</span></a></li>
@@ -83,24 +83,24 @@
                         <li><a href="{{ route('admin.sellers.list', ['type' => 'compete-and-active-admin']) }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> فروشندگان تایید شده</span></a></li>
                     </ul>
                 </li>
-                
+
                 <li class=" nav-item"><a href="#"><i class="feather icon-product"></i><span class="menu-title" data-i18n="users">محصولات</span></a>
                     <ul class="menu-content">
                         <li><a href="{{ route('admin.products.get', ['status' => 'active']) }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> محصولات در انتظار تایید</span></a></li>
                         <li><a href="{{ route('admin.products.get', ['status' => 'publish']) }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> محصولات تایید شده</span></a></li>
                     </ul>
                 </li>
-                
+
                 <li class=" nav-item"><a href="#"><i class="feather icon-page"></i><span class="menu-title" data-i18n="users">صفحه ایستا</span></a>
                     <ul class="menu-content">
                         <li><a href="{{ route('admin.pages.get') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> لیست صفحات </span></a></li>
                     </ul>
                 </li>
                 @endhasanyrole
-                
+
                 @hasanyrole('seller')
                 <li class=" navigation-header"><span>پنل فروشنده</span></li>
-            
+
                 <li class=" nav-item"><a href="#"><i class="feather icon-shopping-bag"></i><span class="menu-title" data-i18n="users">فروشنده</span></a>
                     <ul class="menu-content">
                         <li class=" nav-item"><a href="{{ route('seller.data.get') }}">
@@ -140,6 +140,10 @@
                         </a></li>
                         <li class=" nav-item"><a href="{{ route('seller.products.get') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">لیست محصولات</span>
+                        </a></li>
+
+                        <li class=" nav-item"><a href="{{ route('seller.read.instragram') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">پست های اینستاگرام</span>
                         </a></li>
                     </ul>
                 </li>

@@ -14,7 +14,7 @@ use Illuminate\Support\Str;
 class UsersController extends Controller
 {
     //
-    
+
     // public function __construct()
     // {
     //     $this->middleware(['auth', 'isAdmin']); //isAdmin middleware lets only users with a //specific permission permission to access these resources
@@ -25,8 +25,8 @@ class UsersController extends Controller
     {
         $users = User::with(['roles' => function($query){ $query->select('name'); } ])->get();
         // $users = User::with('permissions')->get();
-        $roles = Role::whereNull('deleted_at')->where('active', 1)->get();
-        // return $users;
+        $roles = Role::whereNull('deleted_at')->whereNotNull('actived_at')->get();
+        // return $roles;
         return view('admin.users.list-users',[
             'users' => $users,
             'roles' => $roles,
@@ -53,24 +53,24 @@ class UsersController extends Controller
                 'title' => 'شماره تلفن کاربر تکراری است.'
             ]);
         }
-        
+
         $user = User::create([
-            'firstname'         => $request->firstname, 
-            'lastname'          => $request->lastname, 
-            'email'             => $request->email, 
-            'phone'             => $request->phone, 
-            'username'          => $username, 
-            'code_country'      => '0098', 
-            'uuid'              => (string) Str::uuid(), 
-            'password'          => bcrypt($request->phone), 
-            'email_verified_at' => ($request->verify) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
-            'phone_verified_at' => ($request->verify) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
-            'blocked_at'        => ($request->block) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
-            'deleted_at'        => ($request->delete) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
-            'deactived_at'=> ($request->deactive) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
+            'firstname'         => $request->firstname,
+            'lastname'          => $request->lastname,
+            'email'             => $request->email,
+            'phone'             => $request->phone,
+            'username'          => $username,
+            'code_country'      => '0098',
+            'uuid'              => (string) Str::uuid(),
+            'password'          => bcrypt($request->phone),
+            'email_verified_at' => ($request->verify) ? Carbon::now()->format('Y-m-d H:i:s') : null,
+            'phone_verified_at' => ($request->verify) ? Carbon::now()->format('Y-m-d H:i:s') : null,
+            'blocked_at'        => ($request->block) ? Carbon::now()->format('Y-m-d H:i:s') : null,
+            'deleted_at'        => ($request->delete) ? Carbon::now()->format('Y-m-d H:i:s') : null,
+            'deactived_at'=> ($request->deactive) ? Carbon::now()->format('Y-m-d H:i:s') : null,
         ]);
         // return $user;
-        
+
         // $roles = Role::whereIn('slug', $request->roles)->pluck('id')->toArray();
         // $user->roles()->sync($roles);
         $roles = $request['roles']; //Retrieving the roles field
@@ -78,10 +78,10 @@ class UsersController extends Controller
         if (isset($roles)) {
 
             foreach ($roles as $role) {
-                $role_r = Role::where('slug', '=', $role)->firstOrFail();            
+                $role_r = Role::where('slug', '=', $role)->firstOrFail();
                 $user->assignRole($role_r); //Assigning role to user
             }
-        }  
+        }
 
         return response()->json([
             'status' => 'success',
@@ -100,14 +100,14 @@ class UsersController extends Controller
             'lastname'=> "sometimes|string",
             'roles.*'=> "required|string|exists:roles,slug",
         ]);
-        $user = User::where('id', $request->id)->update([ 
-            'firstname'         => $request->firstname, 
-            'lastname'          => $request->lastname, 
-            'email_verified_at' => ($request->verify) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
-            'phone_verified_at' => ($request->verify) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
-            'blocked_at'        => ($request->block) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
-            'deleted_at'        => ($request->delete) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
-            'deactived_at'=> ($request->deactive) ? Carbon::now()->format('Y-m-d H:i:s') : null, 
+        $user = User::where('id', $request->id)->update([
+            'firstname'         => $request->firstname,
+            'lastname'          => $request->lastname,
+            'email_verified_at' => ($request->verify) ? Carbon::now()->format('Y-m-d H:i:s') : null,
+            'phone_verified_at' => ($request->verify) ? Carbon::now()->format('Y-m-d H:i:s') : null,
+            'blocked_at'        => ($request->block) ? Carbon::now()->format('Y-m-d H:i:s') : null,
+            'deleted_at'        => ($request->delete) ? Carbon::now()->format('Y-m-d H:i:s') : null,
+            'deactived_at'=> ($request->deactive) ? Carbon::now()->format('Y-m-d H:i:s') : null,
         ]);
 
         // test::where('id' ,'>' ,0)->lists('id')->toArray();
@@ -120,9 +120,9 @@ class UsersController extends Controller
         // return $roles;// = $request['roles']; //Retreive all roles
         // $user->fill($input)->save();
 
-        if (isset($roles)) {        
-            $user->roles()->sync($roles);  //If one or more role is selected associate user to roles          
-        }        
+        if (isset($roles)) {
+            $user->roles()->sync($roles);  //If one or more role is selected associate user to roles
+        }
         else {
             $user->roles()->detach(); //If no role is selected remove exisiting role associated to a user
         }
@@ -133,7 +133,7 @@ class UsersController extends Controller
             'status' => 'success',
             'data' => '',
         ]);
-        
+
         return response()->json([
             'status' => 'success',
             'title' => '',
@@ -146,10 +146,10 @@ class UsersController extends Controller
         # code...
         // return $request->row;//all();
         if($request->type == 'active'){
-            User::whereIn('id', $request->row)->update([ 
-                'deleted_at'=> null, 
-                'deactived_at'=> null, 
-                'blocked_at'=> null, 
+            User::whereIn('id', $request->row)->update([
+                'deleted_at'=> null,
+                'deactived_at'=> null,
+                'blocked_at'=> null,
                 'phone_verified_at'=> Carbon::now()->format('Y-m-d H:i:s')
             ]);
         }else if($request->type == 'delete'){

@@ -23,7 +23,7 @@ class SellerActive
                 'status' => 'error',
                 'data' => '',
             ]);
-    
+
             return back();
         }
         $seller = $user->seller;
@@ -41,18 +41,18 @@ class SellerActive
                 'textRedirect' => 'تکمیل اطلاعات فروشنده',
             ]);
         }
-        if(!$seller->admin_actived_at){
-            return response()->view('components.not-perrmission', [
-                'title' => 'فعال سازی فروشنده',
-                'message' => '<br>
-                شما اجازه دسترسی به این بخش را ندارید.
-                <br>
-                <br>
-                لطفا اطلاعات فروشگاه را تایید و سپس برای تایید مدیریت ارسال نمایید..',
-                'linkRedirect' => route('seller.data.get'),
-                'textRedirect' => 'تکمیل اطلاعات و ارسال برای مدیریت',
-            ]);
-        }
+        // if(!$seller->admin_actived_at){
+        //     return response()->view('components.not-perrmission', [
+        //         'title' => 'فعال سازی فروشنده',
+        //         'message' => '<br>
+        //         شما اجازه دسترسی به این بخش را ندارید.
+        //         <br>
+        //         <br>
+        //         لطفا اطلاعات فروشگاه را تایید و سپس برای تایید مدیریت ارسال نمایید..',
+        //         'linkRedirect' => route('seller.data.get'),
+        //         'textRedirect' => 'تکمیل اطلاعات و ارسال برای مدیریت',
+        //     ]);
+        // }
 
         return $next($request);
     }
