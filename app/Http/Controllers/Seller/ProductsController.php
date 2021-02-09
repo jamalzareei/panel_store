@@ -269,7 +269,7 @@ class ProductsController extends Controller
                     'old_price' => $request->price,
                     'price' => ($request->price * (100 - $request->discount)) / 100,
                     'discount' => $request->discount,
-                    'currency_id' => $seller->country_id,
+                    'currency_id' => $seller->country_id ?? 1,
                     'start_discount_at' => null,
                     'end_discount_at' => null,
                     'actived_at' => Carbon::now(),

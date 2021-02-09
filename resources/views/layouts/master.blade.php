@@ -94,7 +94,7 @@
     
     @yield('head')
 </head>
-<body class="vertical-layout vertical-menu-modern 2-columns  navbar-floating footer-static   menu-collapsed" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
+<body class="vertical-layout 2-columns navbar-floating footer-static pace-done vertical-menu-modern menu-expanded" data-open="click" data-menu="vertical-menu-modern" data-col="2-columns">
 
     @include('components.navbar')
     {{-- @include('components.header') --}}

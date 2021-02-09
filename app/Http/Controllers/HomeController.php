@@ -74,7 +74,7 @@ class HomeController extends Controller
                 // return redirect()->route('admin.dashboard');
                 return redirect()->route('seller.dashboard');
             } else {
-                return back()->with('message', 'ابتدا در سایت عضو شوید.');
+                return back()->with('message', 'شما اجازه دسترسی به این پنل را ندارید..');
             }
             // return redirect()->route('admin.dashboard');
 

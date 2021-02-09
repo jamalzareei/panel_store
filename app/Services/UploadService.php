@@ -174,7 +174,7 @@ class UploadService
         }
         $data = base64_decode($base64);
 
-        $imageName = sha1(date('YmdHis') . Str::random(40)) . '.svg';
+        $imageName = sha1(date('YmdHis') . Str::random(40)) . '.jpg';
 
         $data = $base64;
 
