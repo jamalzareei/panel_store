@@ -141,6 +141,31 @@ class UploadService
         }
     }
 
+    public static function saveJsonFromURL($path, $urlFile, $nameFile)
+    {
+        ini_set("memory_limit", "256M");
+
+        $path_ = config('shixeh.path_upload') . $path;
+
+        $pathFull = public_path($path_);
+
+        if (!is_dir($pathFull)) {
+            mkdir($pathFull, 0777, true);
+        }
+        $imageName = "$nameFile.json";
+
+        ////////////////////
+        $file_headers = @get_headers($urlFile);
+        if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+            return 'error';
+        }
+        ////////////////////
+
+        file_put_contents($pathFull.$imageName, fopen($urlFile, 'r'));
+        
+        return $path . $imageName;
+    }
+
     public static function saveImageFromURL($path, $urlImage)
     {
         ini_set("memory_limit", "256M");

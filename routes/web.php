@@ -192,5 +192,6 @@ Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(functi
         Route::get('/product-send-to-admin/{id}', 'ProductsController@productSendAdmin')->name('product.send.admin');
 
         Route::get('/product-read-instagram', 'ApiController@readInstagram')->name('seller.read.instragram');
+        Route::get('/product-read-instagram-username', 'ApiController@readInstagramUsername')->name('seller.read.instragram.username');
     });
 });
