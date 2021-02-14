@@ -70,6 +70,8 @@
                         <li><a href="{{ route('admin.products.get', ['status' => 'publish']) }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> محصولات تایید شده</span></a></li>
                     </ul>
                 </li>
+                
+                <li><a href="{{ route('admin.socials.seller') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> لیست شبکه های اجتماعی </span></a></li>
 
                 <li class=" nav-item"><a href="#"><i class="feather icon-page"></i><span class="menu-title" data-i18n="users">صفحه ایستا</span></a>
                     <ul class="menu-content">
@@ -125,6 +127,9 @@
                         <li class=" nav-item"><a href="{{ route('seller.read.instragram') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">پست های اینستاگرام</span>
                         </a></li>
+                        <li class=" nav-item"><a href="{{ route('seller.read.instragram.username.v2') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">پست های اینستاگرام 2</span>
+                        </a></li>
                     </ul>
                 </li>
                 @endhasanyrole
@@ -139,9 +144,9 @@
                         <li class=" nav-item"><a href="{{ route('user.data.email') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تغییر ایمیل</span>
                         </a></li>
-                        <li class=" nav-item"><a href="{{ route('user.data.phone') }}">
+                        {{-- <li class=" nav-item"><a href="{{ route('user.data.phone') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تغییر تلفن</span>
-                        </a></li>
+                        </a></li> --}}
                         <li class=" nav-item"><a href="{{ route('user.messages') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">چت های کاربران</span>
                         </a></li>

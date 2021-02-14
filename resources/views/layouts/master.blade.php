@@ -225,6 +225,7 @@
             messageToast("{!! session('noty')['title'] !!}", "{!! session('noty')['message'] !!}", "{!! session('noty')['status'] !!}", 5000)
             <?php session()->forget('noty') ?>
         @endif
+
     </script>
 
     

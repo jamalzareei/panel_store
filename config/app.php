@@ -167,7 +167,6 @@ return [
          */
         Hekmatinasser\Verta\VertaServiceProvider::class, // verta 
         Spatie\Permission\PermissionServiceProvider::class, // role-permission
-        Kavenegar\Laravel\ServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -229,7 +228,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Verta' => Hekmatinasser\Verta\Verta::class,
-        'Kavenegar' => Kavenegar\Laravel\Facade::class,
 
     ],
 

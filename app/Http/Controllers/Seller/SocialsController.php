@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Models\Message;
 use App\Models\Seller;
 use App\Models\SellerSocial;
 use App\Models\Social;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -94,6 +96,17 @@ class SocialsController extends Controller
             'url' => $request->url, 
             'username' => $request->username,         
         ]);
+
+        if($request->social_id == "2"){
+            Message::create([
+                'user_sender_id'        => Auth::id(),
+                'user_receiver_id'      => 1,
+                'user_receiver_type'    => 'admin',
+                'status_id'             => '0',
+                'title'                 => 'ثبت اطلاعات اینستاگرام',
+                'message'               => 'اطلاعات اینستاگرام کاربر ثبت گردید. <br />'. $request->username,
+            ]);
+        }
         /*
         social_id: "2"
         url: "sdcdsc"

@@ -101,6 +101,10 @@ Route::namespace('Admin')->middleware('admin')->prefix('admin')->group(function(
     Route::post('/add-page', 'PagesController@addePage')->name('admin.page.add');
     Route::post('page/update/status/{id}', 'PagesController@pageUpdateStatus')->name('admin.page.update.status');
     Route::post('pages/update', 'PagesController@pagesUpdate')->name('admin.pages.update');
+
+    
+    Route::get('/socials-sellers', 'SocialsController@index')->name('admin.socials.seller');
+    Route::post('/socials/update/{id}', 'SocialsController@update')->name('admin.social.seller.update');
 });
 
 Route::namespace('User')->middleware('auth')->prefix('user')->group(function() {
@@ -192,6 +196,11 @@ Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(functi
         Route::get('/product-send-to-admin/{id}', 'ProductsController@productSendAdmin')->name('product.send.admin');
 
         Route::get('/product-read-instagram', 'ApiController@readInstagram')->name('seller.read.instragram');
+
         Route::get('/product-read-instagram-username', 'ApiController@readInstagramUsername')->name('seller.read.instragram.username');
+
+        Route::get('/product-read-instagram-username-v2/{username?}', 'ApiController@readInstagramUsernameV2')->name('seller.read.instragram.username.v2');
+        
+        Route::get('/instagram-package', 'ApiController@package')->name('seller.read.instragram.package');
     });
 });

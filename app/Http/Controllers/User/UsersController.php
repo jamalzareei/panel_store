@@ -241,7 +241,7 @@ class UsersController extends Controller
             $user->phone_confirm_code = $codeNew;
             $user->save();
 
-            kavenegarService::sendCode($request->phone, $codeNew, 'verify');//send($request->phone, $message);
+            // kavenegarService::sendCode($request->phone, $codeNew, 'verify');//send($request->phone, $message);
             
 
             return [

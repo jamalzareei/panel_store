@@ -78,17 +78,6 @@
       0 => 'Laravel\\Ui\\UiServiceProvider',
     ),
   ),
-  'masihjay-z/kavenegar' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Kavenegar\\Laravel\\ServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Kavenegar' => 'Kavenegar\\Laravel\\Facade',
-    ),
-  ),
   'nesbot/carbon' => 
   array (
     'providers' => 

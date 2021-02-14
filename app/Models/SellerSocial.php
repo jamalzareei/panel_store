@@ -14,4 +14,9 @@ class SellerSocial extends Model
     {
         return $this->belongsTo('App\Models\Social');
     }
+
+    public function seller()
+    {
+        return $this->belongsTo('App\Models\Seller');
+    }
 }
