@@ -178,10 +178,17 @@ class UploadService
             mkdir($pathFull, 0777, true);
         }
 
-        $cover = file_get_contents($urlImage);
-        $imageName = sha1(date('YmdHis') . Str::random(40)) . '.jpg';
-        Image::make($cover)->resize(300, 300)->save("$pathFull/$imageName");//$path_ . $imageName
-        return $path . $imageName;
+        try {
+            $cover = file_get_contents($urlImage);
+            $imageName = sha1(date('YmdHis') . Str::random(40)) . '.jpg';
+            Image::make($cover)->resize(300, 300)->save("$pathFull/$imageName");//$path_ . $imageName
+            return $path . $imageName;
+        } catch (\Throwable $th) {
+            //throw $th;
+            dd( $urlImage);
+            return null;
+        }
+        
     }
 
     public static function convertBase64toPng($path, $base64)

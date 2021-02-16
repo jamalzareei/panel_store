@@ -49,11 +49,15 @@ $(() => {
             success: function(response) {
                 console.info(response);
 
-                if (response.status == 'success')
+                if (response.status == 'success'){
                     this_.find('button[type="submit"] i').removeClass().addClass('fa fa-check');
+                    this_.find('button[type="submit"]').addClass('btn-success');
+                }
 
-                if (response.status == 'error')
+                if (response.status == 'error'){
                     this_.find('button[type="submit"] i').removeClass().addClass('fa fa-refresh');
+                    this_.find('button[type="submit"]').addClass('btn-danger');
+                }
 
                 messageToast(response.title, response.message, response.status, 5000)
 

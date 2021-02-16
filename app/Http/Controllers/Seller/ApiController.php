@@ -3,40 +3,26 @@
 namespace App\Http\Controllers\Seller;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Image;
+use App\Models\Price;
+use App\Models\Product;
 use App\Models\Seller;
 use App\Models\SellerSocial;
+use App\Models\Seo;
 use App\Services\UploadService;
-use DOMDocument;
-use DOMXPath;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
-use Phpfastcache\Helper\Psr16Adapter;
 
 class ApiController extends Controller
 {
     //
 
-    public function readInstagram(Request $request)
+    public function readInstagram(Request $request, $username_ = null)
     {
         # code...
-        // $response = Http::withHeaders([
-        //     "x-rapidapi-host: instagram40.p.rapidapi.com",
-        //     "x-rapidapi-key: 4cec9b280fmshbafca028dea5187p1e294cjsn1d7be6f51a50"
-        // ])
-        // ->timeout(30)
-        // ->get('https://instagram40.p.rapidapi.com/proxy?url=https://www.instagram.com/web/search/topsearch/?query=shixehcom&rapidapi-key=4cec9b280fmshbafca028dea5187p1e294cjsn1d7be6f51a50');
-        // return $response->json();
-/*
-CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_ENCODING => "",
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => "GET",
-            */
-        //////////////////////
         $user = Auth::user();
         $seller = Seller::where('user_id', $user->id)->first();
 
@@ -59,7 +45,18 @@ CURLOPT_RETURNTRANSFER => true,
             })
             ->first();
 
-        if (!$social) {
+
+        $username = null;
+
+        if ($social) {
+            $username = $social->username;
+        }
+
+        if ($username_) {
+            $username = $username_;
+        }
+
+        if (!$username) {
             return response()->view('components.not-perrmission', [
                 'title' => 'تکمیل اطلاعات فروشنده',
                 'message' => '<br>
@@ -73,9 +70,6 @@ CURLOPT_RETURNTRANSFER => true,
                 'textRedirect' => 'تکمیل اطلاعات فروشنده',
             ]);
         }
-
-        $username = $social->username;
-
         $first = 12;
         $after = $request->after ?? '';
         $infoUserInstagram = $this->getInfoUserInstagram($username);
@@ -83,7 +77,7 @@ CURLOPT_RETURNTRANSFER => true,
         $userIdInstagram = $infoUserInstagram["users"][0]["user"]["pk"] ?? null;
         if (!$userIdInstagram) {
             return response()->view('components.not-perrmission', [
-                'title' => 'اطلاعات شما تکمیل نشده است',
+                'title' => 'شما اجازه دسترسی به این بخش را ندارید.',
                 'message' => '<br>
                 شما اجازه دسترسی به این بخش را ندارید.
                 <br>
@@ -96,7 +90,7 @@ CURLOPT_RETURNTRANSFER => true,
         $response = $this->getPostsUserInstagram($userIdInstagram, $first, $after);
         if (!$response || count($response) == 0) {
             return response()->view('components.not-perrmission', [
-                'title' => 'اطلاعات شما تکمیل نشده است',
+                'title' => 'شما اجازه دسترسی به این بخش را ندارید.',
                 'message' => '<br>
                 شما اجازه دسترسی به این بخش را ندارید.
                 <br>
@@ -107,15 +101,181 @@ CURLOPT_RETURNTRANSFER => true,
         }
         $data = $this->jsonInstagramTOJSON($response);
 
-        // return view('seller.instagram.update-contect', [
-        //     'posts' => $data,
-        //     'infoUserInstagram' => $infoUserInstagram
-        // ]);
+        $categories = Category::whereNull('deleted_at')
+            ->with([
+                'parent' => function ($query) {
+                    $query->with([
+                        'parent' => function ($query) {
+                            $query->with([
+                                'parent' => function ($query) {
+                                    $query->with('parent');
+                                }
+                            ]);
+                        }
+                    ]);
+                }
+            ])->get();
 
-        return [
+        $productArrayShortCodes = Product::where('user_id', $user->id)->where('seller_id', $seller->id)->whereNotNull('shorcode_external')->pluck('shorcode_external')->toArray();
+
+        return view('seller.instagram.update-contect', [
             'posts' => $data,
-            'infoUserInstagram' => $infoUserInstagram
-        ];
+            'categories' => $categories,
+            'infoUserInstagram' => $infoUserInstagram,
+            'productArrayShortCodes' => $productArrayShortCodes
+        ]);
+
+        $data = Http::get(config('shixeh.cdn_domain_files') . "instagram/pages/jamal.json");
+
+        return view('seller.instagram.update-contect', [
+            'posts' => $data->json()['posts'],
+            'categories' => $categories,
+            'infoUserInstagram' => $data->json()['infoUserInstagram'],
+            'productArrayShortCodes' => $productArrayShortCodes
+        ]);
+
+        return $data->json();
+    }
+
+    public function postInstagramSave(Request $request)
+    {
+        # code...
+
+        // return UploadService::saveImageFromURL('uploads/product/gallery/', $request['image'][0]);
+        // return $request;
+        // $request->validate([
+        //     'category' => 'required',
+        //     'name' => 'required',
+        // ]);
+        if (!$request->category) {
+            return response()->json([
+                'status' => 'error',
+                'title' => '',
+                'message' => 'دسته بندی محصول را انتخاب نمایید',
+            ], 202);
+        }
+
+        if (!$request->name || strlen($request->name) < 5) {
+            return response()->json([
+                'status' => 'error',
+                'title' => '',
+                'message' => 'نام انتخاب شده باید بزرگتر از 5 کاراکتر باشد',
+            ], 202);
+        }
+
+        $user = Auth::user();
+
+        $seller = $user->seller;
+
+        $productOld = Product::whereNull('deleted_at')
+            ->where('shorcode_external', $request->shortcode)
+            ->where('user_id', $user->id)
+            ->where('seller_id', $seller->id)
+            ->first();
+
+        if ($productOld) {
+            return response()->json([
+                'status' => 'error',
+                'title' => '',
+                'message' => 'شما قبلا این محصول را ثبت کرده اید.',
+            ], 202);
+        }
+
+        $product = Product::updateOrCreate([
+            'shorcode_external' => $request->shortcode,
+            "user_id" => $user->id,
+            "seller_id" => $seller->id,
+        ], [
+            "name" => $request->name,
+            "code" => $seller->code . time(),
+            "description_full" => str_replace('\n', '<br>', $request->description),
+            "actived_at" => Carbon::now(),
+            "admin_actived_at" => null
+        ]);
+
+        $seo = new Seo();
+        if ($product->seo) {
+            $seo = $product->seo;
+        }
+        // return $product->seo;
+        $seo->head = $request->name;
+        $seo->title = $request->name;
+        $seo->meta_description = $request->description;
+        $seo->meta_keywords = '';
+        $seo->save();
+
+        $product->seo()->save($seo);
+
+        $categories = [];
+        if ($request->category) {
+            array_push($categories, (int)($request->category));
+            $cat1 = Category::where('id', $request->category)->first();
+            if ($cat1 && $cat1->parent_id) {
+                array_push($categories, $cat1->parent_id);
+                $cat2 = Category::where('id', $cat1->parent_id)->first();
+                if ($cat2 && $cat2->parent_id) {
+                    array_push($categories, $cat2->parent_id);
+                    $cat3 = Category::where('id', $cat2->parent_id)->first();
+                    if ($cat3 && $cat3->parent_id) {
+                        array_push($categories, $cat3->parent_id);
+                        $cat4 = Category::where('id', $cat3->parent_id)->first();
+                        if ($cat4 && $cat4->parent_id) {
+                            array_push($categories, $cat4->parent_id);
+                        }
+                    }
+                }
+            }
+            sort($categories);
+
+            // return  ($categories); 
+
+            if ($categories) {
+                # code...
+                $product->categories()->sync($categories);
+            }
+        }
+
+        if ($request->price) {
+            $price = Price::create([
+                'user_id' => $user->id,
+                'seller_id' => $seller->id,
+                'product_id' => $product->id,
+                'amount' => 10,
+                'old_price' => $request->price,
+                'price' => $request->price,
+                'discount' => 0,
+                'currency_id' => 1,
+                'start_discount_at' => null,
+                'end_discount_at' => null,
+                'actived_at' => Carbon::now(),
+            ]);
+        }
+
+        if ($request->image && !$productOld) {
+            foreach ($request->image as $key => $image) {
+                // return $image;
+                if ($image) {
+                    $path_image = UploadService::saveImageFromURL('uploads/product/gallery/', $image);
+
+                    if ($path_image) {
+                        $image = new Image();
+                        $image->path = $path_image;
+                        $image->user_id = $user->id;
+                        $image->default_use = 'GALLERY';
+
+                        $image->save();
+
+                        $product->images()->save($image);
+                    }
+                }
+            }
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'title' => '',
+            'message' => 'با موفقیت ذخیره گردید.',
+        ], 200);
     }
 
     public function getInfoUserInstagram($username)
@@ -140,8 +300,8 @@ CURLOPT_RETURNTRANSFER => true,
             "x-rapidapi-host: instagram40.p.rapidapi.com",
             "x-rapidapi-key: 4cec9b280fmshbafca028dea5187p1e294cjsn1d7be6f51a50"
         ])
-        ->timeout(30)
-        ->get("$url&rapidapi-key=4cec9b280fmshbafca028dea5187p1e294cjsn1d7be6f51a50");
+            ->timeout(30)
+            ->get("$url&rapidapi-key=4cec9b280fmshbafca028dea5187p1e294cjsn1d7be6f51a50");
         return $response->json();
 
         // # code...        
@@ -180,30 +340,55 @@ CURLOPT_RETURNTRANSFER => true,
         $jsonData = $response['data']['user']['edge_owner_to_timeline_media']['edges'] ?? null;
         $data = [];
         $data['end_cursor'] = $response['data']['user']['edge_owner_to_timeline_media']['page_info']['end_cursor'] ?? null;
+        $data['count_post'] = $response['data']['user']['edge_owner_to_timeline_media']['count'] ?? null;
         foreach ($jsonData as $key => $edge) {
             # code...
-            $data[$key]['image'] = $edge['node']['display_url']; //['thumbnail_src'];//['display_url'];
+            if (!$edge['node']['is_video']) {
 
-            // sleep(0.1);
-            // UploadService::saveImageFromURL('instagram/'.$edge['node']['shortcode'].'/', $data[$key]['image']);
+                $data[$key]['image'] = $edge['node']['display_url']; //['thumbnail_src'];//['display_url'];
 
-            $data[$key]['caption'] = $edge['node']['edge_media_to_caption']['edges'][0]['node']['text'];
-            $data[$key]['shortcode'] = $edge['node']['shortcode'];
-            $data[$key]['is_video'] = $edge['node']['is_video'];
+                // sleep(0.1);
+                // UploadService::saveImageFromURL('instagram/'.$edge['node']['shortcode'].'/', $data[$key]['image']);
 
-            if ($edge['node'] && isset($edge['node']['edge_sidecar_to_children']) && $edge['node']['edge_sidecar_to_children']['edges']) {
+                $data[$key]['caption'] = $edge['node']['edge_media_to_caption']['edges'][0]['node']['text'];
+                $data[$key]['shortcode'] = $edge['node']['shortcode'];
+                $data[$key]['is_video'] = $edge['node']['is_video'];
 
-                foreach ($edge['node']['edge_sidecar_to_children']['edges'] as $key => $edgeNew) {
-                    # code...
-                    $data[$key]['edge_sidecar_to_children'][] = $edgeNew['node']['display_url'];
+                if ($edge['node'] && isset($edge['node']['edge_sidecar_to_children']) && $edge['node']['edge_sidecar_to_children']['edges']) {
 
-                    // sleep(0.1);
-                    // UploadService::saveImageFromURL('instagram/'.$edge['node']['shortcode'].'/', $edgeNew['node']['display_url']);
+                    foreach ($edge['node']['edge_sidecar_to_children']['edges'] as $index => $edgeNew) {
+                        # code...
+                        $data[$key]['edge_sidecar_to_children'][] = $edgeNew['node']['display_url'];
+
+                        // sleep(0.1);
+                        // UploadService::saveImageFromURL('instagram/'.$edge['node']['shortcode'].'/', $edgeNew['node']['display_url']);
+                    }
                 }
             }
         }
 
         return $data;
+    }
+
+    public function connectToInstagram(Request $request)
+    {
+        # code...
+        $user = Auth::user();
+        $seller = Seller::where('user_id', $user->id)->first();
+
+        $social = SellerSocial::whereNull('deleted_at')
+            ->where('seller_id', $seller->id)
+            ->whereHas('social', function ($query) {
+                $query->where('name', 'اینستاگرام');
+            })
+            ->first();
+
+
+        $username = $social->username;
+
+        return view('seller.instagram.read-contect', [
+            'username' => $username
+        ]);
     }
 
     public function readInstagram_1399_11_25(Request $request)
@@ -319,6 +504,10 @@ CURLOPT_RETURNTRANSFER => true,
         $requerst->validate([
             'username' => 'required'
         ]);
+
+        return redirect()->route('seller.read.instragram', ['username' => $requerst->username]);
+
+
         $username = $requerst->username;
         // return UploadService::saveImageFromURL('instagram/images/', 'https://scontent-lhr8-1.cdninstagram.com/v/t51.2885-15/sh0.08/e35/c0.66.1024.1024a/s640x640/135025680_111190014206133_635544462823196958_n.jpg?_nc_ht=scontent-lhr8-1.cdninstagram.com&_nc_cat=109&_nc_ohc=duUpuCI09LAAX-Aaz5E&tp=1&oh=04eec58c6c1ede387ba60fedffa279ac&oe=603B93A5');
 

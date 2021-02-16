@@ -76,8 +76,11 @@
                 <li class=" nav-item"><a href="#"><i class="feather icon-page"></i><span class="menu-title" data-i18n="users">صفحه ایستا</span></a>
                     <ul class="menu-content">
                         <li><a href="{{ route('admin.pages.get') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> لیست صفحات </span></a></li>
+
+                        <li><a href="{{ route('seller.connect.instragram') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> ورود محصولات با اینستاگرام </span></a></li>
                     </ul>
                 </li>
+                
                 @endhasanyrole
 
                 @hasanyrole('seller')
@@ -148,7 +151,7 @@
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تغییر تلفن</span>
                         </a></li> --}}
                         <li class=" nav-item"><a href="{{ route('user.messages') }}">
-                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">چت های کاربران</span>
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">پیام های شما</span>
                         </a></li>
                         <li class=" nav-item"><a href="{{ route('user.data.change.password') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تغییر رمز عبور</span>
