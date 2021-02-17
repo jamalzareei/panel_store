@@ -70,11 +70,29 @@ class ApiController extends Controller
                 'textRedirect' => 'تکمیل اطلاعات فروشنده',
             ]);
         }
-        $first = 12;
+        $first = 50;
         $after = $request->after ?? '';
-        $infoUserInstagram = $this->getInfoUserInstagram($username);
 
-        $userIdInstagram = $infoUserInstagram["users"][0]["user"]["pk"] ?? null;
+        $userIdInstagram = null;
+        $infoUserInstagram = null;
+
+        if($social->details && !$username_){
+
+            $infoUserInstagram = json_decode($social->details, true);
+            $userIdInstagram = $infoUserInstagram["users"][0]["user"]["pk"] ?? null;
+        }
+        // return $userIdInstagram;
+
+        if( !$userIdInstagram ){
+
+            $infoUserInstagram = $this->getInfoUserInstagram($username);
+    
+            $social->details = $infoUserInstagram;
+            $social->save();
+
+
+            $userIdInstagram = $infoUserInstagram["users"][0]["user"]["pk"] ?? null;
+        }
         if (!$userIdInstagram) {
             return response()->view('components.not-perrmission', [
                 'title' => 'شما اجازه دسترسی به این بخش را ندارید.',
@@ -296,12 +314,13 @@ class ApiController extends Controller
 
     public function requestCurl($url)
     {
+        $rapidAPI = config('shixeh.rapidapi');
         $response = Http::withHeaders([
             "x-rapidapi-host: instagram40.p.rapidapi.com",
-            "x-rapidapi-key: 4cec9b280fmshbafca028dea5187p1e294cjsn1d7be6f51a50"
+            "x-rapidapi-key: $rapidAPI"
         ])
             ->timeout(30)
-            ->get("$url&rapidapi-key=4cec9b280fmshbafca028dea5187p1e294cjsn1d7be6f51a50");
+            ->get("$url&rapidapi-key=$rapidAPI");
         return $response->json();
 
         // # code...        
@@ -317,7 +336,7 @@ class ApiController extends Controller
         //     CURLOPT_CUSTOMREQUEST => "GET",
         //     CURLOPT_HTTPHEADER => [
         //         "x-rapidapi-host: instagram40.p.rapidapi.com",
-        //         "x-rapidapi-key: 4cec9b280fmshbafca028dea5187p1e294cjsn1d7be6f51a50"
+        //         "x-rapidapi-key: $rapidAPI"
         //     ],
         // ]);
 
@@ -562,9 +581,102 @@ class ApiController extends Controller
         return $data;
     }
 
-    public function readInstagramUsernameV2(Request $requerst, $username = 'shixehcom')
+    public function readInstagramUsernameV2(Request $requerst, $username_ = null)
     {
+        $user = Auth::user();
+        $seller = Seller::where('user_id', $user->id)->first();
 
+        if (!$seller) {
+            return view('components.not-perrmission', [
+                'title' => 'تکمیل اطلاعات فروشنده',
+                'message' => '<br>
+                شما اجازه دسترسی به این بخش را ندارید.
+                <br>
+                <br>
+                لطفا ابتدا نسبت به تکمیل اطلاعات فروشگاه خود اقدام نمایید.',
+                'linkRedirect' => route('seller.data.get'),
+                'textRedirect' => 'تکمیل اطلاعات فروشنده',
+            ]);
+        }
+        $social = SellerSocial::whereNull('deleted_at')
+            ->where('seller_id', $seller->id)
+            ->whereHas('social', function ($query) {
+                $query->where('name', 'اینستاگرام');
+            })
+            ->first();
+
+
+        $username = null;
+
+        if ($social) {
+            $username = $social->username;
+        }
+
+        if ($username_) {
+            $username = $username_;
+        }
+
+        if (!$username) {
+            return response()->view('components.not-perrmission', [
+                'title' => 'تکمیل اطلاعات فروشنده',
+                'message' => '<br>
+                شما اجازه دسترسی به این بخش را ندارید.
+                <br>
+                <br>
+                لطفا ابتدا نسبت به تکمیل اطلاعات شبکه های اجتماعی (اینستاگرام) فروشگاه خود اقدام نمایید.
+                <br>
+                در صورتی که اطلاعات خود را ثبت کرده اید جهت تسریع در روند ثبت اطلاعات با پشتیبانی تماس حاصل فرمایید.',
+                'linkRedirect' => route('seller.socials.get'),
+                'textRedirect' => 'تکمیل اطلاعات فروشنده',
+            ]);
+        }
+
+        $dir = config('shixeh.path_upload_files')."instagram/pages/$username/";
+        $arrayFiels = [];
+        if (is_dir($dir)) {
+            if ($dh = opendir($dir)) {
+                while (($file = readdir($dh)) !== false) {
+                    if ($file == '.' || $file == '..') {
+                        continue;
+                    }
+                    $arrayFiels[] ="instagram/pages/$username/$file";
+                }
+                closedir($dh);
+            }
+        }
+
+        $page = $requerst->page ?? 1;
+        $dataUserContent = file_get_contents(config('shixeh.cdn_domain_files').$arrayFiels[$page - 1]);
+
+        
+        
+        $json = json_decode($dataUserContent, true);//$arrayFiels;
+        $data = $this->jsonInstagramTOJSON($json);
+        // return $data;
+        
+        $categories = Category::whereNull('deleted_at')
+            ->with([
+                'parent' => function ($query) {
+                    $query->with([
+                        'parent' => function ($query) {
+                            $query->with([
+                                'parent' => function ($query) {
+                                    $query->with('parent');
+                                }
+                            ]);
+                        }
+                    ]);
+                }
+            ])->get();
+
+        $productArrayShortCodes = Product::where('user_id', $user->id)->where('seller_id', $seller->id)->whereNotNull('shorcode_external')->pluck('shorcode_external')->toArray();
+
+        return view('seller.instagram.update-contect', [
+            'posts' => $data,
+            'categories' => $categories,
+            // 'infoUserInstagram' => $infoUserInstagram,
+            'productArrayShortCodes' => $productArrayShortCodes
+        ]);
         // $response = Http::get("https://www.instagram.com/web/search/topsearch/?query=$username");
         $dataUserContent = file_get_contents("https://www.instagram.com/web/search/topsearch/?query=$username");
         $dataUserJson = json_decode($dataUserContent, true);
@@ -612,7 +724,7 @@ class ApiController extends Controller
         return $data['entry_data']; //['ProfilePage'][0];
 
         // $instagram = new \InstagramScraper\Instagram();
-        // $instagram->setRapidApiKey('4cec9b280fmshbafca028dea5187p1e294cjsn1d7be6f51a50');
+        // $instagram->setRapidApiKey('$rapidAPI');
         // $nonPrivateAccountMedias = $instagram->getMedias('shixehcom');
         // echo $nonPrivateAccountMedias[0]->getLink();
 

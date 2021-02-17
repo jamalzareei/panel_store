@@ -51,6 +51,8 @@
 
     <!-- Data list view starts -->
     <section id="data-list-view-" class="data-list-view-header">
+        @if (isset($infoUserInstagram))
+            
         <div class="row">
             <div class="col-xl-12 col-md-12 col-sm-12 profile-card-2">
                 <div class="bg-white row">
@@ -80,9 +82,13 @@
                 </div>
             </div>
         </div>
+        @endif
+        @if (isset($posts['end_cursor']))
+            
         <div class="row">
             <a href="{{ url()->current().'?after='.$posts['end_cursor'] }}" class="btn btn-danger btn-block"> پست های بعد</a>
         </div>
+        @endif
         @forelse ($posts as $key => $post)
                 @if (isset($post['shortcode']))
                     <form action="{{ route('seller.post.instragram.save') }}" method="post" class="card p-1 ajaxForm">
@@ -165,9 +171,11 @@
                 @endforelse
         <div class="bottom">
             
+        @if (isset($posts['end_cursor']))
         <div class="row">
             <a href="{{ url()->current().'?after='.$posts['end_cursor'] }}" class="btn btn-danger btn-block"> پست های بعد</a>
         </div>
+        @endif
         {{-- {{ $posts->appends($_GET)->links() }} --}}
         </div>
 
