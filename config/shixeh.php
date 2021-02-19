@@ -13,7 +13,9 @@ return [
     'mainInfo'                  => 'info@shixeh.com',
     'mailJob'                   => 'job@shixeh.com',
     'test'                      => 'test',
-    'path_logo'                 => 'http://localhost/shixeh/cdn/shixeh/logo.png',
+    'path_logo'                 => 'https://cdn.shixeh.com/shixeh/logo.png',
+    'x_logo'                    => 'https://cdn.shixeh.com/shixeh/x-logo.png',
+    'faveicon'                  => 'https://cdn.shixeh.com/shixeh/faveicon.ico',
     'listWebsites'              => ['shixeh.com', 'shixmod.com', 'shixcar.com', 'shixmarket.com', 'shixdigi.com', 'shixhome.com', 'shixdesign.com'],
     'mainCategories_id'         => [1,2],
 

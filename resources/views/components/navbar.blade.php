@@ -25,13 +25,13 @@ $user = \App\User::where('id', Auth::id())
                         <!-- li.nav-item.mobile-menu.d-xl-none.mr-auto-->
                         <!--   a.nav-link.nav-menu-main.menu-toggle.hidden-xs(href='#')-->
                         <!--     i.ficon.feather.icon-menu-->
-                        <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-todo.html" data-toggle="tooltip" data-placement="top" title="Todo"><i class="ficon feather icon-check-square"></i></a></li>
+                        {{-- <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-todo.html" data-toggle="tooltip" data-placement="top" title="Todo"><i class="ficon feather icon-check-square"></i></a></li>
                         <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-chat.html" data-toggle="tooltip" data-placement="top" title="Chat"><i class="ficon feather icon-message-square"></i></a></li>
                         <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-email.html" data-toggle="tooltip" data-placement="top" title="Email"><i class="ficon feather icon-mail"></i></a></li>
-                        <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-calender.html" data-toggle="tooltip" data-placement="top" title="Calendar"><i class="ficon feather icon-calendar"></i></a></li>
+                        <li class="nav-item d-none d-lg-block"><a class="nav-link" href="app-calender.html" data-toggle="tooltip" data-placement="top" title="Calendar"><i class="ficon feather icon-calendar"></i></a></li> --}}
                     </ul>
                     <ul class="nav navbar-nav">
-                        <li class="nav-item d-none d-lg-block"><a class="nav-link bookmark-star"><i class="ficon feather icon-star warning"></i></a>
+                        {{-- <li class="nav-item d-none d-lg-block"><a class="nav-link bookmark-star"><i class="ficon feather icon-star warning"></i></a>
                             <div class="bookmark-input search-input">
                                 <div class="bookmark-input-icon"><i class="feather icon-search primary"></i></div>
                                 <input class="form-control input" type="text" placeholder="Explore Vuexy..." tabindex="0" data-search="template-list">
@@ -42,7 +42,7 @@ $user = \App\User::where('id', Auth::id())
                             <!--   option email-->
                             <!--   option todo-->
                             <!--   option Calendar-->
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
                 <ul class="nav navbar-nav float-right">
@@ -173,7 +173,7 @@ $user = \App\User::where('id', Auth::id())
                         </ul>
                     </li>
                     <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                    <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600 load-fullname">{{auth()->user()->full_name ?? ''}}</span><span class="user-status">آنلاین</span></div><span><img class="round load-avatar" src="{{($user && $user->image && $user->image->path) ? config('shixeh.cdn_domain_files').$user->image->path : config('shixeh.path_logo') }}" alt="avatar" height="40" width="40"></span>
+                    <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600 load-fullname">{{auth()->user()->full_name ?? ''}}</span><span class="user-status">آنلاین</span></div><span><img class="round load-avatar" src="{{($user && $user->image && $user->image->path) ? config('shixeh.cdn_domain_files').$user->image->path : config('shixeh.x_logo') }}" alt="avatar" height="40" width="40"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="page-user-profile.html"><i class="feather icon-user"></i> ویرایش اطلاعات</a><a class="dropdown-item" href="app-email.html"><i class="feather icon-mail"></i> پیام های دریافتی</a><a class="dropdown-item" href="app-todo.html"><i class="feather icon-check-square"></i> موارد پیش رو</a><a class="dropdown-item" href="app-chat.html"><i class="feather icon-message-square"></i> گفتگو و تیکت</a>
                             <div class="dropdown-divider"></div><a class="dropdown-item" href="{{ route('logout.user') }}"><i class="feather icon-power"></i> خروج</a>
