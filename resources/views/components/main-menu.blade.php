@@ -73,13 +73,17 @@
                     </ul>
                 </li>
                 
-                <li><a href="{{ route('admin.socials.seller') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> لیست شبکه های اجتماعی </span></a></li>
+                <li class=" nav-item"><a href="#"><i class="feather icon-page"></i><span class="menu-title" data-i18n="users">لیست شبکه های اجتماعی </span></a>
+                    <ul class="menu-content">
+                        
+                        <li><a href="{{ route('admin.socials.seller') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> لیست شبکه های اجتماعی </span></a></li>
+                        
+                    </ul>
+                </li>
 
                 <li class=" nav-item"><a href="#"><i class="feather icon-page"></i><span class="menu-title" data-i18n="users">صفحه ایستا</span></a>
                     <ul class="menu-content">
                         <li><a href="{{ route('admin.pages.get') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> لیست صفحات </span></a></li>
-
-                        <li><a href="{{ route('seller.connect.instragram') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> ورود محصولات با اینستاگرام </span></a></li>
                     </ul>
                 </li>
                 
@@ -129,11 +133,23 @@
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">لیست محصولات</span>
                         </a></li>
 
-                        <li class=" nav-item"><a href="{{ route('seller.read.instragram') }}">
-                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">پست های اینستاگرام</span>
+                        {{-- <li class=" nav-item"><a href="{{ route('seller.read.instragram') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard"> پست های اینستاگرام من </span>
                         </a></li>
                         <li class=" nav-item"><a href="{{ route('seller.read.instragram.username.v2') }}">
-                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">پست های اینستاگرام 2</span>
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">پست های اینستاگرام من 2</span>
+                        </a></li> --}}
+
+                        
+                        <li class=" nav-item"><a href="{{ route('seller.connect.instragram') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">ورود محصولات با اینستاگرام</span>
+                            </a><a href="{{ route('seller.connect.instragram') }}" class="pt-0">
+                            <small class="small pl-3 font-small-1">(ورژن 1)</small>
+                        </a></li>
+                        <li class=" nav-item"><a href="{{ route('seller.connect.instragram.v2') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">ورود محصولات با اینستاگرام</span>
+                            </a><a href="{{ route('seller.connect.instragram.v2') }}" class="pt-0">
+                            <small class="small pl-3 font-small-1">(ورژن 2)</small>
                         </a></li>
                     </ul>
                 </li>

@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <div class="form-body">
                             <div class="row">
-                                <form action="{{ route('seller.read.instragram.username') }}" method="get" class="w-100">
+                                <form action="{{ route('redirect.to.read.instagram') }}" method="get" class="w-100">
                                     <input type="hidden" name="_token" value="och2WiEXw6Sbv3B1GGlWr3mdTTtYqUuSso8bWJwE">
                                     <div class="col-12">
 

@@ -83,10 +83,10 @@
             </div>
         </div>
         @endif
-        @if (isset($posts['end_cursor']))
+        @if (isset($page))
             
         <div class="row">
-            <a href="{{ url()->current().'?after='.$posts['end_cursor'] }}" class="btn btn-danger btn-block"> پست های بعد</a>
+            <a href="{{ url()->current().'?after='.$page }}" class="btn btn-danger btn-block"> پست های بعد</a>
         </div>
         @endif
         @forelse ($posts as $key => $post)
@@ -171,11 +171,12 @@
                 @endforelse
         <div class="bottom">
             
-        @if (isset($posts['end_cursor']))
-        <div class="row">
-            <a href="{{ url()->current().'?after='.$posts['end_cursor'] }}" class="btn btn-danger btn-block"> پست های بعد</a>
-        </div>
-        @endif
+            @if (isset($page))
+            
+            <div class="row">
+                <a href="{{ url()->current().'?after='.$page }}" class="btn btn-danger btn-block"> پست های بعد</a>
+            </div>
+            @endif
         {{-- {{ $posts->appends($_GET)->links() }} --}}
         </div>
 

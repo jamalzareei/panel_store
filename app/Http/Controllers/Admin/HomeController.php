@@ -69,7 +69,7 @@ class HomeController extends Controller
         return back()->with('noty', [
             'title' => '',
             'message' => 'نام کاربری یا رمز عبور اشتباه میباشد.',
-            'status' => 'danger',
+            'status' => 'error',
             'data' => '',
         ]);
     }

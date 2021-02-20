@@ -76,17 +76,17 @@ class ApiController extends Controller
         $userIdInstagram = null;
         $infoUserInstagram = null;
 
-        if($social->details && !$username_){
+        if ($social->details && !$username_) {
 
             $infoUserInstagram = json_decode($social->details, true);
             $userIdInstagram = $infoUserInstagram["users"][0]["user"]["pk"] ?? null;
         }
         // return $userIdInstagram;
 
-        if( !$userIdInstagram ){
+        if (!$userIdInstagram) {
 
             $infoUserInstagram = $this->getInfoUserInstagram($username);
-    
+
             $social->details = $infoUserInstagram;
             $social->save();
 
@@ -138,6 +138,7 @@ class ApiController extends Controller
 
         return view('seller.instagram.update-contect', [
             'posts' => $data,
+            'page' => $data['end_cursor'],
             'categories' => $categories,
             'infoUserInstagram' => $infoUserInstagram,
             'productArrayShortCodes' => $productArrayShortCodes
@@ -410,6 +411,50 @@ class ApiController extends Controller
         ]);
     }
 
+
+    public function connectToInstagramV2(Request $request)
+    {
+        # code...
+        $user = Auth::user();
+        $seller = Seller::where('user_id', $user->id)->first();
+
+        $social = SellerSocial::whereNull('deleted_at')
+            ->where('seller_id', $seller->id)
+            ->whereHas('social', function ($query) {
+                $query->where('name', 'اینستاگرام');
+            })
+            ->first();
+
+
+        $username = $social->username;
+
+        return view('seller.instagram.read-contect-v2', [
+            'username' => $username
+        ]);
+    }
+
+    public function redirectToReadInstagram(Request $request)
+    {
+
+        $request->validate([
+            'username' => 'required'
+        ]);
+        $instaUsername = $request->username;
+
+        $dir = config('shixeh.path_upload_files') . "instagram/pages/$instaUsername";
+        if (!file_exists($dir)) {
+            
+            return back()->with('noty', [
+                'title' => '',
+                'message' => 'اطلاعات پیج ثبت نشده است، لطفا با پشتیبانی در تماس باشید.',
+                'status' => 'error',
+                'data' => '',
+            ]);
+        }
+
+        return redirect()->route('seller.read.instragram.username.v2', ['username' => $request->username]);
+    }
+
     public function readInstagram_1399_11_25(Request $request)
     {
 
@@ -631,29 +676,31 @@ class ApiController extends Controller
             ]);
         }
 
-        $dir = config('shixeh.path_upload_files')."instagram/pages/$username/";
+        $dir = config('shixeh.path_upload_files') . "instagram/pages/$username/";
         $arrayFiels = [];
+        $pageRow = 0;
         if (is_dir($dir)) {
             if ($dh = opendir($dir)) {
                 while (($file = readdir($dh)) !== false) {
                     if ($file == '.' || $file == '..') {
                         continue;
                     }
-                    $arrayFiels[] ="instagram/pages/$username/$file";
+                    $arrayFiels[] = "instagram/pages/$username/$file";
+                    $pageRow++;
                 }
                 closedir($dh);
             }
         }
-
-        $page = $requerst->page ?? 1;
-        $dataUserContent = file_get_contents(config('shixeh.cdn_domain_files').$arrayFiels[$page - 1]);
-
         
-        
-        $json = json_decode($dataUserContent, true);//$arrayFiels;
+        $page = $requerst->after ?? 1;
+        $dataUserContent = file_get_contents(config('shixeh.cdn_domain_files') . $arrayFiels[$page - 1]);
+
+
+
+        $json = json_decode($dataUserContent, true); //$arrayFiels;
         $data = $this->jsonInstagramTOJSON($json);
         // return $data;
-        
+
         $categories = Category::whereNull('deleted_at')
             ->with([
                 'parent' => function ($query) {
@@ -674,7 +721,7 @@ class ApiController extends Controller
         return view('seller.instagram.update-contect', [
             'posts' => $data,
             'categories' => $categories,
-            // 'infoUserInstagram' => $infoUserInstagram,
+            'page' => ($pageRow > $page) ? $page + 1 : null,
             'productArrayShortCodes' => $productArrayShortCodes
         ]);
         // $response = Http::get("https://www.instagram.com/web/search/topsearch/?query=$username");

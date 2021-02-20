@@ -3,6 +3,13 @@
 @section('head')
 
 <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css') }}">
+<style>
+    button.btn.btn-outline-primary.action-add,
+    .btn-group.dropdown.actions-dropodown,
+    .action-filters{
+        display: none;
+    }
+</style>
 @endsection
 
 @section('footer')
@@ -19,8 +26,8 @@
 
         $(document).on('click' , '.action-add', function(){
             var this_ = $(this)
-            $('.ajaxForm').attr('action', "{{route('admin.role.add')}}")
-            $('.ajaxForm #data-slug').attr('disabled', false)
+            $('.ajaxUpload').attr('action', "{{route('admin.role.add')}}")
+            $('.ajaxUpload #data-slug').attr('disabled', false)
             $(".add-new-data").addClass("show");
             $(".overlay-bg").addClass("show");
         });
@@ -33,8 +40,8 @@
             $('#data-social').val(this_.attr('social'));
             $('#data-details').val(this_.attr('details'));
 
-            $('.ajaxForm').attr('action', this_.attr('action'))
-            $('.ajaxForm #data-slug').attr('disabled', true)
+            $('.ajaxUpload').attr('action', this_.attr('action'))
+            $('.ajaxUpload #data-slug').attr('disabled', true)
             $('#item_id').val(this_.attr('item_id'))
             
             $(".add-new-data").addClass("show");
@@ -56,8 +63,78 @@
         </a>
     </div>
 </div>
+
+
     <!-- Data list view starts -->
     <section id="data-list-view" class="data-list-view-header">
+
+        <div class="row d-flex div-action-btns" dir="ltr">
+            
+            <button type="button" class="btn bg-gradient-info mr-1 waves-effect waves-light action-add-new" data-toggle="modal" data-target="#exampleModalCenter">
+                <i class="feather icon-plus"></i> اضافه کردن فایل های پیج جدید
+            </button>
+        </div>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-sm" role="document">
+                    <div class="modal-content">
+                        <section class="todo-form">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalCenter">اضافه کردن فایل های پیج جدید</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <form id="add-category" class="todo-input ajaxUpload" method="POST" action="{{ route('add.instagram.page.files') }}">
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="col-12">
+                                        <p class="text-light bg-dark text-left" dir="ltr">
+                                            https://www.instagram.com/graphql/query/?query_hash=003056d32c2554def87228bc3fd9668a&variables={"id":"3066057183","first":12}
+                                        </p>
+
+                                        <br>
+                                        <p class="text-light bg-dark text-left" dir="ltr">
+                                            https://www.instagram.com/graphql/query/?query_hash=003056d32c2554def87228bc3fd9668a&variables={"id":"3066057183","first":12,"after":"QVFDUUFJLUhvNTFXNGpTa181NnVZT2xxRVF3VHBHQjlPclpPR0RZTm9iRkVza3JRb1o1UVpfWWx1a0FuS0VXcnIybnpBMGFiakRGUjg3RDQ0aXp1WTlmbg=="}
+                                        </p>
+
+                                    </div>
+                                    <fieldset class="form-group">
+                                        <input type="text" class="new-todo-item-title form-control" name="name" placeholder="عنوان" dir="ltr">
+                                        <small class="help-block text-danger error-name"></small>
+                                    </fieldset>
+                                    
+                                    <div class="col-sm-12 data-field-col">
+                                        <fieldset class="form-group">
+                                            <label for="basicInputFile">فایل ها</label>
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="data-files" name="files[]" multiple >
+                                                <label class="custom-file-label" for="data-files">انتخاب فایل ها</label>
+                                            </div>
+                                        </fieldset>
+                                        <small class="help-block text-danger error-files"></small>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <fieldset class="form-group position-relative has-icon-left mb-0">
+                                        <button type="submit" class="btn btn-primary add-todo-item waves-effect waves-light" form="add-category">
+                                            <i class="feather icon-check d-block "></i>
+                                            <span class="">افزودن </span>
+                                        </button>
+                                    </fieldset>
+                                    <fieldset class="form-group position-relative has-icon-left mb-0 d-none d-lg-block">
+                                        <button type="button" class="btn btn-outline-light waves-effect waves-light" data-dismiss="modal">
+                                            <i class="feather icon-x d-block d-lg-none"></i>
+                                            <span class="d-none d-lg-block">بستن</span></button>
+                                    </fieldset>
+                                </div>
+                            </form>
+                        </section>
+                    </div>
+                </div>
+            </div>
+
         <form action="{{ route('admin.roles.update') }}" method="POST" id="form-datatable">
             @csrf
             <div class="action-btns d-none">
@@ -111,7 +188,7 @@
         </form>
 
         <!-- add new sidebar starts -->
-        <form action="" method="post" class="ajaxForm">
+        <form action="" method="post" class="ajaxUpload">
             @csrf
             <input type="hidden" name="id" id="item_id" value="">
             <div class="add-new-data-sidebar">
@@ -142,6 +219,16 @@
                                     <label for="data-details">جزئیات</label>
                                     <input type="text" class="form-control" name="details" id="data-details">
                                     <small class="help-block text-danger error-details"></small>
+                                </div>
+                                <div class="col-sm-12 data-field-col">
+                                    <fieldset class="form-group">
+                                        <label for="basicInputFile">فایل ها</label>
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="data-files" name="files[]" multiple >
+                                            <label class="custom-file-label" for="data-files">انتخاب فایل ها</label>
+                                        </div>
+                                    </fieldset>
+                                    <small class="help-block text-danger error-files"></small>
                                 </div>
                             </div>
                         </div>

@@ -156,13 +156,13 @@ class UploadService
 
         ////////////////////
         $file_headers = @get_headers($urlFile);
-        if(!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
+        if (!$file_headers || $file_headers[0] == 'HTTP/1.1 404 Not Found') {
             return 'error';
         }
         ////////////////////
 
-        file_put_contents($pathFull.$imageName, fopen($urlFile, 'r'));
-        
+        file_put_contents($pathFull . $imageName, fopen($urlFile, 'r'));
+
         return $path . $imageName;
     }
 
@@ -181,14 +181,13 @@ class UploadService
         try {
             $cover = file_get_contents($urlImage);
             $imageName = sha1(date('YmdHis') . Str::random(40)) . '.jpg';
-            Image::make($cover)->resize(300, 300)->save("$pathFull/$imageName");//$path_ . $imageName
+            Image::make($cover)->resize(300, 300)->save("$pathFull/$imageName"); //$path_ . $imageName
             return $path . $imageName;
         } catch (\Throwable $th) {
             //throw $th;
-            dd( $urlImage);
+            dd($urlImage);
             return null;
         }
-        
     }
 
     public static function convertBase64toPng($path, $base64)
@@ -327,7 +326,8 @@ class UploadService
 
     public static function saveFileHtml($path, $photos, $name)
     {
-        $path = '../../cdn.shixeh.local/public/skin1/pages/' . $path;
+        // $path = '../../cdn.shixeh.local/public/skin1/pages/' . $path;
+        $path = config('shixeh.path_upload') . $path;
         $path_save = $path;
         $pathFull = public_path($path);
         // $photos = $request->file('file');
@@ -363,6 +363,67 @@ class UploadService
             $lists = $path . '/' . $save_name;
         }
         return $lists;
+    }
+
+    public static function saveFileJson($_path_, $files, $name)
+    {
+
+        $path = config('shixeh.path_upload') . $_path_;
+        $path_save = $path;
+        $pathFull = public_path($path);
+        // $files = $request->file('file');
+
+        if (!is_array($files)) {
+            $files = [$files];
+        }
+
+        if (!is_dir($pathFull)) {
+            mkdir($pathFull, 0777, true);
+        }
+
+        $lists = ''; //[];
+
+        for ($i = 0; $i < count($files); $i++) {
+
+            $file = $files[$i];
+            
+            if($file->getClientMimeType() != "application/json"){
+                return 'not json file';
+            }
+            $save_name = $name . "-$i.json";
+
+            $file->move($pathFull, $save_name);
+
+            $protocol = stripos($_SERVER['SERVER_PROTOCOL'], 'https') === true ? 'https://' : 'http://';
+
+            $path = str_replace(config('shixeh.path_upload'), '', $path);
+
+            $lists = $path . '/' . $save_name;
+        }
+        return $lists;
+    }
+
+    public static function deleteDir($path)
+    {
+        $dirPath = config('shixeh.path_destroy').$path;
+
+        if (!file_exists($dirPath)) {
+            return ;
+        }
+        if (is_dir($dirPath)) {
+            $objects = scandir($dirPath);
+            foreach ($objects as $object) {
+                if ($object != "." && $object != "..") {
+                    if (filetype($dirPath . DIRECTORY_SEPARATOR . $object) == "dir") {
+                        deleteDirectory($dirPath . DIRECTORY_SEPARATOR . $object);
+                    } else {
+                        unlink($dirPath . DIRECTORY_SEPARATOR . $object);
+                    }
+                }
+            }
+            reset($objects);
+            rmdir($dirPath);
+        }
     }
 
 

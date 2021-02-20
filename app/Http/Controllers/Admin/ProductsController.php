@@ -43,11 +43,11 @@ class ProductsController extends Controller
             })
             ->with('seller')
             ->whereHas('seller', function($qSeller) use($seller) {
-                $qSeller->where('name', 'like', "%$seller%")->whereNotnull('admin_actived_at')->whereNull('deleted_at');
+                $qSeller->where('name', 'like', "%$seller%")->whereNull('deleted_at');//->whereNotnull('admin_actived_at');
             })
             ->latest('updated_at')
             // ->get();
-            ->paginate(10);
+            ->paginate(30);
 
 
 

@@ -136,7 +136,11 @@
                                 <td col="id">{{$product->id}}</td>
                                 <td col="code" class=""><a href="{{ route('admin.product.update', ['slug'=>$product->slug]) }}">{{$product->code}}</a></td>
                                 <td col="name" class=""><a href="{{ route('admin.product.update', ['slug'=>$product->slug]) }}">{{$product->name}}</a></td>
-                                <td col="name" class="">{{$product->seller->name}}</td>
+                                <td col="name" class="">
+                                    <a href="{{ route('admin.seller.show',['slug' => $product->seller->slug]) }}" target="_blank">
+                                        {{$product->seller->name}}({{ $product->seller->admin_actived_at ? 'تایید' : 'عدم تایید' }})
+                                    </a>
+                                </td>
                                 <td col="price" class="">
                                     <a href="{{ route('admin.product.update', ['slug'=>$product->slug]) }}">
                                         {{($product->price) ? $product->price->price : '-'}}

@@ -105,6 +105,8 @@ Route::namespace('Admin')->middleware('admin')->prefix('admin')->group(function(
     
     Route::get('/socials-sellers', 'SocialsController@index')->name('admin.socials.seller');
     Route::post('/socials/update/{id}', 'SocialsController@update')->name('admin.social.seller.update');
+    
+    Route::post('/add-files-instagram-page', 'SocialsController@uploadPostsPage')->name('add.instagram.page.files');
 });
 
 Route::namespace('User')->middleware('auth')->prefix('user')->group(function() {
@@ -196,6 +198,7 @@ Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(functi
         Route::get('/product-send-to-admin/{id}', 'ProductsController@productSendAdmin')->name('product.send.admin');
 
         Route::get('/connet-to-instagram', 'ApiController@connectToInstagram')->name('seller.connect.instragram');
+        Route::get('/connet-to-instagram-v2', 'ApiController@connectToInstagramV2')->name('seller.connect.instragram.v2');
 
         Route::get('/product-read-instagram/{username?}', 'ApiController@readInstagram')->name('seller.read.instragram');
         Route::post('/product-post-instagram/save', 'ApiController@postInstagramSave')->name('seller.post.instragram.save');
@@ -203,6 +206,8 @@ Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(functi
         Route::get('/product-read-instagram-username', 'ApiController@readInstagramUsername')->name('seller.read.instragram.username');
 
         Route::get('/product-read-instagram-username-v2/{username?}', 'ApiController@readInstagramUsernameV2')->name('seller.read.instragram.username.v2');
+
+        Route::get('/redirect-to-read-instagram', 'ApiController@redirectToReadInstagram')->name('redirect.to.read.instagram');
         
         Route::get('/instagram-package', 'ApiController@package')->name('seller.read.instragram.package');
     });
