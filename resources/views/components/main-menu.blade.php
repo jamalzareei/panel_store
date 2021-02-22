@@ -168,8 +168,11 @@
                         {{-- <li class=" nav-item"><a href="{{ route('user.data.phone') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تغییر تلفن</span>
                         </a></li> --}}
-                        <li class=" nav-item"><a href="{{ route('user.messages') }}">
+                        {{-- <li class=" nav-item"><a href="{{ route('user.messages') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">پیام های شما</span>
+                        </a></li> --}}
+                        <li class=" nav-item"><a href="{{ route('user.tickets') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">پیام های پشتیبانی</span>
                         </a></li>
                         <li class=" nav-item"><a href="{{ route('user.data.change.password') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تغییر رمز عبور</span>

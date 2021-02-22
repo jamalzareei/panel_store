@@ -36,3 +36,9 @@ textarea,
 .navigation {
     font-family: IRANSans !important;
 }
+
+.show-form-reply{
+    bottom: 4%;
+    position: fixed;
+    width: 62%;
+}

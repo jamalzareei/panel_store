@@ -184,7 +184,7 @@
 
     @yield('footer')
     <script src="{{ asset('js/scripts.js') }}"></script>
-    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    {{-- <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
 
         // Enable pusher logging - don't include this in production
@@ -215,10 +215,8 @@
             $('li#notifictations-user-noty .scrollable-container').prepend(strNoty)
 
             messageToast("پیام", "شما یک پیغام جدید دارید.", "info", 5000)
-            // $('#notifictations-user-noty').val();
-            // $('#notifictations-user-noty').val();
         });
-    </script>
+    </script> --}}
 
     <script>
         @if(session('noty'))

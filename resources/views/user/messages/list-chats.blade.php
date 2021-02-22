@@ -25,10 +25,11 @@
                         </span>
                         <div class="header-profile-sidebar">
                             <div class="avatar">
-                                <img src="{{asset('app-assets/images/portrait/small/avatar-s-11.jpg')}}" alt="user_avatar" height="70" width="70">
+                                {{-- <img src="{{asset('app-assets/images/portrait/small/avatar-s-11.jpg')}}" alt="user_avatar" height="70" width="70"> --}}
+                                    <i class="fas fa-user font-large-2"></i>
                                 <span class="avatar-status-online avatar-status-lg"></span>
                             </div>
-                            <h4 class="chat-user-name">John Doe</h4>
+                            <h4 class="chat-user-name">-</h4>
                         </div>
                     </header>
                     <div class="profile-sidebar-area">
@@ -104,7 +105,8 @@
                         <div class="d-flex align-items-center">
                             <div class="sidebar-profile-toggle position-relative d-inline-flex">
                                 <div class="avatar">
-                                    <img src="{{asset('app-assets/images/portrait/small/avatar-s-11.jpg')}}" alt="user_avatar" height="40" width="40">
+                                    {{-- <img src="{{asset('app-assets/images/portrait/small/avatar-s-11.jpg')}}" alt="user_avatar" height="40" width="40"> --}}
+                                    <i class="fas fa-user font-large-2"></i>
                                     <span class="avatar-status-online"></span>
                                 </div>
                                 <div class="bullet-success bullet-sm position-absolute"></div>
@@ -198,7 +200,8 @@
                             </span>
                             <div class="header-profile-sidebar">
                                 <div class="avatar">
-                                    <img src="{{asset('app-assets/images/portrait/small/avatar-s-11.jpg')}}" alt="user_avatar" height="70" width="70">
+                                    {{-- <img src="{{asset('app-assets/images/portrait/small/avatar-s-11.jpg')}}" alt="user_avatar" height="70" width="70"> --}}
+                                    <i class="fas fa-user font-large-2"></i>
                                     <span class="avatar-status-busy avatar-status-lg"></span>
                                 </div>
                                 <h4 class="chat-user-name">Felecia Rower</h4>

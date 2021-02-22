@@ -126,6 +126,11 @@ Route::namespace('User')->middleware('auth')->prefix('user')->group(function() {
     Route::get('/u/load-chat/{user_id?}', 'MessagesController@loadChat')->name('user.load.chat');
     Route::post('/send-message/{user_id?}', 'MessagesController@sendMessage')->name('user.send.message');
 
+    
+    Route::get('/u/tickets/{ticket_id?}', 'TicketsController@index')->name('user.tickets');
+    Route::post('/u/ticket/add', 'TicketsController@ticketAdd')->name('user.ticket.add');
+    Route::post('/u/ticket/add-reply/{ticket_id}', 'TicketsController@ticketAddReply')->name('user.ticket.add.reply');
+
 });
 
 Route::get('/get-countries', 'Admin\LocationController@getCountries')->name('get.countries.location');
