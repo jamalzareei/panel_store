@@ -107,6 +107,12 @@ Route::namespace('Admin')->middleware('admin')->prefix('admin')->group(function(
     Route::post('/socials/update/{id}', 'SocialsController@update')->name('admin.social.seller.update');
     
     Route::post('/add-files-instagram-page', 'SocialsController@uploadPostsPage')->name('add.instagram.page.files');
+
+    
+    Route::get('/tickets/{ticket_id?}', 'TicketsController@index')->name('admin.tickets');
+    Route::post('/ticket/add', 'TicketsController@ticketAdd')->name('admin.ticket.add');
+    Route::post('/ticket/add-reply/{ticket_id}', 'TicketsController@ticketAddReply')->name('admin.ticket.add.reply');
+
 });
 
 Route::namespace('User')->middleware('auth')->prefix('user')->group(function() {

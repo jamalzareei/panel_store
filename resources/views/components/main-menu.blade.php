@@ -86,6 +86,9 @@
                         <li><a href="{{ route('admin.pages.get') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> لیست صفحات </span></a></li>
                     </ul>
                 </li>
+
+                
+                <li><a href="{{ route('admin.tickets') }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> تیکت های کاربران </span></a></li>
                 
                 @endhasanyrole
 
