@@ -221,5 +221,24 @@ Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(functi
         Route::get('/redirect-to-read-instagram', 'ApiController@redirectToReadInstagram')->name('redirect.to.read.instagram');
         
         Route::get('/instagram-package', 'ApiController@package')->name('seller.read.instragram.package');
+
+        Route::get('/orders', function(){
+            return view('seller.table');
+        })->name('seller.orders');
+
+        
+        Route::get('/orders/سفارش-های-در-انتظار', function(){
+            return view('seller.table');
+        })->name('seller.orders.await');
+
+        
+        Route::get('/u/پیام-های-کاربران-محصولات', function(){
+            return view('seller.table');
+        })->name('seller.reviews.products');
+        
+        Route::get('/u/پیام-های-کاربران-فروشنده', function(){
+            return view('seller.table');
+        })->name('seller.reviews.seller');
+        
     });
 });

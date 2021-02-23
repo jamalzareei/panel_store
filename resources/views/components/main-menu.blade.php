@@ -156,6 +156,43 @@
                         </a></li>
                     </ul>
                 </li>
+                
+                <li class=" nav-item"><a href="#"><i class="fa fa-money"></i><span class="menu-title" data-i18n="users">سفارشات</span></a>
+                    <ul class="menu-content">
+                        <li class=" nav-item"><a href="{{ route('seller.orders.await') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">سفارش های در انتظار</span>
+                        </a></li>
+                        <li class=" nav-item"><a href="{{ route('seller.orders') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard"> آرشیو سفارشات  </span>
+                        </a></li>
+                    </ul>
+                </li>
+                
+                <li class=" nav-item"><a href="#"><i class="fa fa-money"></i><span class="menu-title" data-i18n="users">نظرات کاربران</span></a>
+                    <ul class="menu-content">
+                        <li class=" nav-item"><a href="{{ route('seller.reviews.products') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">نظرات روی محصولات</span>
+                        </a></li>
+                        <li class=" nav-item"><a href="{{ route('seller.reviews.seller') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard"> نظرات روی صفحه فروشندگی </span>
+                        </a></li>
+                    </ul>
+                </li>
+
+                <li class=" nav-item"><a href="{{ route('seller.dashboard') }}">
+                    <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">اضافه کردن کد تخفیف</span>
+                </a></li>
+                
+                <li class=" nav-item"><a href="{{ route('seller.dashboard') }}">
+                    <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">درخواست تبلیغات ویژه</span>
+                </a><a href="{{ route('seller.connect.instragram.v2') }}" class="pt-0">
+                    <small class="small pl-3 font-small-1">( در صفحه اصلی)</small>
+                </a></li>
+
+                <li class=" nav-item"><a href="{{ route('seller.dashboard') }}">
+                    <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تغییر پلان مورد نظر</span>
+                </a></li>
+
                 @endhasanyrole
 
                 
@@ -171,14 +208,18 @@
                         {{-- <li class=" nav-item"><a href="{{ route('user.data.phone') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تغییر تلفن</span>
                         </a></li> --}}
-                        {{-- <li class=" nav-item"><a href="{{ route('user.messages') }}">
-                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">پیام های شما</span>
-                        </a></li> --}}
+                        <li class=" nav-item"><a href="{{ route('user.messages') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">اطلاعیه ها و چت های کاربران</span>
+                        </a></li>
                         <li class=" nav-item"><a href="{{ route('user.tickets') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">پیام های پشتیبانی</span>
                         </a></li>
                         <li class=" nav-item"><a href="{{ route('user.data.change.password') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">تغییر رمز عبور</span>
+                        </a></li>
+
+                        <li class=" nav-item"><a href="{{ route('logout.user') }}">
+                            <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">خروج از حساب کاربری</span>
                         </a></li>
                     {{-- </ul>
                 </li> --}}

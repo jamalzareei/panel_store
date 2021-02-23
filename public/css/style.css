@@ -51,3 +51,10 @@
 .breadcrumb .breadcrumb-item+.breadcrumb-item:empty:before {
     content: '';
 }
+
+
+.show-form-reply{
+    bottom: 4%;
+    position: fixed;
+    width: 62%;
+}
