@@ -18,6 +18,7 @@ return [
     'faveicon'                  => 'https://cdn.shixeh.com/shixeh/faveicon.ico',
     'listWebsites'              => ['shixeh.com', 'shixmod.com', 'shixcar.com', 'shixmarket.com', 'shixdigi.com', 'shixhome.com', 'shixdesign.com'],
     'mainCategories_id'         => [1,2],
+    'baseSite'                  => 'https://shixeh.com',
 
     'rapidapi'                  => '71884ac161msh548eb32c69edbb9p1573b1jsnaf66ca791693',
     //6yEUgA5cWymshLveSXeFBwo1HChep12kbhAjsnl5BjRszvzMCU

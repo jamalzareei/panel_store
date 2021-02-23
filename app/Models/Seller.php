@@ -52,6 +52,11 @@ class Seller extends Model
         return $this->hasMany('App\Models\SellerBranch');
     }
 
+    public function products()
+    {
+        return $this->hasMany('App\Models\Product');
+    }
+
     public function setting()
     {
         return $this->hasOne('App\Models\Setting');

@@ -147,18 +147,6 @@ Route::get('/get-children-categories/{col}/{parent_id?}', 'CategoriesController@
 Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(function() {
     Route::get('/', 'DashboardController@index')->name('seller.dashboard');
 
-    // Route::get('/user', 'UsersController@getUserData')->name('seller.user.data');
-    // Route::post('/user', 'UsersController@postUserData')->name('seller.user.data.post');
-
-    // Route::get('/user/email', 'UsersController@userMail')->name('seller.user.data.email');
-    // Route::post('/user/email', 'UsersController@postUserMail')->name('seller.user.data.email.post');
-
-    // Route::get('/user/phone', 'UsersController@userPhone')->name('seller.user.data.phone');
-    // Route::post('/user/phone', 'UsersController@postUserPhone')->name('seller.user.data.phone.post');
-
-    // Route::get('/user/change-password', 'UsersController@userChangePassword')->name('seller.user.data.change.password');
-    // Route::post('/user/change-password', 'UsersController@postUserChangePassword')->name('seller.user.data.change.password.post');
-
     Route::get('/edit-seller', 'SellersController@sellerDataGet')->name('seller.data.get');
     Route::post('/edit-seller', 'SellersController@sellerDataPost')->name('seller.data.post');
 

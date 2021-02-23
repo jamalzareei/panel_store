@@ -120,7 +120,7 @@
                         </a><a href="{{ route('seller.finances.get') }}" class="pt-0">
                             <small class="small pl-3 font-small-1">(لیست حساب ها، اضافه و ویرایش)</small>
                         </a></li>
-                        <li class=" nav-item"><a href="{{ route('user.data.email') }}">
+                        <li class=" nav-item"><a href="{{ route('seller.dashboard') }}">
                             <i class="feather icon-circle"></i><span class="menu-title" data-i18n="Dashboard">لیست تراکنش ها</span>
                         </a></li>
                     </ul>

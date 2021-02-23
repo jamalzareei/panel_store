@@ -85,26 +85,18 @@ $user = \App\User::where('id', Auth::id())
                     
                     @endif
                     
-                    {{-- <li class="dropdown dropdown-language nav-item"><a class="dropdown-toggle nav-link" id="dropdown-flag" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flag-icon flag-icon-us"></i><span class="selected-language">English</span></a>
-                        <div class="dropdown-menu" aria-labelledby="dropdown-flag"><a class="dropdown-item" href="#" data-language="en"><i class="flag-icon flag-icon-us"></i> English</a><a class="dropdown-item" href="#" data-language="fr"><i class="flag-icon flag-icon-fr"></i> French</a><a class="dropdown-item" href="#" data-language="de"><i class="flag-icon flag-icon-de"></i> German</a><a class="dropdown-item" href="#" data-language="pt"><i class="flag-icon flag-icon-pt"></i> Portuguese</a></div>
-                    </li> --}}
                     <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon feather icon-maximize"></i></a></li>
-                    {{-- <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon feather icon-search"></i></a>
-                        <div class="search-input">
-                            <div class="search-input-icon"><i class="feather icon-search primary"></i></div>
-                            <input class="input" type="text" placeholder="Explore Vuexy..." tabindex="-1" data-search="template-list">
-                            <div class="search-input-close"><i class="feather icon-x"></i></div>
-                            <ul class="search-list search-list-main"></ul>
-                        </div>
-                    </li> --}}
-                    <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-shopping-cart"></i><span class="badge badge-pill badge-primary badge-up cart-item-count">6</span></a>
+                    
+                    <li class="dropdown dropdown-notification nav-item">
+                        <a class="nav-link nav-link-label" href="#" data-toggle="dropdown">
+                        <i class="ficon feather icon-shopping-cart"></i><span class="badge badge-pill badge-primary badge-up cart-item-count">0</span></a>
                         <ul class="dropdown-menu dropdown-menu-media dropdown-cart dropdown-menu-right">
                             <li class="dropdown-menu-header">
                                 <div class="dropdown-header m-0 p-2">
-                                    <h3 class="white"><span class="cart-item-count">6</span><span class="mx-50">Items</span></h3><span class="notification-title">In Your Cart</span>
+                                    <span class="notification-title">آخرین سفارشات شما</span>
                                 </div>
                             </li>
-                            <li class="scrollable-container media-list">
+                            {{-- <li class="scrollable-container media-list">
                                 <a class="cart-item" href="app-ecommerce-details.html">
                                     <div class="media">
                                         <div class="media-left d-flex justify-content-center align-items-center"><img src="{{asset('app-assets/images/pages/eCommerce/4.png')}}" width="75" alt="Cart Item"></div>
@@ -114,69 +106,49 @@ $user = \App\User::where('id', Auth::id())
                                     </div>
                                 </a>
                             </li>
-                            <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center text-primary" href="app-ecommerce-checkout.html"><i class="feather icon-shopping-cart align-middle"></i><span class="align-middle text-bold-600">Checkout</span></a></li>
-                            <li class="empty-cart d-none p-2">Your Cart Is Empty.</li>
+                            <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center text-primary" href="app-ecommerce-checkout.html"><i class="feather icon-shopping-cart align-middle"></i><span class="align-middle text-bold-600">Checkout</span></a></li> --}}
+                            <li class="empty-cart  p-2">سفارشی  وجود ندارد.</li>
                         </ul>
                     </li>
                     <li class="dropdown dropdown-notification nav-item" id="notifictations-user-noty">
                         <a class="nav-link nav-link-label" href="#" data-toggle="dropdown">
-                            <i class="ficon feather icon-bell"></i><span class="badge badge-pill badge-primary badge-up">5</span>
+                            <i class="ficon feather icon-bell"></i><span class="badge badge-pill badge-primary badge-up">{{ $messagesnotread->count() }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
                             <li class="dropdown-menu-header">
                                 <div class="dropdown-header m-0 p-2">
-                                    <h3 class="white">5 New</h3><span class="notification-title">App Notifications</span>
+                                    <span class="notification-title">آخرین اطلاعیه ها</span>
                                 </div>
                             </li>
-                            <li class="scrollable-container media-list"><a class="d-flex justify-content-between" href="javascript:void(0)">
+                            <li class="scrollable-container media-list">
+                                @forelse ($messagesnotread as $message)
+                                    
+                                <a class="d-flex justify-content-between" href="{{ route('user.messages') }}">
                                     <div class="media d-flex align-items-start">
                                         <div class="media-left"><i class="feather icon-plus-square font-medium-5 primary"></i></div>
                                         <div class="media-body">
-                                            <h6 class="primary media-heading">You have new order!</h6><small class="notification-text"> Are your going to meet me tonight?</small>
+                                            <h6 class="primary media-heading">{{ $message->title }}</h6><small class="notification-text">{{ substr($message->message, 100) }}</small>
                                         </div><small>
-                                            <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">9 hours ago</time></small>
+                                            <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">{{verta($message->created_at)->formatDifference()}}</time></small>
                                     </div>
-                                </a><a class="d-flex justify-content-between" href="javascript:void(0)">
-                                    <div class="media d-flex align-items-start">
-                                        <div class="media-left"><i class="feather icon-download-cloud font-medium-5 success"></i></div>
-                                        <div class="media-body">
-                                            <h6 class="success media-heading red darken-1">99% Server load</h6><small class="notification-text">You got new order of goods.</small>
-                                        </div><small>
-                                            <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">5 hour ago</time></small>
-                                    </div>
-                                </a><a class="d-flex justify-content-between" href="javascript:void(0)">
-                                    <div class="media d-flex align-items-start">
-                                        <div class="media-left"><i class="feather icon-alert-triangle font-medium-5 danger"></i></div>
-                                        <div class="media-body">
-                                            <h6 class="danger media-heading yellow darken-3">Warning notifixation</h6><small class="notification-text">Server have 99% CPU usage.</small>
-                                        </div><small>
-                                            <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">Today</time></small>
-                                    </div>
-                                </a><a class="d-flex justify-content-between" href="javascript:void(0)">
-                                    <div class="media d-flex align-items-start">
-                                        <div class="media-left"><i class="feather icon-check-circle font-medium-5 info"></i></div>
-                                        <div class="media-body">
-                                            <h6 class="info media-heading">Complete the task</h6><small class="notification-text">Cake sesame snaps cupcake</small>
-                                        </div><small>
-                                            <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">Last week</time></small>
-                                    </div>
-                                </a><a class="d-flex justify-content-between" href="javascript:void(0)">
-                                    <div class="media d-flex align-items-start">
-                                        <div class="media-left"><i class="feather icon-file font-medium-5 warning"></i></div>
-                                        <div class="media-body">
-                                            <h6 class="warning media-heading">Generate monthly report</h6><small class="notification-text">Chocolate cake oat cake tiramisu marzipan</small>
-                                        </div><small>
-                                            <time class="media-meta" datetime="2015-06-11T18:29:20+08:00">Last month</time></small>
-                                    </div>
-                                </a></li>
-                            <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center" href="javascript:void(0)">View all notifications</a></li>
+                                </a>
+                                @empty
+                                    
+                                @endforelse
+                                </li>
+                            <li class="dropdown-menu-footer"><a class="dropdown-item p-1 text-center" href="{{ route('user.messages') }}">همه اطلاعیه ها</a></li>
                         </ul>
                     </li>
                     <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                     <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600 load-fullname">{{auth()->user()->full_name ?? ''}}</span><span class="user-status">آنلاین</span></div><span><img class="round load-avatar" src="{{($user && $user->image && $user->image->path) ? config('shixeh.cdn_domain_files').$user->image->path : config('shixeh.x_logo') }}" alt="avatar" height="40" width="40"></span>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="page-user-profile.html"><i class="feather icon-user"></i> ویرایش اطلاعات</a><a class="dropdown-item" href="app-email.html"><i class="feather icon-mail"></i> پیام های دریافتی</a><a class="dropdown-item" href="app-todo.html"><i class="feather icon-check-square"></i> موارد پیش رو</a><a class="dropdown-item" href="app-chat.html"><i class="feather icon-message-square"></i> گفتگو و تیکت</a>
-                            <div class="dropdown-divider"></div><a class="dropdown-item" href="{{ route('logout.user') }}"><i class="feather icon-power"></i> خروج</a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="{{ route('user.data') }}"><i class="feather icon-user"></i> ویرایش اطلاعات</a>
+                            <a class="dropdown-item" href="{{ route('user.messages') }}"><i class="feather icon-check-square"></i> اطلاعیه ها</a>
+                            <a class="dropdown-item" href="{{ route('user.tickets') }}"><i class="feather icon-message-square"></i> گفتگو و تیکت</a>
+                            <a class="dropdown-item" href="{{ route('user.data.change.password') }}"><i class="fas fa-key"></i> تغییر رمز عبور</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ route('logout.user') }}"><i class="feather icon-power"></i> خروج</a>
                         </div>
                     </li>
                 </ul>
