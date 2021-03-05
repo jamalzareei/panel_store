@@ -73,6 +73,20 @@
                                         </label>
                                     </div>
                                 </div>
+                                <div class="mr-2 mb-1">
+                                    <fieldset class="form-group">
+                                        <label for="categories-list-websites">وبسایت متصل <small class="danger">(وبسایت های متصل به فروشنده را انتخاب و یا ویرایش نمایید)</small></label>
+                                        <select class="form-control select2" data-placeholder="انتخاب نمایید" name="websites[]" multiple id="categories-list-websites">
+                                            
+                                            @forelse ($websites as $website)
+                                                <option value="{{$website->id}}" {{($product->websites->where('id', $website->id)->count()) ? 'selected' : ''}}>{{$website->name}} ({{$website->url}})</option>
+                                            @empty
+                                                
+                                            @endforelse
+                                        </select>
+                                        <small class="help-block text-danger error-websites"></small>
+                                    </fieldset>
+                                </div>
                                 <div class="col-12">
                                     <fieldset class="form-label-group my-2">
                                         <textarea data-length="500" class="form-control char-textarea active" id="textarea-product" rows="10" placeholder="توضیحات برای فروشنده" style="color: rgb(78, 81, 84);" name='message_product'>

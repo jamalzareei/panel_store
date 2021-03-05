@@ -185,6 +185,7 @@ class ApiController extends Controller
         $user = Auth::user();
 
         $seller = $user->seller;
+        $websites_id = $seller->websites->pluck('id')->toArray();
 
         $productOld = Product::whereNull('deleted_at')
             ->where('shorcode_external', $request->shortcode)
@@ -211,6 +212,12 @@ class ApiController extends Controller
             "actived_at" => Carbon::now(),
             "admin_actived_at" => null
         ]);
+
+        if($websites_id){
+            $product->websites()->sync($websites_id);
+        }else{
+            $product->websites()->sync([]);
+        }
 
         $seo = new Seo();
         if ($product->seo) {

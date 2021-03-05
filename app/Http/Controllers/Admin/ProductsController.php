@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Message;
 use App\Models\Price;
 use App\Models\Product;
+use App\Models\Website;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -89,11 +90,13 @@ class ProductsController extends Controller
         }
 
 
+        $websites = Website::all();
         // return $product;
 
         return view('admin.products.product', [
             'title' => ($product) ? 'ویرایش محصول ' . $product->name : 'اضافه کردن محصول جدید',
             'slug' => $slug,
+            'websites' => $websites,
             'product' => $product,
             'listPrices' => ($product) ? $this->getPrice($product->id) : null,
             'listImages' => ($product) ? $this->getImages($product->id) : null,
@@ -217,6 +220,12 @@ class ProductsController extends Controller
         }
 
         $product->save();
+
+        
+        if($request->websites){
+            
+            $product->websites()->sync($request->websites);
+        }
 
         if($request->message_product){
 

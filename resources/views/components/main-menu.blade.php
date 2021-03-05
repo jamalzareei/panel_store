@@ -62,7 +62,7 @@
                     <ul class="menu-content">
                         <li><a href="{{ route('admin.sellers.list', ['type' => 'wait-active-admin']) }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> فروشندگان در انتظار تایید</span></a></li>
                         <li><a href="{{ route('admin.sellers.list', ['type' => 'not-complete-data']) }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> فروشندگان در حال تکمیل</span></a></li>
-                        <li><a href="{{ route('admin.sellers.list', ['type' => 'compete-and-active-admin']) }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> فروشندگان تایید شده</span></a></li>
+                        <li><a href="{{ route('admin.sellers.list', ['type' => 'comlpete-and-active-admin']) }}"><i class="feather icon-circle"></i><span class="menu-item" data-i18n=""> فروشندگان تایید شده</span></a></li>
                     </ul>
                 </li>
 

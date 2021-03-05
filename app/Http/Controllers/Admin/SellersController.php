@@ -26,13 +26,13 @@ class SellersController extends Controller
         # code...
         $sellers = Seller::whereNull('deleted_at')
         ->when(($type == 'wait-active-admin'), function($query){
-            $query->whereNull('admin_actived_id')->whereNotNull('actived_at');
+            $query->whereNull('admin_actived_at')->whereNotNull('actived_at');
         })
         ->when(($type == 'not-complete-data'), function($query){
-            $query->whereNull('actived_at')->whereNull('admin_actived_id');
+            $query->whereNull('actived_at')->whereNull('admin_actived_at');
         })
-        ->when(($type == 'compete-and-active-admin'), function($query){
-            $query->whereNotNull('actived_at')->whereNotNull('admin_actived_id');
+        ->when(($type == 'comlpete-and-active-admin'), function($query){
+            $query->whereNotNull('actived_at')->whereNotNull('admin_actived_at');
         })
         ->with(['city', 'user'])
         ->get();
