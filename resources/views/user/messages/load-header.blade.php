@@ -7,7 +7,7 @@
             @if ($contact && isset($contact->image) && $contact->image->path)
                 <img src="{{config('shixeh.cdn_domain_files')}}{{$contact->image->path}}" alt="avatar" height="40" width="40" />
             @else
-                <img src="{{config('shixeh.path_logo')}}" alt="avatar" height="40" width="40" />
+                <img src="{{config('shixeh.x_logo')}}" alt="avatar" height="40" width="40" />
             @endif
             <span class="avatar-status-busy"></span>
         </div>

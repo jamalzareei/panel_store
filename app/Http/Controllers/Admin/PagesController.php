@@ -122,6 +122,15 @@ class PagesController extends Controller
 
         $path_image = null;
         if ($request->image_file) {
+            $image = Image::where([
+                'imageable_id' => $page->id,
+                'imageable_type' => 'App\Models\Page',
+                'user_id' => $user->id
+            ])->first();
+            if($image->path){
+                UploadService::destroyFile($image->path);
+            }
+
             $path_image = UploadService::convertBase64toPng('uploads/pages', $request->image_file);
             Image::insert([ //,
                 'path' => $path_image,

@@ -79,6 +79,15 @@ class UsersController extends Controller
 
         $avatar = '/logo.png';
         if ($request->image_file) {
+            $image = Image::where([
+                'imageable_id' => $user->id,
+                'imageable_type' => 'App\User',
+                'user_id' => $user->id
+            ])->first();
+            if($image->path){
+                UploadService::destroyFile($image->path);
+            }
+
             $path_image = UploadService::convertBase64toPng('uploads/users/avatar', $request->image_file);
             Image::insert([ //,
                 'path' => $path_image,

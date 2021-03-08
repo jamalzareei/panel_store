@@ -121,7 +121,7 @@
                                                                                 @if ($page && $page->image && isset($page->image) && $page->image->path)
                                                                                     <img src="{{config('shixeh.cdn_domain_files')}}/{{$page->image->path}}" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                                                                 @else
-                                                                                    <img src="{{config('shixeh.path_logo')}}" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
+                                                                                    <img src="{{config('shixeh.x_logo')}}" alt="" id="preview_image_crop" class="img-thumbnail user-circle m-auto">
                                                                                 @endif
                                                                                 <input type="hidden" name="image_file" class="image_file">
                                                                                 <small class="help-block text-danger error-image_file w-100 m-1 row text-center"></small>

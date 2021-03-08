@@ -410,6 +410,18 @@ class ApiController extends Controller
             })
             ->first();
 
+            if(!($social && $social->username)){
+                return view('components.not-perrmission', [
+                    'title' => 'تکمیل اطلاعات فروشنده',
+                    'message' => '<br>
+                    شما اجازه دسترسی به این بخش را ندارید.
+                    <br>
+                    <br>
+                    لطفا ابتدا پیج اینستاگرام خود را ثبت نمایید.',
+                    'linkRedirect' => route('seller.socials.get'),
+                    'textRedirect' => 'تکمیل اطلاعات فروشنده',
+                ]);
+            }
 
         $username = $social->username;
 
@@ -433,6 +445,18 @@ class ApiController extends Controller
             ->first();
 
 
+            if(!($social && $social->username)){
+                return view('components.not-perrmission', [
+                    'title' => 'تکمیل اطلاعات فروشنده',
+                    'message' => '<br>
+                    شما اجازه دسترسی به این بخش را ندارید.
+                    <br>
+                    <br>
+                    لطفا ابتدا پیج اینستاگرام خود را ثبت نمایید.',
+                    'linkRedirect' => route('seller.socials.get'),
+                    'textRedirect' => 'تکمیل اطلاعات فروشنده',
+                ]);
+            }
         $username = $social->username;
 
         return view('seller.instagram.read-contect-v2', [
@@ -684,6 +708,7 @@ class ApiController extends Controller
         }
 
         $dir = config('shixeh.path_upload_files') . "instagram/pages/$username/";
+
         $arrayFiels = [];
         $pageRow = 0;
         if (is_dir($dir)) {
@@ -697,10 +722,41 @@ class ApiController extends Controller
                 }
                 closedir($dh);
             }
+        }else{
+            return response()->view('components.not-perrmission', [
+                'title' => 'تکمیل اطلاعات فروشنده',
+                'message' => '<br>
+                شما اجازه دسترسی به این بخش را ندارید.
+                <br>
+                <br>
+                لطفا ابتدا نسبت به تکمیل اطلاعات شبکه های اجتماعی (اینستاگرام) فروشگاه خود اقدام نمایید.
+                <br>
+                در صورتی که اطلاعات خود را ثبت کرده اید جهت تسریع در روند ثبت اطلاعات با پشتیبانی تماس حاصل فرمایید.',
+                'linkRedirect' => route('seller.socials.get'),
+                'textRedirect' => 'تکمیل اطلاعات فروشنده',
+            ]);
         }
         
         $page = $requerst->after ?? 1;
-        $dataUserContent = file_get_contents(config('shixeh.cdn_domain_files') . $arrayFiels[$page - 1]);
+        $pathFile = config('shixeh.cdn_domain_files') . $arrayFiels[$page - 1];
+
+        $exists = $this->URLIsValid($pathFile);
+        if(!$exists){
+            return response()->view('components.not-perrmission', [
+                'title' => 'تکمیل اطلاعات فروشنده',
+                'message' => '<br>
+                شما اجازه دسترسی به این بخش را ندارید.
+                <br>
+                <br>
+                لطفا ابتدا نسبت به تکمیل اطلاعات شبکه های اجتماعی (اینستاگرام) فروشگاه خود اقدام نمایید.
+                <br>
+                در صورتی که اطلاعات خود را ثبت کرده اید جهت تسریع در روند ثبت اطلاعات با پشتیبانی تماس حاصل فرمایید.',
+                'linkRedirect' => route('seller.socials.get'),
+                'textRedirect' => 'تکمیل اطلاعات فروشنده',
+            ]);
+        }
+
+        $dataUserContent = file_get_contents($pathFile);
 
 
 
@@ -735,6 +791,22 @@ class ApiController extends Controller
         $dataUserContent = file_get_contents("https://www.instagram.com/web/search/topsearch/?query=$username");
         $dataUserJson = json_decode($dataUserContent, true);
         return $dataUserJson; //->json();
+    }
+
+    function URLIsValid($URL)
+    {
+        $exists = true;
+        $file_headers = @get_headers($URL);
+        $InvalidHeaders = array('404', '403', '500');
+        foreach($InvalidHeaders as $HeaderVal)
+        {
+                if(strstr($file_headers[0], $HeaderVal))
+                {
+                        $exists = false;
+                        break;
+                }
+        }
+        return $exists;
     }
 
     public function package(Request $request)

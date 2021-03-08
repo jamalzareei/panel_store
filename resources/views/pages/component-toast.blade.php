@@ -21,7 +21,7 @@
             <div class="btn btn-outline-primary toast-toggler mt-2">Toast</div>
             <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
               <div class="toast-header">
-                <img src="{{config('shixeh.path_logo')}}" class="rounded mr-2" alt="Toast image">
+                <img src="{{config('shixeh.x_logo')}}" class="rounded mr-2" alt="Toast image">
                 <strong class="mr-auto">Vue Admin</strong>
                 <small>11 mins ago</small>
                 <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
@@ -51,7 +51,7 @@
             <div class="card-body">
               <div class="toast toast-wrapper toast-translucent" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
-                  <img src="{{config('shixeh.path_logo')}}" class="rounded mr-2" alt="Toast image">
+                  <img src="{{config('shixeh.x_logo')}}" class="rounded mr-2" alt="Toast image">
                   <strong class="mr-auto">Vue Admin</strong>
                   <small>11 mins ago</small>
                   <button type="button" class="ml-1 close" data-dismiss="toast" aria-label="Close">
@@ -83,7 +83,7 @@
               <div class="btn btn-outline-primary toast-toggler mt-2 mr-1">Auto Hide Off</div>
               <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
                 <div class="toast-header">
-                  <img src="{{config('shixeh.path_logo')}}" class="rounded mr-2" alt="Toast Image">
+                  <img src="{{config('shixeh.x_logo')}}" class="rounded mr-2" alt="Toast Image">
                   <strong class="mr-auto">Vue Admin</strong>
                   <small class="text-muted">just now</small>
                   <button type="button" class="ml-1 close" data-dismiss="toast" aria-label="Close">
@@ -97,7 +97,7 @@
               <div class="btn btn-outline-success toast-toggler mt-2 mr-1">Toast</div>
               <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
                 <div class="toast-header">
-                  <img src="{{config('shixeh.path_logo')}}" class="rounded mr-2" alt="Toast Image">
+                  <img src="{{config('shixeh.x_logo')}}" class="rounded mr-2" alt="Toast Image">
                   <strong class="mr-auto">Vue Admin</strong>
                   <small class="text-muted">2 seconds ago</small>
                   <button type="button" class="ml-1 close" data-dismiss="toast" aria-label="Close">
@@ -127,7 +127,7 @@
               <div class="btn btn-outline-info placement mt-2">Toast Placement</div>
               <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
                 <div class="toast-header">
-                  <img src="{{config('shixeh.path_logo')}}" class="rounded mr-2" alt="Toast Image">
+                  <img src="{{config('shixeh.x_logo')}}" class="rounded mr-2" alt="Toast Image">
                   <strong class="mr-auto">Vue Admin</strong>
                   <small class="text-muted">2 seconds ago</small>
                   <button type="button" class="ml-1 close" data-dismiss="toast" aria-label="Close">
@@ -153,7 +153,7 @@
     data-autohide="false">
     <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
       <div class="toast-header">
-        <img src="{{config('shixeh.path_logo')}}" class="rounded mr-2" alt="Toast Image">
+        <img src="{{config('shixeh.x_logo')}}" class="rounded mr-2" alt="Toast Image">
         <strong class="mr-auto">Vue Admin</strong>
         <small>1 mins ago</small>
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
