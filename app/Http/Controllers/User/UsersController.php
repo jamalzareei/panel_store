@@ -286,15 +286,15 @@ class UsersController extends Controller
         $user = User::where('id', Auth::id())->first();
 
         // password_old
-        if (!Hash::check($request->password_old, $user->password) && $user->password) {
-            // Success
-            return [
-                'status' => 'error',
-                'title' => '',
-                'message' => 'کلمه عبور خود را اشتباه وارد کرده اید',
-                'data' => '',
-            ];
-        }
+        // if (!Hash::check($request->password_old, $user->password) && $user->password) {
+        //     // Success
+        //     return [
+        //         'status' => 'error',
+        //         'title' => '',
+        //         'message' => 'کلمه عبور خود را اشتباه وارد کرده اید',
+        //         'data' => '',
+        //     ];
+        // }
 
 
         $user->password = Hash::make($request->password);

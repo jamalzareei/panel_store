@@ -44,6 +44,21 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style-rtl.css') }}">
     <!-- END: Custom CSS-->
 
+    <style>
+        #code {
+            padding-left: 15px;
+            letter-spacing: 43px;
+            border: 0;
+            background-image: linear-gradient(to left, black 70%, rgba(255, 255, 255, 0) 0%);
+            background-position: bottom;
+            background-size: 50px 1px;
+            background-repeat: repeat-x;
+            background-position-x: 35px;
+            width: 60%;
+            margin: auto;
+        }
+        }
+    </style>
 </head>
 <!-- END: Head-->
 
@@ -69,10 +84,9 @@
                                     <div class="card rounded-0 mb-0 px-2">
                                         <div class="card-header pb-1">
                                             <div class="card-title">
-                                                <h4 class="mb-0">ورود به پنل کاربری</h4>
+                                                <h4 class="mb-0">فراموشی / ثبت نام فروشنده جدید</h4>
                                             </div>
                                         </div>
-                                        <p class="px-2">لطفا در صورتی که قبلا به عنوان فروشنده ثبت  نام نکرده اید، از لینک ثبت نام نسبت به ثبت اولیه اقدام نمایید.</p>
                                         <p class="text-danger">
                                             @if(session()->has('noty'))
                                                 <div class="alert alert-{{ (session()->get('noty')['status']) }}">
@@ -82,42 +96,43 @@
                                         </p>
                                         <div class="card-content">
                                             <div class="card-body pt-1">
-                                                <form action="{{ route('auth.login.post') }}" method="POST">
-                                                    @csrf
-                                                    <fieldset class="form-label-group form-group position-relative has-icon-right">
-                                                        <input type="text" class="form-control" id="username" name="username" dir="ltr" placeholder="شماره تماس" required>
-                                                        <div class="form-control-position">
-                                                            <i class="feather icon-user"></i>
-                                                        </div>
-                                                        <label for="username">شماره تماس</label>
-                                                    </fieldset>
+                                                @if ($username)
+                                                    <form action="{{ route('confirm.auth.code.post') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="role" value={{ $role }}>
+                                                        <input type="hidden" name="username" value="{{ $username }}">
+                                                            
+                                                        <fieldset class="form-label-group form-group position-relative has-icon-right">
+                                                            <input type="text" class="form-control" id="code"  maxlength="4"name="code" dir="ltr" required>
+                                                            {{-- <div class="form-control-position">
+                                                                <i class="feather icon-user"></i>
+                                                            </div> --}}
+                                                            <label for="code"> کد دریافتی</label>
+                                                        </fieldset>
+                                                        <button type="submit" class="btn btn-primary float-right btn-inline">تایید کد دریافتی</button>
 
-                                                    <fieldset class="form-label-group position-relative has-icon-right">
-                                                        <input type="password" class="form-control" id="password" name="password" dir="ltr" placeholder="کلمه عبور" required>
-                                                        <div class="form-control-position">
-                                                            <i class="feather icon-lock"></i>
-                                                        </div>
-                                                        <label for="password">کلمه عبور</label>
-                                                    </fieldset>
-                                                    <div class="form-group d-flex justify-content-between align-items-center">
-                                                        <div class="text-left">
-                                                            <fieldset class="checkbox">
-                                                                <div class="vs-checkbox-con vs-checkbox-primary">
-                                                                    <input type="checkbox" name="remember">
-                                                                    <span class="vs-checkbox">
-                                                                        <span class="vs-checkbox--check">
-                                                                            <i class="vs-icon feather icon-check"></i>
-                                                                        </span>
-                                                                    </span>
-                                                                    <span class="">ذخیره رمز عبور</span>
-                                                                </div>
-                                                            </fieldset>
-                                                        </div>
-                                                        <div class="text-right"><a href={{ route('login.code.get', ['role' => 'SELLER']) }} class="card-link">رمز خود را فراموش کرده اید؟</a></div>
-                                                    </div>
-                                                    <a href={{ route('login.code.get', ['role' => 'SELLER']) }} class="btn btn-outline-primary float-left btn-inline">ثبت نام</a>
-                                                    <button type="submit" class="btn btn-primary float-right btn-inline">ورود به حساب کاربری</button>
-                                                </form>
+
+
+                                                    </form>
+                                                @else
+
+                                                    <form action="{{ route('login.code.post') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="role" value="{{ $role }}">
+                                                            
+                                                        <fieldset class="form-label-group form-group position-relative has-icon-right">
+                                                            <input type="text" class="form-control" id="username" name="username" dir="ltr" placeholder="شماره تماس" required>
+                                                            <div class="form-control-position">
+                                                                <i class="feather icon-user"></i>
+                                                            </div>
+                                                            <label for="username">شماره تماس</label>
+                                                        </fieldset>
+                                                        <button type="submit" class="btn btn-primary float-right btn-inline">دریافت کد تاییدیه</button>
+    
+    
+                                                    </form>
+
+                                                @endif
                                             </div>
                                         </div>
                                         <div class="login-footer">

@@ -39,7 +39,7 @@
                                         <form action="{{ route('user.data.change.password.post') }}" method="post" class="ajaxForm w-100">
                                             @csrf
                                             <div class="col-12">
-                                                <div class="col-12">
+                                                {{-- <div class="col-12">
                                                     <div class="form-group">
                                                         <label for="password_old">کلمه عبور فعلی</label>
                                                         <div class="position-relative has-icon-left">
@@ -51,7 +51,7 @@
                                                             <small class="help-block text-danger error-password_old"></small>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <div class="col-12">
                                                     <div class="form-group">
                                                         <label for="password">کلمه عبور جدید</label>

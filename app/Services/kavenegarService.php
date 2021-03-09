@@ -41,7 +41,6 @@ class kavenegarService {
     }
 
     public static function sendCode($receptor, $code, $template){
-        // return '';
         try{
             $api = new KavenegarApi(config('kavenegar.apikey'));
             // $receptor = "";
@@ -51,8 +50,6 @@ class kavenegarService {
             $template = $template;//"verify";
             $type = "sms";//sms | call
             $result = $api->VerifyLookup($receptor,$token,$token2,$token3,$template,$type);
-
-            // dd($result);
             // if($result){
             //     var_dump($result);
             // }

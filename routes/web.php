@@ -31,6 +31,10 @@ Route::get('/auth', 'HomeController@index')->name('auth.login.get');
 
 Route::post('/auth-login', 'HomeController@login')->name('auth.login.post');
 
+
+Route::get('/auth-with-code/{role?}', 'HomeController@LoginCode')->name('login.code.get');
+Route::post('/auth-with-code', 'HomeController@LoginCodePost')->name('login.code.post');
+Route::post('/confirm-with-code', 'HomeController@confirmCode')->name('confirm.auth.code.post');
 // Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
