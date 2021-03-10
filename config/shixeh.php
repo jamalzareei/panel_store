@@ -1,10 +1,10 @@
 <?php
 
 return [
-    'path_upload'               => '../../cdn/public/shixeh/',
-    'path_destroy'              => '../cdn/public/shixeh/',
-    'path_main'                 => '../cdn/public/',
-    'path_upload_files'         => '../cdn/public/shixeh/',
+    'path_upload'               => '../../cdn.shixeh.com/shixeh/',
+    'path_destroy'              => '../cdn.shixeh.com/shixeh/',
+    'path_main'                 => '../cdn.shixeh.com/',
+    'path_upload_files'         => '../cdn.shixeh.com/shixeh/',
     'cdn_domain'                => 'https://cdn.shixeh.com/',//http://localhost/shixeh/cdn/',//'http://cdn/',
     'cdn_domain_files'          => 'https://cdn.shixeh.com/shixeh/',//'http://localhost/shixeh/cdn/shixeh/',//'http://cdn/',
     'cdn_domain_upload_file'    => 'https://cdn.shixeh.com/api/v1/upload-file/',//'http://localhost/shixeh/cdn/api/v1/upload-file',

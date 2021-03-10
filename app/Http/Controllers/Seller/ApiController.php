@@ -213,9 +213,9 @@ class ApiController extends Controller
             "admin_actived_at" => null
         ]);
 
-        if($websites_id){
+        if ($websites_id) {
             $product->websites()->sync($websites_id);
-        }else{
+        } else {
             $product->websites()->sync([]);
         }
 
@@ -410,18 +410,18 @@ class ApiController extends Controller
             })
             ->first();
 
-            if(!($social && $social->username)){
-                return view('components.not-perrmission', [
-                    'title' => 'تکمیل اطلاعات فروشنده',
-                    'message' => '<br>
+        if (!($social && $social->username)) {
+            return view('components.not-perrmission', [
+                'title' => 'تکمیل اطلاعات فروشنده',
+                'message' => '<br>
                     شما اجازه دسترسی به این بخش را ندارید.
                     <br>
                     <br>
                     لطفا ابتدا پیج اینستاگرام خود را ثبت نمایید.',
-                    'linkRedirect' => route('seller.socials.get'),
-                    'textRedirect' => 'تکمیل اطلاعات فروشنده',
-                ]);
-            }
+                'linkRedirect' => route('seller.socials.get'),
+                'textRedirect' => 'تکمیل اطلاعات فروشنده',
+            ]);
+        }
 
         $username = $social->username;
 
@@ -445,22 +445,48 @@ class ApiController extends Controller
             ->first();
 
 
-            if(!($social && $social->username)){
-                return view('components.not-perrmission', [
-                    'title' => 'تکمیل اطلاعات فروشنده',
-                    'message' => '<br>
+        $admin = false;
+        $dir = config('shixeh.path_upload_files') . "instagram/pages/";
+
+        $arrayFiels = [];
+        $pageRow = 0;
+        if ($user && $user->roles && $user->roles->where('slug', 'ADMIN') && $user->roles->where('slug', 'ADMIN')->count() > 0) {
+            $admin = true;
+            
+            if (is_dir($dir)) {
+                if ($dh = opendir($dir)) {
+                    while (($file = readdir($dh)) !== false) {
+                        if ($file == '.' || $file == '..') {
+                            continue;
+                        }
+                        $arrayFiels[] = "$file";
+                        $pageRow++;
+                    }
+                    closedir($dh);
+                }
+            }
+        }
+        // return $admin;
+
+
+        if ((!($social && $social->username))) {
+            return view('components.not-perrmission', [
+                'title' => 'تکمیل اطلاعات فروشنده',
+                'message' => '<br>
                     شما اجازه دسترسی به این بخش را ندارید.
                     <br>
                     <br>
                     لطفا ابتدا پیج اینستاگرام خود را ثبت نمایید.',
-                    'linkRedirect' => route('seller.socials.get'),
-                    'textRedirect' => 'تکمیل اطلاعات فروشنده',
-                ]);
-            }
+                'linkRedirect' => route('seller.socials.get'),
+                'textRedirect' => 'تکمیل اطلاعات فروشنده',
+            ]);
+        }
         $username = $social->username;
 
         return view('seller.instagram.read-contect-v2', [
-            'username' => $username
+            'username' => $username,
+            'admin' => $admin,
+            'arrayFiels' => $arrayFiels,
         ]);
     }
 
@@ -474,7 +500,7 @@ class ApiController extends Controller
 
         $dir = config('shixeh.path_upload_files') . "instagram/pages/$instaUsername";
         if (!file_exists($dir)) {
-            
+
             return back()->with('noty', [
                 'title' => '',
                 'message' => 'اطلاعات پیج ثبت نشده است، لطفا با پشتیبانی در تماس باشید.',
@@ -722,7 +748,7 @@ class ApiController extends Controller
                 }
                 closedir($dh);
             }
-        }else{
+        } else {
             return response()->view('components.not-perrmission', [
                 'title' => 'تکمیل اطلاعات فروشنده',
                 'message' => '<br>
@@ -736,12 +762,12 @@ class ApiController extends Controller
                 'textRedirect' => 'تکمیل اطلاعات فروشنده',
             ]);
         }
-        
+
         $page = $requerst->after ?? 1;
         $pathFile = config('shixeh.cdn_domain_files') . $arrayFiels[$page - 1];
 
         $exists = $this->URLIsValid($pathFile);
-        if(!$exists){
+        if (!$exists) {
             return response()->view('components.not-perrmission', [
                 'title' => 'تکمیل اطلاعات فروشنده',
                 'message' => '<br>
@@ -798,13 +824,11 @@ class ApiController extends Controller
         $exists = true;
         $file_headers = @get_headers($URL);
         $InvalidHeaders = array('404', '403', '500');
-        foreach($InvalidHeaders as $HeaderVal)
-        {
-                if(strstr($file_headers[0], $HeaderVal))
-                {
-                        $exists = false;
-                        break;
-                }
+        foreach ($InvalidHeaders as $HeaderVal) {
+            if (strstr($file_headers[0], $HeaderVal)) {
+                $exists = false;
+                break;
+            }
         }
         return $exists;
     }

@@ -96,7 +96,6 @@
                             <div class="col-md-2">
                                 <img src="{{ $post['image'] }}" alt="" height="80" width="80">
                                 <input type="hidden" name="shortcode" value="{{ $post['shortcode'] }}">
-                                <input type="hidden" name="description" value="{{ $post['caption'] }}">
 
                                 <input type="hidden" name="image[]" value="{{ $post['image'] }}">
                                 @if (isset($post['edge_sidecar_to_children']))
@@ -161,6 +160,13 @@
                                     <i class="fas fa-save mx-1"></i> ذخیره
                                 </button>
                                 @endif
+
+                            </div>
+                            <div class="col-12">
+                                <textarea name="description" id="description" cols="30" rows="10" class="form-control">
+                                    {{ $post['caption'] }}
+                                </textarea>
+                                {{-- <input type="hidden" name="description" value="{{ $post['caption'] }}"> --}}
 
                             </div>
                         </fieldset >

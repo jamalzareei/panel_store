@@ -24,6 +24,16 @@
                                 <form action="{{ route('redirect.to.read.instagram') }}" method="get" class="w-100">
                                     <input type="hidden" name="_token" value="och2WiEXw6Sbv3B1GGlWr3mdTTtYqUuSso8bWJwE">
                                     <div class="col-12">
+                                        <div class="col-12">
+                                            @if ($admin && $arrayFiels)
+                                                
+                                                @forelse ($arrayFiels as $file)
+                                                    <span class="badge">{{ $file }}</span>
+                                                @empty
+                                                    
+                                                @endforelse
+                                            @endif
+                                        </div>
 
                                         <div class="col-12">
                                             <div class="form-group">
