@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Image;
 use App\Models\Message;
 use App\Models\Price;
 use App\Models\Product;
@@ -167,6 +168,20 @@ class ProductsController extends Controller
         return $images;
     }
 
+    public function ImageProductMain($product_id)
+    {
+        # code...
+        $product = Product::find($product_id);
+        
+        $images = $product->images->where('default_use', 'MAIN');
+        if($images){
+            $image = $product->images->first();
+            Image::where('id', $image->id)->update([
+                'default_use' => 'MAIN'
+            ]);
+        }
+    }
+
     public function productsUpdate (Request $request)
     {
         # code...
@@ -221,6 +236,7 @@ class ProductsController extends Controller
 
         $product->save();
 
+        $this->ImageProductMain($product->id);
         
         if($request->websites){
             

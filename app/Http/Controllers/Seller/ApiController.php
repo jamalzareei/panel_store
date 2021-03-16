@@ -377,7 +377,7 @@ class ApiController extends Controller
                 // sleep(0.1);
                 // UploadService::saveImageFromURL('instagram/'.$edge['node']['shortcode'].'/', $data[$key]['image']);
 
-                $data[$key]['caption'] = $edge['node']['edge_media_to_caption']['edges'][0]['node']['text'];
+                $data[$key]['caption'] = $edge['node']['edge_media_to_caption']['edges'][0]['node']['text'] ?? null;
                 $data[$key]['shortcode'] = $edge['node']['shortcode'];
                 $data[$key]['is_video'] = $edge['node']['is_video'];
 
@@ -496,7 +496,7 @@ class ApiController extends Controller
         $request->validate([
             'username' => 'required'
         ]);
-        $instaUsername = $request->username;
+        $instaUsername = strtolower($request->username);
 
         $dir = config('shixeh.path_upload_files') . "instagram/pages/$instaUsername";
         if (!file_exists($dir)) {
@@ -711,11 +711,11 @@ class ApiController extends Controller
         $username = null;
 
         if ($social) {
-            $username = $social->username;
+            $username = strtolower($social->username);
         }
 
         if ($username_) {
-            $username = $username_;
+            $username = strtolower($username_);
         }
 
         if (!$username) {

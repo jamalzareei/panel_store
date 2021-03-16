@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\Seller;
+use App\Models\Website;
 use App\Services\kavenegarService;
 use App\User;
 use Carbon\Carbon;
@@ -30,15 +31,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(auth()->check()){
+        if (auth()->check()) {
             $user = Auth::user()->roles;
             // return $user->where('slug', 'SELLER')->first();
             // if()
-            if ($user->where('slug', 'ADMIN')->first()){
+            if ($user->where('slug', 'ADMIN')->first()) {
                 return redirect()->route('admin.dashboard');
-            }else if($user->where('slug', 'SELLER')->first()){
+            } else if ($user->where('slug', 'SELLER')->first()) {
                 return redirect()->route('seller.dashboard');
-            }else{
+            } else {
                 auth()->logout();
             }
             return redirect()->route('login');
@@ -96,20 +97,20 @@ class HomeController extends Controller
     public function LoginCode($role = 'SELLER')
     {
         $username = request()->username ?? null;
-        if(auth()->check()){
+        if (auth()->check()) {
             $user = Auth::user()->roles;
             // return $user->where('slug', 'SELLER')->first();
             // if()
-            if ($user->where('slug', 'ADMIN')->first()){
+            if ($user->where('slug', 'ADMIN')->first()) {
                 return redirect()->route('admin.dashboard');
-            }else if($user->where('slug', 'SELLER')->first()){
+            } else if ($user->where('slug', 'SELLER')->first()) {
                 return redirect()->route('seller.dashboard');
-            }else{
+            } else {
                 auth()->logout();
             }
             return redirect()->route('login');
         }
-        return view('login-code',[
+        return view('login-code', [
             'username' => $username,
             'role' => $role
         ]);
@@ -125,7 +126,7 @@ class HomeController extends Controller
         ]);
 
         $username = $request->username;
-        $code_country = $request->code_country??'0098';
+        $code_country = $request->code_country ?? '0098';
         $rolesList =  [$request->role, 'USER'] ?? ['USER'];
         $phone = null;
 
@@ -142,7 +143,7 @@ class HomeController extends Controller
             $userExist->save();
 
             kavenegarService::sendCode($username, $codeConfirm, config('shixeh.verifyKavenegar'));
-            return redirect(route('login.code.get', ['role'=> $request->role])."?username=$username")->with('noty', [
+            return redirect(route('login.code.get', ['role' => $request->role]) . "?username=$username")->with('noty', [
                 'title' => '',
                 'message' => 'کد تاییدیه برای شما ارسال گردید.',
                 'status' => 'success',
@@ -166,10 +167,10 @@ class HomeController extends Controller
             'code_country' => $code_country
         ]);
 
-        
+
         $this->setRoles($rolesList, $user->id);
 
-        
+
         kavenegarService::sendCode($username, $codeConfirm, config('shixeh.verifyKavenegar'));
 
         return redirect()->route('user.data.change.password')->with('noty', [
@@ -187,23 +188,35 @@ class HomeController extends Controller
         if (($key = array_search('ADMIN', $rolesList)) !== false) {
             unset($rolesList[$key]);
         }
-        
+
 
         $user = User::find($user_id);
         if (($key = array_search('SELLER', $rolesList)) !== false) {
             $seller = Seller::where('user_id', $user_id)->first();
-            if(!$seller){
-                Seller::create([
+            if (!$seller) {
+                $sel = Seller::create([
                     'user_id' => $user_id,
                     'code' => $user_id,
                 ]);
+
+                $new_array = array_intersect_key(
+                    config('shixeh.listWebsites'),  /* main array*/
+                    array_flip( /* to be extracted */
+                        array('0', '1')
+                    )
+                );
+                $websites = Website::whereNull('deleted_at')->whereIn('url', $new_array)->pluck('id')->toArray();
+                if ($websites) {
+
+                    $sel->websites()->sync($websites);
+                }
             }
         }
-        if($user){
+        if ($user) {
             $roles = null;
-            if($rolesList)
+            if ($rolesList)
                 $roles = Role::whereIn('slug', $rolesList)->pluck('id')->toArray();
-    
+
             if (isset($roles)) {
                 $user->roles()->sync($roles);
             }
@@ -229,10 +242,10 @@ class HomeController extends Controller
         );
 
         $user = User::where($credentials)->first();
-        if($user){
+        if ($user) {
             Auth::login($user, true);
             return redirect()->route('user.data.change.password');
-        }else {
+        } else {
             return back()->with('noty', [
                 'title' => '',
                 'message' => 'کد وارد شده اشتباه است.',
@@ -241,5 +254,4 @@ class HomeController extends Controller
             ]);
         }
     }
-
 }

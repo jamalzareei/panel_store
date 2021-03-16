@@ -73,7 +73,7 @@ class SocialsController extends Controller
 
         $request->validate([
             'social_id' =>"required|exists:socials,id",
-            'url' =>"required|url",
+            // 'url' =>"required|url",
             'username' =>"required"
         ]);
 

@@ -90,13 +90,9 @@
                                 @csrf
                                 <div class="modal-body">
                                     <div class="col-12">
-                                        <p class="text-light bg-dark text-left" dir="ltr">
-                                            https://www.instagram.com/graphql/query/?query_hash=003056d32c2554def87228bc3fd9668a&variables={"id":"3066057183","first":12}
-                                        </p>
-
                                         <br>
                                         <p class="text-light bg-dark text-left" dir="ltr">
-                                            https://www.instagram.com/graphql/query/?query_hash=003056d32c2554def87228bc3fd9668a&variables={"id":"3066057183","first":12,"after":"QVFDUUFJLUhvNTFXNGpTa181NnVZT2xxRVF3VHBHQjlPclpPR0RZTm9iRkVza3JRb1o1UVpfWWx1a0FuS0VXcnIybnpBMGFiakRGUjg3RDQ0aXp1WTlmbg=="}
+                                            https://www.instagram.com/graphql/query/?query_hash=003056d32c2554def87228bc3fd9668a&variables={"id":"3066057183","first":50,"after":""}
                                         </p>
 
                                     </div>
@@ -168,7 +164,7 @@
                         @forelse ($socials as $key => $social)
                             <tr row="{{$social->id}}">
                                 <td>{{$social->id}}</td>
-                                <td><a href="{{ route('admin.seller.show', ['slug'=>$social->seller->slug]) }}" target="_blank">{{ $social->seller->name }}</a></td>
+                                <td><a href="{{ route('admin.seller.show', ['slug'=>$social->seller->slug??'a']) }}" target="_blank">{{ $social->seller->name }}</a></td>
                                 <td>{!! $social->social->icon !!} {{$social->social->name}}</td>
                                 <td dir="ltr"> <a href="https://www.instagram.com/web/search/topsearch/?query={{ $social->username }}" target="_blank">{{'@'.$social->username}}</a> </td>
                             

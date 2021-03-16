@@ -6,7 +6,7 @@
                 <th class="text-center"></th>
                 <th class="text-center">شبکه اجتماعی</th>
                 <th class="text-center">نام کاربری</th>
-                <th class="text-center">لینک</th>
+                {{-- <th class="text-center">لینک</th> --}}
                 <th class="text-center">حذف</th>
             </tr>
         </thead>
@@ -23,9 +23,9 @@
                         {{$social->username}}
                         {{-- <input type="text" dir="ltr" name="" class="form-control" placeholder="نام کاربری" value=""> --}}
                     </td>
-                    <td col="url" class="text-right">
+                    {{-- <td col="url" class="text-right">
                         {{$social->url}}            
-                    </td>
+                    </td> --}}
                     <td col="action">
                         <a class="action-delete" onclick="deleteRow('{{ route('seller.social.delete', ['id'=>$social->id]) }}', '{{$social->id}}')">
                             <i class="feather icon-trash"></i>

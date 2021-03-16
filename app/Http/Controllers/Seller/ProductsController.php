@@ -254,7 +254,7 @@ class ProductsController extends Controller
             case 'price':
                 # code...
                 $request->validate([
-                    'propertyprices.*' => 'required',
+                    // 'propertyprices.*' => 'required',
                     'amount' => 'required|numeric',
                     'discount' => "required|numeric",
                     'price' => 'required|numeric',
@@ -279,13 +279,16 @@ class ProductsController extends Controller
                 if ($request->propertyprices) {
                     foreach ($request->propertyprices as $keyProp => $propertyprice) {
                         # code...
-                        PriceProperty::updateOrCreate([
-                            'price_id' => $price->id,
-                            'product_id' => $id,
-                            'property_id' => $keyProp,
-                        ], [
-                            'value' => $propertyprice,
-                        ]);
+                        if($propertyprice){
+
+                            PriceProperty::updateOrCreate([
+                                'price_id' => $price->id,
+                                'product_id' => $id,
+                                'property_id' => $keyProp,
+                            ], [
+                                'value' => $propertyprice,
+                            ]);
+                        }
                     }
                 }
 

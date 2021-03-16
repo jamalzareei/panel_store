@@ -108,7 +108,7 @@ class SellersController extends Controller
                 'imageable_type' => 'App\Models\Seller',
                 'user_id' => $user->id
             ])->first();
-            if($image->path){
+            if($image && $image->path){
                 UploadService::destroyFile($image->path);
             }
 
