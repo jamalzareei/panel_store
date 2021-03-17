@@ -113,7 +113,7 @@
                                                                 </div>
                                                             </fieldset>
                                                         </div>
-                                                        <div class="text-right"><a href={{ route('login.code.get', ['role' => 'SELLER']) }} class="card-link">رمز خود را فراموش کرده اید؟</a></div>
+                                                        <div class="text-right"><a href={{ route('login.code.get', ['role' => 'SELLER']) }} class="card-link">ورود با کد تاییدیه</a></div>
                                                     </div>
                                                     <a href={{ route('login.code.get', ['role' => 'SELLER']) }} class="btn btn-outline-primary float-left btn-inline">ثبت نام</a>
                                                     <button type="submit" class="btn btn-primary float-right btn-inline">ورود به حساب کاربری</button>
@@ -125,12 +125,12 @@
                                                 <div class="divider-text">ما را در شبکه های اجتماعی دنبال نمایید</div>
                                             </div>
                                             <div class="footer-btn d-inline">
-                                                <a href="#" class="btn btn-facebook"><span class="fa fa-facebook"></span></a>
-                                                <a href="#" class="btn btn-twitter white"><span class="fa fa-twitter"></span></a>
-                                                {{-- <a href="#" class="btn btn-google"><span class="fa fa-google"></span></a> --}}
-                                                <a href="#" class="btn btn-linkedin"><span class="fa fa-linkedin"></span></a>
-                                                <a href="#" class="btn btn-instagram"><span class="fa fa-instagram"></span></a>
-                                                <a href="#" class="btn btn-telegram"><span class="fa fa-telegram"></span></a>
+                                                
+                                                <a  class="btn m-0 p-0" href="https://www.facebook.com/shixehcom/"><i class="fa fa-facebook-f "></i></a>
+                                                <a  class="btn m-0 p-0" href="https://twitter.com/shixehcom"><i class="fa fa-twitter "></i></a>
+                                                <a  class="btn m-0 p-0" href="https://instagram.com/shixehcom"><i class="fa fa-instagram "></i></a>
+                                                <a  class="btn m-0 p-0" href="https://t.me/shixehcom"><i class="fa fa-telegram "></i></a>
+                                                <a  class="btn m-0 p-0" href="https://www.pinterest.com/shixehcom"><i class="fa fa-pinterest "></i></a>
                                             </div>
                                         </div>
                                     </div>

