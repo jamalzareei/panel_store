@@ -9,7 +9,7 @@
             <div class="card-header mx-auto pb-0">
                 <div class="row m-0 justify-content-around">
                     <div class="avatar avatar-xl">
-                        <img class="img-fluid" src="{{ $seller->image->path ?? config('shixeh.x_logo') }}" alt="img placeholder">
+                        <img class="img-fluid" src="{{ ($seller->image && $seller->image->path) ? config('shixeh.cdn_domain_files').$seller->image->path : config('shixeh.x_logo') }}" alt="img placeholder">
                     </div>
                     <div class="col-sm-12 text-center">
                         <h4>{{ $seller->name }}</h4>

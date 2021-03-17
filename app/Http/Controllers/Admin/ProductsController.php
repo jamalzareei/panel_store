@@ -176,9 +176,12 @@ class ProductsController extends Controller
         $images = $product->images->where('default_use', 'MAIN');
         if($images){
             $image = $product->images->first();
-            Image::where('id', $image->id)->update([
-                'default_use' => 'MAIN'
-            ]);
+            if($image){
+
+                Image::where('id', $image->id)->update([
+                    'default_use' => 'MAIN'
+                ]);
+            }
         }
     }
 
