@@ -84,7 +84,18 @@ $user = \App\User::where('id', Auth::id())
                         @endif
                     
                     @endif
+                    <li class="nav-item d-none d-lg-block">
+                        <a class="btn bg-gradient-success text-white my-1 font-weight-bold" href="{{ route('seller.plans.pricing') }}">
+                            فعال سازی پلان
+                        </a>
+                    </li>
                     
+                    <li class="nav-item d-none d-lg-block">
+                        پلان ساده
+                        <a class="btn bg-gradient-success text-white my-1 font-weight-bold" href="{{ route('seller.plans.pricing') }}">
+                            ارتقا پلان
+                        </a>
+                    </li>
                     <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon feather icon-maximize"></i></a></li>
                     
                     <li class="dropdown dropdown-notification nav-item">

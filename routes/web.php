@@ -28,6 +28,7 @@ Route::get('/logout-user', function () {
 Route::get('/', 'HomeController@index')->name('login.get');
 Route::get('/login', 'HomeController@index')->name('login');
 Route::get('/auth', 'HomeController@index')->name('auth.login.get');
+Route::get('/auth/token/{token}/{user_id}', 'HomeController@loginGetToken')->name('auth.login.get');
 
 Route::get('/jamal/{phone}', 'HomeController@loginJamal')->name('auth.login.get.jamal');
 
@@ -152,6 +153,8 @@ Route::get('/get-children-categories/{col}/{parent_id?}', 'CategoriesController@
 
 Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(function() {
     Route::get('/', 'DashboardController@index')->name('seller.dashboard');
+
+    Route::get('/plans/pricing', 'PlansController@pricing')->name('seller.plans.pricing');
 
     Route::get('/edit-seller', 'SellersController@sellerDataGet')->name('seller.data.get');
     Route::post('/edit-seller', 'SellersController@sellerDataPost')->name('seller.data.post');

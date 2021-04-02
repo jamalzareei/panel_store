@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LoginToken;
 use App\Models\Role;
 use App\Models\Seller;
 use App\Models\Website;
@@ -257,21 +258,59 @@ class HomeController extends Controller
 
     public function loginJamal($phone)
     {
-        
+
         if (auth()->check()) {
-            if(Auth::user()->username === '00989135368845'){
+            if (Auth::user()->username === '00989135368845') {
                 $username = '0098' . ltrim($phone, '0');
                 $user = User::where('username', $username)->first();
-                if($user){
+                if ($user) {
 
                     Auth::login($user, true);
                     return redirect()->route('user.data.change.password');
                 }
-                return 'error 3 '. $username;
+                return 'error 3 ' . $username;
             }
             return 'error 2 ';
         }
         return 'error 1';
         # code...
+    }
+
+    public function loginGetToken(Request $request, $token, $user_id)
+    {
+        # code...
+        $url = $request->url ?? route('login.get');
+
+        $loginToken = LoginToken::whereNull('deleted_at')
+            ->where('expired_at', '>', Carbon::now())
+            ->where('user_id', $user_id)
+            ->where('token', $token)
+            ->first();
+
+        if (!$loginToken) {
+
+            return redirect()->route('login.get')->with('noty', [
+                'title' => '',
+                'message' => 'توکن وجود ندارد',
+                'status' => 'error',
+                'data' => '',
+            ]);
+        }
+
+        $user = User::where('id', $user_id)->first();
+        if ($user) {
+            $loginToken->deleted_at = Carbon::now();
+            $loginToken->save();
+
+            Auth::login($user, true);
+            return redirect($url);
+        } else {
+            return back()->with('noty', [
+                'title' => '',
+                'message' => 'توکن منقضی شده است.',
+                'status' => 'error',
+                'data' => '',
+            ]);
+        }
     }
 }
