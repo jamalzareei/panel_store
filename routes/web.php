@@ -144,6 +144,14 @@ Route::namespace('User')->middleware('auth')->prefix('user')->group(function() {
     Route::post('/u/ticket/add', 'TicketsController@ticketAdd')->name('user.ticket.add');
     Route::post('/u/ticket/add-reply/{ticket_id}', 'TicketsController@ticketAddReply')->name('user.ticket.add.reply');
 
+    Route::get('/plans/pricing', 'PlansController@pricing')->name('seller.plans.pricing');
+    Route::get('/u/plan-selective/{plan_id?}', 'PlansController@planSelective')->name('user.plan.selective');
+    Route::get('/u/plans-user/{type?}', 'PlansController@planAwaitPay')->name('user.plans.user.all');
+    Route::post('/u/plan-user-send-to-pay/{planuser_id}', 'PlansController@planSendToPay')->name('user.plan.send.to.pay');
+
+    
+    Route::get('/u/pay/{planuser_id}', 'PayController@pay')->name('user.pay.planuser.online');
+    Route::get('/u/callback/pay/{planuser_id}', 'PayController@callback')->name('user.callback.pay.planuser.online');
 });
 
 Route::get('/get-countries', 'Admin\LocationController@getCountries')->name('get.countries.location');
@@ -154,7 +162,6 @@ Route::get('/get-children-categories/{col}/{parent_id?}', 'CategoriesController@
 Route::namespace('Seller')->middleware('seller')->prefix('seller')->group(function() {
     Route::get('/', 'DashboardController@index')->name('seller.dashboard');
 
-    Route::get('/plans/pricing', 'PlansController@pricing')->name('seller.plans.pricing');
 
     Route::get('/edit-seller', 'SellersController@sellerDataGet')->name('seller.data.get');
     Route::post('/edit-seller', 'SellersController@sellerDataPost')->name('seller.data.post');

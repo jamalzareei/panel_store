@@ -50,11 +50,11 @@ $user = \App\User::where('id', Auth::id())
                         
                         <li class="nav-item d-none d-lg-block">
                             @if($user && $user->seller && $user->seller->admin_actived_id)
-                                <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                                {{-- <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                                     <div class="user-nav d-sm-flex d-none">
                                         <span class="user-name text-bold-600 py-1 text-success">فروشگاه شما تایید شده است.</span>
                                     </div>
-                                </a>
+                                </a> --}}
                             @elseif ($user && $user->seller && $user->seller->actived_at)
                                 <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                                     <div class="user-nav d-sm-flex d-none">
@@ -76,26 +76,23 @@ $user = \App\User::where('id', Auth::id())
                             @endif
                         </li>
                         @if($user && $user->seller && $user->seller->admin_actived_id && request()->route()->getName() != 'seller.product.updateorcreate')
-                            <li class="nav-item d-none d-lg-block">
+                            {{-- <li class="nav-item d-none d-lg-block">
                                 <a class="btn bg-gradient-success text-white my-1 font-weight-bold" href="{{ route('seller.product.updateorcreate') }}">
                                     اضافه کردن محصول
+                                </a>
+                            </li> --}}
+                            <li class="nav-item d-none d-lg-block">
+                                {{-- <span class="text-muted">
+                                    پلان ساده
+                                </span> --}}
+                                <a class="btn bg-gradient-success text-white my-1 font-weight-bold" href="{{ route('seller.plans.pricing') }}">
+                                    ارتقا پلان
                                 </a>
                             </li>
                         @endif
                     
                     @endif
-                    <li class="nav-item d-none d-lg-block">
-                        <a class="btn bg-gradient-success text-white my-1 font-weight-bold" href="{{ route('seller.plans.pricing') }}">
-                            فعال سازی پلان
-                        </a>
-                    </li>
                     
-                    <li class="nav-item d-none d-lg-block">
-                        پلان ساده
-                        <a class="btn bg-gradient-success text-white my-1 font-weight-bold" href="{{ route('seller.plans.pricing') }}">
-                            ارتقا پلان
-                        </a>
-                    </li>
                     <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon feather icon-maximize"></i></a></li>
                     
                     <li class="dropdown dropdown-notification nav-item">
