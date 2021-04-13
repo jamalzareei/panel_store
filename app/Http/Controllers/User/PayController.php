@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Models\PlanPay;
 use App\Models\PlanUser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -30,14 +31,14 @@ class PayController extends Controller
         include_once app_path() . '/Services/nusoap.php';
 
         $MerchantID = $this->merchant_id; //Required
-        $Amount = $planUser->total_pay; //Amount will be based on Toman - Required
+        $Amount =100;// $planUser->total_pay; //Amount will be based on Toman - Required
         $Description = $planUser->plan->name ?? 'خرید پلان'; // Required
         $Email = "jzcs89@gmail.com"; // Optional
         $Mobile = $planUser->user->phone ?? "09135368845"; // Optional
         $CallbackURL = route("user.callback.pay.planuser.online", ['planuser_id' => $planuser_id]); // Required
 
-        $client = new SoapClient('https://sandbox.zarinpal.com/pg/services/WebGate/wsdl', ['encoding' => 'UTF-8']);
-        // $client = new SoapClient('https://www.zarinpal.com/pg/services/WebGate/wsdl', ['encoding' => 'UTF-8']);
+        // $client = new SoapClient('https://sandbox.zarinpal.com/pg/services/WebGate/wsdl', ['encoding' => 'UTF-8']);
+        $client = new SoapClient('https://www.zarinpal.com/pg/services/WebGate/wsdl', ['encoding' => 'UTF-8']);
 
         $result = $client->PaymentRequest(
             [
@@ -52,61 +53,12 @@ class PayController extends Controller
 // var_dump($result);
         //Redirect to URL You can do it also by creating a form
         if ($result->Status == 100) {
-            return redirect('https://sandbox.zarinpal.com/pg/StartPay/' . $result->Authority);
-            // return redirect('https://www.zarinpal.com/pg/StartPay/' . $result->Authority);
+            // return redirect('https://sandbox.zarinpal.com/pg/StartPay/' . $result->Authority);
+            return redirect('https://www.zarinpal.com/pg/StartPay/' . $result->Authority);
             header('Location: https://www.zarinpal.com/pg/StartPay/' . $result->Authority);
-//             echo '
-// <script type="text/javascript" src="https://cdn.zarinpal.com/zarinak/v1/checkout.js"></script>
-// <script>
-// Zarinak.setAuthority( ' . $result->Authority . ');
-// Zarinak.open();
-// </script>';
         } else {
             echo 'ERR: ' . $result->Status;
         }
-/////////////////////////////////////////////////////////
-        // $data = array(
-        //     "merchant_id" => $this->merchant_id,
-        //     "amount" => $planUser->total_pay,
-        //     "callback_url" => route("user.callback.pay.planuser.online", ['planuser_id'=> $planuser_id]),
-        //     "description" => $planUser->plan->name ?? 'خرید پلان',
-        //     "metadata" => ["email" => "jzcs89@gmail.com", "mobile" => $planUser->user->phone ?? "09135368845"],
-        // );
-        // $jsonData = json_encode($data);
-        // //https://sandbox.zarinpal.com/pg/rest/WebGate/PaymentRequest.json
-        // $ch = curl_init('https://api.zarinpal.com/pg/v4/payment/request.json');
-        // curl_setopt($ch, CURLOPT_USERAGENT, 'ZarinPal Rest Api v1');
-        // curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-        // curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        // //////
-        // curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-        // //////////
-        // curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-        //     'Content-Type: application/json',
-        //     'Content-Length: ' . strlen($jsonData)
-        // ));
-
-        // $result = curl_exec($ch);
-        // $err = curl_error($ch);
-        // $result = json_decode($result, true, JSON_PRETTY_PRINT);
-        // curl_close($ch);
-
-
-
-        // if ($err) {
-        //     echo "cURL Error #:" . $err;
-        // } else {
-        //     if (empty($result['errors'])) {
-        //         if ($result['data']['code'] == 100) {
-        //             header('Location: https://www.zarinpal.com/pg/StartPay/' . $result['data']["authority"]);
-        //         }
-        //     } else {
-        //         echo 'Error Code: ' . $result['errors']['code'];
-        //         echo 'message: ' .  $result['errors']['message'];
-        //     }
-        // }
     }
 
     public function callback(Request $request, $planuser_id)
@@ -116,13 +68,13 @@ class PayController extends Controller
 
 
         $MerchantID = $this->merchant_id;
-        $Amount = $planUser->total_pay; //Amount will be based on Toman
+        $Amount =100;// $planUser->total_pay; //Amount will be based on Toman
         $Authority = $_GET['Authority'];
 
         if ($_GET['Status'] == 'OK') {
             
-            $client = new SoapClient('https://sandbox.zarinpal.com/pg/services/WebGate/wsdl', ['encoding' => 'UTF-8']);
-            // $client = new SoapClient('https://w+ww.zarinpal.com/pg/services/WebGate/wsdl', ['encoding' => 'UTF-8']);
+            // $client = new SoapClient('https://sandbox.zarinpal.com/pg/services/WebGate/wsdl', ['encoding' => 'UTF-8']);
+            $client = new SoapClient('https://www.zarinpal.com/pg/services/WebGate/wsdl', ['encoding' => 'UTF-8']);
 
             $result = $client->PaymentVerification(
                 [
@@ -133,6 +85,13 @@ class PayController extends Controller
             );
 
             if ($result->Status == 100) {
+                PlanPay::create([
+                    'user_id' => $planUser->user_id,
+                    'plan_id' => $planUser->plan_id,
+                    'plan_user_id' => $planUser->id,
+                    'tracking_code' => $result->RefID,
+                    'details' => json_encode($result),
+                ]);
                 $planUser->pay_type_id = 3;
                 $planUser->actived_at = Carbon::now();
                 $planUser->payed_at = Carbon::now();
@@ -141,38 +100,26 @@ class PayController extends Controller
                 return redirect()->route('user.plans.user.all', ['type' => 'pay']);
                 echo 'Transation success. RefID:' . $result->RefID;
             } else {
-                echo 'Transation failed. Status:' . $result->Status;
+                    
+                session()->put('noty', [
+                    'status' => 'warning',
+                    'title' => '',
+                    'message' => 'پرداخت شما ناموفق بوده است، در صورتی که مبلغ از حساب شما کسر گردید طی 72 ساعت به حساب شما بازگردانده خواهد شد.',
+                    'data' => '',
+                ]);
+                return redirect()->route('user.plans.user.all');
+                // echo 'Transation failed. Status:' . $result->Status;
             }
         } else {
-            echo 'Transaction canceled by user';
+            
+            session()->put('noty', [
+                'status' => 'warning',
+                'title' => '',
+                'message' => 'پرداخت توسط کاربر کنسل گردید.',
+                'data' => '',
+            ]);
+            return redirect()->route('user.plans.user.all');
+            // echo 'Transaction canceled by user';
         }
-        //////////////////////////////////////////////////////
-        // $Authority = $_GET['Authority'];
-        // $data = array("merchant_id" => $this->merchant_id, "authority" => $Authority, "amount" => $planUser->total_pay);
-        // $jsonData = json_encode($data);
-        // $ch = curl_init('https://api.zarinpal.com/pg/v4/payment/verify.json');
-        // curl_setopt($ch, CURLOPT_USERAGENT, 'ZarinPal Rest Api v4');
-        // curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-        // curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        // curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-        //     'Content-Type: application/json',
-        //     'Content-Length: ' . strlen($jsonData)
-        // ));
-
-        // $result = curl_exec($ch);
-        // curl_close($ch);
-        // $result = json_decode($result, true);
-        // return $result;
-        // if ($err) {
-        //     echo "cURL Error #:" . $err;
-        // } else {
-        //     if ($result['data']['code'] == 100) {
-        //         echo 'Transation success. RefID:' . $result['data']['ref_id'];
-        //     } else {
-        //         echo 'code: ' . $result['errors']['code'];
-        //         echo 'message: ' .  $result['errors']['message'];
-        //     }
-        // }
     }
 }
