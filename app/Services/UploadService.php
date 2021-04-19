@@ -227,6 +227,29 @@ class UploadService
 
     }
 
+    public static function convertArrayToJson($path, $json, $nameFile = null)
+    {
+        # code...
+        ini_set("memory_limit", "256M");
+
+        $path_ = config('shixeh.path_upload') . $path;
+        $path_save = $path_;
+        $pathFull = public_path($path_);
+        // $photos = $request->file('file');
+
+        if (!is_dir($pathFull)) {
+            mkdir($pathFull, 0777, true);
+        }
+        
+        $nameFile = $nameFile ?? sha1(date('YmdHis') . Str::random(40)) . '.json';
+
+        $json_data = json_encode($json);
+        file_put_contents("$pathFull/$nameFile", $json_data);
+
+        return "$path/$nameFile";
+
+    }
+
     public static function contentToHtml($path, $content_to_write)
     {
         $dir = dirname($path);

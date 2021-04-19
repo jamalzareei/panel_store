@@ -150,9 +150,9 @@ Route::namespace('User')->middleware('auth')->prefix('user')->group(function() {
     Route::post('/u/plan-user-send-to-pay/{planuser_id}', 'PlansController@planSendToPay')->name('user.plan.send.to.pay');
 
     
-    Route::get('/u/pay/{planuser_id}', 'PayController@pay')->name('user.pay.planuser.online');
-    Route::get('/u/callback/pay/{planuser_id}', 'PayController@callback')->name('user.callback.pay.planuser.online');
 });
+Route::get('/u/pay/{planuser_id}', 'User\PayController@pay')->name('user.pay.planuser.online');
+Route::get('/u/callback/pay/{planuser_id}', 'User\PayController@callback')->name('user.callback.pay.planuser.online');
 
 Route::get('/get-countries', 'Admin\LocationController@getCountries')->name('get.countries.location');
 Route::get('/get-states/{country_id?}', 'Admin\LocationController@getStates')->name('get.states.location');

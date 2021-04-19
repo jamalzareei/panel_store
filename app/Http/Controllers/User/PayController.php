@@ -31,7 +31,7 @@ class PayController extends Controller
         include_once app_path() . '/Services/nusoap.php';
 
         $MerchantID = $this->merchant_id; //Required
-        $Amount =100;// $planUser->total_pay; //Amount will be based on Toman - Required
+        $Amount = $planUser->total_pay; //Amount will be based on Toman - Required
         $Description = $planUser->plan->name ?? 'خرید پلان'; // Required
         $Email = "jzcs89@gmail.com"; // Optional
         $Mobile = $planUser->user->phone ?? "09135368845"; // Optional
@@ -68,7 +68,7 @@ class PayController extends Controller
 
 
         $MerchantID = $this->merchant_id;
-        $Amount =100;// $planUser->total_pay; //Amount will be based on Toman
+        $Amount = $planUser->total_pay; //Amount will be based on Toman
         $Authority = $_GET['Authority'];
 
         if ($_GET['Status'] == 'OK') {
