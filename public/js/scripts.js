@@ -29,6 +29,50 @@ $(() => {
 
     })
 
+    $( ".price" ).each(function( index ) {
+        let value = $( this ).val();
+
+        var newNode = document.createElement('div');
+        newNode.className = 'format-element-price-'+index+' text-bold-700 text-success';
+
+        // Get the reference node
+        var referenceNode = $(document).find('.price')[index];
+
+        newNode.innerHTML = Num2persian(Number(value) / 10) + " تومان "
+        // Insert the new node before the reference node
+        referenceNode.after(newNode);
+            
+    });
+
+    $(document).on('keyup', '.price', function(e) {
+        let value = e.target.value;
+        let index= $( ".price" ).index( this );
+        
+        console.log(index)
+        // Create a new element
+        if($('.format-element-price-'+index).length < 1){
+
+            var newNode = document.createElement('div');
+            newNode.className = 'format-element-price-'+index+' text-bold-700 text-success';
+    
+            // Get the reference node
+            var referenceNode = $(document).find('.price')[index];
+    
+            newNode.innerHTML = Num2persian(Number(value) / 10) + " تومان "
+            // Insert the new node before the reference node
+            referenceNode.after(newNode);
+        }
+        
+        // $('.format-element-price-'+index).text(new Intl.NumberFormat().format(value) + " تومان ")
+        $('.format-element-price-'+index).text(Num2persian(Number(value) / 10) + " تومان ")
+    });
+
+    function InnerChange(id){
+        var element = document.getElementById(id);
+        var value = element.value;
+        document.getElementById('inner-text').innerHTML = value;
+    }
+
 
     $(document).on('submit', '.ajaxForm', function(e) {
         e.preventDefault();

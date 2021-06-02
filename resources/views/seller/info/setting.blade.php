@@ -39,9 +39,9 @@
                                             <li class="nav-item">
                                                 <a class="nav-link active" id="info-tab-fill" data-toggle="tab" href="#info-fill" role="tab" aria-controls="info-fill" aria-selected="true">پرداخت و فروش</a>
                                             </li>
-                                            <li class="nav-item">
+                                            {{-- <li class="nav-item">
                                                 <a class="nav-link "  id="transport-tab-fill" data-toggle="tab" href="#transport-fill" role="tab" aria-controls="transport-fill" aria-selected="false">زمان و هزینه هاس ارسال</a>
-                                            </li>
+                                            </li> --}}
                                         </ul>
 
                                         <!-- Tab panes -->
@@ -97,6 +97,32 @@
                                                                     
                                                                     @endforelse
                                                                 </ul>
+                                                            </div>
+
+                                                            <div class="col-md-6 my-3">
+                                                                <div class="form-group">
+                                                                    <label for="shipping_cost">هزینه ارسال</label>
+                                                                    <div class="position-relative has-icon-left">
+                                                                        <input type="text" id="shipping_cost" class="form-control price" name="shipping_cost" placeholder="هزینه ارسال" value={{$seller->shipping_cost}}>
+                                                                        <div class="form-control-position">
+                                                                            {{-- <i class="feather icon-user"></i> --}}
+                                                                        </div>
+                                                                        <small class="help-block text-danger error-shipping_cost"></small>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-md-6 my-3">
+                                                                <div class="form-group">
+                                                                    <label for="delivery_time">زمان تقریبی ارسال هر سفارش</label>
+                                                                    <div class="position-relative has-icon-left">
+                                                                        <input type="text" id="delivery_time" class="form-control " name="delivery_time" placeholder="زمان تقریبی ارسال هر سفارش" value={{$seller->delivery_time}}>
+                                                                        <div class="form-control-position">
+                                                                            {{-- <i class="feather icon-user"></i> --}}
+                                                                        </div>
+                                                                        <small class="help-block text-danger error-delivery_time"></small>
+                                                                    </div>
+                                                                </div>
                                                             </div>
 
                                                             <button class="btn btn-primary btn-md my-2 " type="submit"> <i class=""></i> ویرایش اطلاعات </button>

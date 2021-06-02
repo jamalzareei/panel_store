@@ -182,6 +182,7 @@ class SellersController extends Controller
             'payTypes' => $payTypes,
             'sellTypes' => $sellTypes,
             'states' => $states,
+            'seller' => $seller,
         ]);
     }
 
@@ -190,6 +191,10 @@ class SellersController extends Controller
         # code...
         // return json_encode($request->pay);//$request->pay;//
         // return $request->all();
+        $request->validate([
+            'delivery_time' => 'nullable|numeric',
+            'shipping_cost' => 'nullable|numeric',
+        ]);
 
         $user = Auth::user();
         // $seller = $user->seller->with('image');
@@ -198,6 +203,8 @@ class SellersController extends Controller
 
         $seller->pay_type_id = json_encode($request->pay);
         $seller->sell_type_id = json_encode($request->sell);
+        $seller->delivery_time = $request->delivery_time;
+        $seller->shipping_cost = $request->shipping_cost;
         $seller->admin_actived_at = null;
 
         $seller->save();
