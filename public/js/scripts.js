@@ -31,6 +31,7 @@ $(() => {
 
     $( ".price" ).each(function( index ) {
         let value = $( this ).val();
+        $( this ).prop('autocomplete', 'off');
 
         var newNode = document.createElement('div');
         newNode.className = 'format-element-price-'+index+' text-bold-700 text-success';
@@ -38,7 +39,9 @@ $(() => {
         // Get the reference node
         var referenceNode = $(document).find('.price')[index];
 
-        newNode.innerHTML = Num2persian(Number(value) / 10) + " تومان "
+        // Num2persian(Number(value) / 10)
+
+        newNode.innerHTML = "(" +(new Intl.NumberFormat().format(Number(value) / 10)) + ") تومان "
         // Insert the new node before the reference node
         referenceNode.after(newNode);
             
@@ -58,13 +61,13 @@ $(() => {
             // Get the reference node
             var referenceNode = $(document).find('.price')[index];
     
-            newNode.innerHTML = Num2persian(Number(value) / 10) + " تومان "
+            newNode.innerHTML = "(" +(new Intl.NumberFormat().format(Number(value) / 10)) + ") تومان "
             // Insert the new node before the reference node
             referenceNode.after(newNode);
         }
         
         // $('.format-element-price-'+index).text(new Intl.NumberFormat().format(value) + " تومان ")
-        $('.format-element-price-'+index).text(Num2persian(Number(value) / 10) + " تومان ")
+        $('.format-element-price-'+index).text("(" +(new Intl.NumberFormat().format(Number(value) / 10)) + ") تومان " )
     });
 
     function InnerChange(id){

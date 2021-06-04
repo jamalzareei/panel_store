@@ -232,7 +232,7 @@
                                                     <div class="row">
                                                         <div class="col-md-5 form-group">
                                                             <label for="data-price">قیمت اصلی</label>
-                                                            <input type="number" dir="ltr" class="form-control" name="price" id="data-price" placeholder="قیمت اصلی">
+                                                            <input type="number" dir="ltr" class="form-control price" name="price" id="data-price" placeholder="قیمت اصلی">
                                                             <small class="help-block text-danger error-price"></small>
                                                         </div>
                                                         <div class="col-md-4 form-group">

@@ -183,7 +183,6 @@
     
 
     @yield('footer')
-    <script src="https://cdn.jsdelivr.net/gh/mahmoud-eskandari/NumToPersian/dist/num2persian-min.js"></script>
     <script src="{{ asset('js/scripts.js') }}"></script>
     {{-- <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     <script>
