@@ -207,6 +207,13 @@ class SellersController extends Controller
         $seller->shipping_cost = $request->shipping_cost;
         $seller->admin_actived_at = null;
 
+        if (isset($request->sell)) {
+            $seller->sells()->sync($request->sell);
+        }
+        if (isset($request->pay)) {
+            $seller->paies()->sync($request->pay);
+        }
+
         $seller->save();
 
         return [

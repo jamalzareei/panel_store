@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'domain_main'               => 'https://shixeh.com/',
     'path_upload'               => '../../cdn.shixeh.com/shixeh/',
     'path_destroy'              => '../cdn.shixeh.com/shixeh/',
     'path_main'                 => '../cdn.shixeh.com/',

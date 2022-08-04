@@ -81,4 +81,24 @@ class Seller extends Model
     {
         return $this->morphToMany('App\Models\Website', 'websiteable')->whereNull('websites.deleted_at');
     }
+
+    /**
+     * The sells that belong to the Seller
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function sells()
+    {
+        return $this->belongsToMany(SellType::class, 'sell_type_seller', 'seller_id', 'sell_type_id');
+    }
+    
+    /**
+     * The paies that belong to the Seller
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function paies()
+    {
+        return $this->belongsToMany(PayType::class, 'pay_type_seller', 'seller_id', 'pay_type_id');
+    }
 }

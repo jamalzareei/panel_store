@@ -181,7 +181,7 @@ class UploadService
         try {
             $cover = file_get_contents($urlImage);
             $imageName = sha1(date('YmdHis') . Str::random(40)) . '.jpg';
-            Image::make($cover)->resize(300, 300)->save("$pathFull/$imageName"); //$path_ . $imageName
+            Image::make($cover)->resize(500, 500)->save("$pathFull/$imageName"); //$path_ . $imageName
             return $path . $imageName;
         } catch (\Throwable $th) {
             //throw $th;
